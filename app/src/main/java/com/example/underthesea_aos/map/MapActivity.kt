@@ -36,7 +36,7 @@ class MapActivity :AppCompatActivity(), OnMapReadyCallback{
         dbHelper = PlaceHelper(this, "place.db", null, 1);
         database = dbHelper.readableDatabase
 
-        val mapFragment: SupportMapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        val mapFragment: SupportMapFragment = supportFragmentManager.findFragmentById(R.id.mapview) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
