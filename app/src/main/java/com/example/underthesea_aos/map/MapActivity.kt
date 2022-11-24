@@ -15,6 +15,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlin.math.ln
 
 /*
 class MainActivity : AppCompatActivity() {
@@ -28,14 +29,8 @@ class MainActivity : AppCompatActivity() {
 class MapActivity :AppCompatActivity(),OnMapReadyCallback{
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMainBinding
-    lateinit var lats: ArrayList<String>
-    lateinit var lngs: ArrayList<String>
-    lateinit var names: ArrayList<String>
-    /*
-    <장소 database>
     lateinit var dbHelper: PlaceHelper
     lateinit var  database: SQLiteDatabase
-     */
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -43,19 +38,9 @@ class MapActivity :AppCompatActivity(),OnMapReadyCallback{
         val view = binding.root
         setContentView(R.layout.activity_map)
 
-        /*
-        <장소 database>
-        dbHelper = PlaceHelper(this, "place.db", null, 1);
-        database = dbHelper.readableDatabase
-         */
-
-        //place 마커 데이터
-        lats = arrayListOf("37.7941946", "37.5284304", "37.5660148", "37.5103503", "37.5206865", "37.5677554", "35.231024",
-            "34.7585289", "36.8944539", "33.5434231", "33.5582327")
-        lngs = arrayListOf("127.1644031", "126.9330781", "126.8765181", "126.9960378", "127.0122724", "126.8856819", "128.684556",
-            "127.9759777", "126.2066731", "126.6697752", "126.759787")
-        names = arrayListOf("고모리호수공원", "여의도한강공원", "난지한강공원", "반포한강공원", "잠원한강공원", "하늘공원", "용지호수공원",
-            "한려해상국립공원", "태안해안국립공원", "함덕해수욕장", "김녕해수욕장")
+        dbHelper = PlaceHelper(this, "place.db", null, 2);
+        database = dbHelper.writableDatabase
+        dbHelper.insertPlace()
 
         val mapFragment: SupportMapFragment = supportFragmentManager.findFragmentById(R.id.mapview) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -64,12 +49,30 @@ class MapActivity :AppCompatActivity(),OnMapReadyCallback{
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        val select = "select * from Place"
+        database = dbHelper.readableDatabase
+        //데이터를 받아 줍니다.
+        val cursor = database.rawQuery(select,null)
+
+        /*
+        while(cursor.moveToNext()){
+            val place_id = cursor.getLong(cursor.getColumnName())
+            val latitude = cursor.getString(cursor.getColumnIndex("latitude"))
+            val longitude = cursor.getString(cursor.getColumnIndex("longitude"))
+            val name = cursor.getString(cursor.getColumnIndex("name"))
+
+            list.add(Place(place_id,latitude,longitude,name))
+        }
+        cursor.close()
+
+         */
         //val marker = LatLng(37.5666805, 126.9784147) //서울시청 좌표
         var marker: LatLng? = null
-        for(i in 0..lats.size-1) {
-            marker = LatLng(lats[i].toDouble(), lngs[i].toDouble())
+        while (cursor.moveToNext())
+        {
+            marker = LatLng(cursor.getString(1).toDouble(), cursor.getString(2).toDouble())
             //마커
-            mMap.addMarker(MarkerOptions().position(marker).title(names[i]))
+            mMap.addMarker(MarkerOptions().position(marker).title(cursor.getString(3)))
         }
 
         //MarkerOptions() marker를 만드는 역할
