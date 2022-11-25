@@ -38,8 +38,10 @@ class MapActivity :AppCompatActivity(),OnMapReadyCallback{
         val view = binding.root
         setContentView(R.layout.activity_map)
 
+        //place db에 접근
         dbHelper = PlaceHelper(this, "place.db", null, 2);
         database = dbHelper.writableDatabase
+        //place 정보 insert
         dbHelper.insertPlace()
 
         val mapFragment: SupportMapFragment = supportFragmentManager.findFragmentById(R.id.mapview) as SupportMapFragment
@@ -51,25 +53,14 @@ class MapActivity :AppCompatActivity(),OnMapReadyCallback{
 
         val select = "select * from Place"
         database = dbHelper.readableDatabase
-        //데이터를 받아 줍니다.
+        //데이터를 받아 줍니다. db 데이터를 가져와 처리하기 위한 cursor
         val cursor = database.rawQuery(select,null)
+        var marker: LatLng? = null //val marker = LatLng(37.5666805, 126.9784147) //서울시청 좌표
 
-        /*
-        while(cursor.moveToNext()){
-            val place_id = cursor.getLong(cursor.getColumnName())
-            val latitude = cursor.getString(cursor.getColumnIndex("latitude"))
-            val longitude = cursor.getString(cursor.getColumnIndex("longitude"))
-            val name = cursor.getString(cursor.getColumnIndex("name"))
-
-            list.add(Place(place_id,latitude,longitude,name))
-        }
-        cursor.close()
-
-         */
-        //val marker = LatLng(37.5666805, 126.9784147) //서울시청 좌표
-        var marker: LatLng? = null
+        //cursor가 이동하면서 Place db의 행에 하나씩 접근하여 마커 정보로 활용
         while (cursor.moveToNext())
         {
+            //columnindex: 1 - latitude, 2 - longitude, 3 - place name
             marker = LatLng(cursor.getString(1).toDouble(), cursor.getString(2).toDouble())
             //마커
             mMap.addMarker(MarkerOptions().position(marker).title(cursor.getString(3)))
