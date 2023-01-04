@@ -7,6 +7,7 @@ plugins {
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 def MAPS_API_KEY = properties.getProperty('MAPS_API_KEY')
+def KAKAO_LOGIN_NATIVE_KEY = properties.getProperty('KAKAO_LOGIN_NATIVE_KEY')
 
 android {
     compileSdk 33
@@ -20,7 +21,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         // AndroidManifest 에서 쓸수 있도록 지정
-        manifestPlaceholders = [MAPS_API_KEY:MAPS_API_KEY]
+        manifestPlaceholders = [MAPS_API_KEY:MAPS_API_KEY,
+                                KAKAO_LOGIN_NATIVE_KEY:KAKAO_LOGIN_NATIVE_KEY]
     }
 
     buildTypes {
