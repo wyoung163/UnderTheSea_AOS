@@ -28,6 +28,28 @@
         app:layout_constraintRight_toRightOf="parent"
         />
 
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="이메일: "
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/nickname"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/profile_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="프로필 사진: "
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
     <Button
         android:id="@+id/kakao_logout_button"
         android:layout_width="match_parent"

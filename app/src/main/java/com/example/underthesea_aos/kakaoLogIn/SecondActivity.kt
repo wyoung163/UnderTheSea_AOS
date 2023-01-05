@@ -17,12 +17,16 @@ class SecondActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
-        val nickname = findViewById<TextView>(R.id.nickname) // 로그인 버튼
         val id = findViewById<TextView>(R.id.id)
+        val nickname = findViewById<TextView>(R.id.nickname)
+        val email = findViewById<TextView>(R.id.email)
+        val profile_image = findViewById<TextView>(R.id.profile_image)
 
         UserApiClient.instance.me { user, error ->
             id.text = "회원번호: ${user?.id}"
             nickname.text = "닉네임: ${user?.kakaoAccount?.profile?.nickname}"
+            email.text = "닉네임: ${user?.kakaoAccount?.email}"
+            profile_image.text = "프로필 이미지: ${user?.kakaoAccount?.profile?.profileImageUrl}"
         }
 
         val kakao_logout_button = findViewById<Button>(R.id.kakao_logout_button) // 로그인 버튼
