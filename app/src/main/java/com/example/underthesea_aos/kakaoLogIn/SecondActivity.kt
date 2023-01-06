@@ -29,7 +29,7 @@ class SecondActivity : AppCompatActivity() {
             profile_image.text = "프로필 이미지: ${user?.kakaoAccount?.profile?.profileImageUrl}"
         }
 
-        val kakao_logout_button = findViewById<Button>(R.id.kakao_logout_button) // 로그인 버튼
+        val kakao_logout_button = findViewById<Button>(R.id.kakao_logout_button)
 
         kakao_logout_button.setOnClickListener {
             UserApiClient.instance.logout { error ->
@@ -44,7 +44,7 @@ class SecondActivity : AppCompatActivity() {
             }
         }
 
-        val kakao_unlink_button = findViewById<Button>(R.id.kakao_unlink_button) // 로그인 버튼
+        val kakao_unlink_button = findViewById<Button>(R.id.kakao_unlink_button)
 
         kakao_unlink_button.setOnClickListener {
             UserApiClient.instance.unlink { error ->
