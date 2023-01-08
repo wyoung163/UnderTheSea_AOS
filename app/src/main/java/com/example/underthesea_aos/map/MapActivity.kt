@@ -3,9 +3,6 @@ package com.example.underthesea_aos.map
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.lifecycle.Transformations.map
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.databinding.ActivityMainBinding
 import com.google.android.gms.maps.GoogleMap
@@ -15,7 +12,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlin.math.ln
 
 /*
 class MainActivity : AppCompatActivity() {
