@@ -17,13 +17,6 @@
         android:theme="@style/Theme.UnderTheSea_AOS"
         tools:targetApi="31">
         <activity
-            android:name=".HomeActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".map.MapActivity"
             android:exported="true" />
         <activity
