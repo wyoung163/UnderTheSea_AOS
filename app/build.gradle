@@ -7,20 +7,25 @@ plugins {
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 def MAPS_API_KEY = properties.getProperty('MAPS_API_KEY')
+def KAKAO_LOGIN_NATIVE_KEY = properties.getProperty('KAKAO_LOGIN_NATIVE_KEY')
+def KAKAO_LOGIN_API_KEY = properties.getProperty('KAKAO_LOGIN_API_KEY')
+
 
 android {
     compileSdk 33
 
     defaultConfig {
         applicationId "com.example.underthesea_aos"
-        minSdk 29
+        minSdk 25
         targetSdk 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         // AndroidManifest 에서 쓸수 있도록 지정
-        manifestPlaceholders = [MAPS_API_KEY:MAPS_API_KEY]
+        manifestPlaceholders = [MAPS_API_KEY:MAPS_API_KEY,
+                                KAKAO_LOGIN_NATIVE_KEY:KAKAO_LOGIN_NATIVE_KEY,
+                                KAKAO_LOGIN_API_KEY:KAKAO_LOGIN_API_KEY]
     }
 
     buildTypes {
@@ -62,4 +67,16 @@ dependencies {
     //firebase
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.android.gms:play-services-auth:20.4.0'//GoogleSignInClient 사용하기 위한 구글로그인 의존성
+
+
+    //kakao login
+    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.0'
+    implementation 'com.kakao.sdk:v2-user:2.10.0'
+
+    //Retrofit2
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
 }
