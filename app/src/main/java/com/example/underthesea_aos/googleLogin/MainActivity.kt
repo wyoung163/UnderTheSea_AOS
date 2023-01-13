@@ -67,12 +67,12 @@ class MainActivity :AppCompatActivity(){
     private fun updateUI(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential((account).idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener{
-            if(it.isSuccessful){
+            if(it.isSuccessful){//로그인 성공 시
                 val intent : Intent = Intent(this,HomeActivity::class.java)
                 intent.putExtra("email",account.email)
                 intent.putExtra("name",account.displayName)
                 startActivity(intent)
-            }else{
+            }else{//로그인 실패 시
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
             }
         }
