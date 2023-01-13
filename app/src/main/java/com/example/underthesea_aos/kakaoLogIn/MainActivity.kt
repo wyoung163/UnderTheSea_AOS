@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //accesstoken(, refreshtoken) 발급 과정 성공 or 실패
-        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+        val callback: (OAuthToken?, Throwable?) -> Unit = {token, error ->
             //발급 실패
             if (error != null) {
                 when {
