@@ -1,5 +1,8 @@
 package com.example.underthesea_aos.kakaoLogIn
 
+/*
+    서버로 보낼 data 오브젝트
+ */
 class KakaoToken {
     var accessToken: String? = null
         get() { return field }
