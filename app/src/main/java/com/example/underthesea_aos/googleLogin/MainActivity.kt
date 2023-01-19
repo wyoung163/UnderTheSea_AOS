@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
@@ -27,11 +28,13 @@ class MainActivity :AppCompatActivity(){
         setContentView(R.layout.activity_googlelogin)
 
         auth = FirebaseAuth.getInstance()
+        Log.d("auth: ", auth.toString())
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
+        Log.d("gso: ", gso.toString())
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
@@ -49,6 +52,7 @@ class MainActivity :AppCompatActivity(){
         result ->
                 if(result.resultCode == Activity.RESULT_OK){
                     val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                    Log.d("task: ", task.toString())
                     handleResults(task)
                 }
     }
@@ -56,6 +60,7 @@ class MainActivity :AppCompatActivity(){
     private fun handleResults(task: Task<GoogleSignInAccount>) {
         if(task.isSuccessful){
             val account : GoogleSignInAccount? = task.result
+            Log.d("account: ", account.toString())
             if(account != null){
                 updateUI(account)
             }
@@ -77,5 +82,4 @@ class MainActivity :AppCompatActivity(){
             }
         }
     }
-
 }
