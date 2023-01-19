@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             }
             //발급 성공
             else if (token != null) {
-                Log.d(ContentValues.TAG, "token : ${token}")
+                //Log.d(ContentValues.TAG, "token : ${token}")
 
                 Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                 //val intent = Intent(this, SecondActivity::class.java)
