@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">UnderTheSea_AOS</string>
+    <string name="calendar_year_month_format">yyyy년 MM월</string>
+
+    <string name="short_monday">월</string>
+
+    <string name="short_tueday">화</string>
+
+    <string name="short_wedday">수</string>
+
+    <string name="short_thuday">목</string>
+
+    <string name="short_friday">금</string>
+
+    <string name="short_satday">토</string>
+
+    <string name="short_sunday">일</string>
 </resources>
