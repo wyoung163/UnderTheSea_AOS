@@ -1,9 +1,11 @@
 package com.example.underthesea_aos.googleLogin
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
@@ -66,6 +68,10 @@ class MainActivity :AppCompatActivity(){
 
     private fun updateUI(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential((account).idToken, null)
+
+        Log.d(ContentValues.TAG, "cre : ${credential}")
+        Log.d(ContentValues.TAG, "idToken : ${account.idToken}")
+
         auth.signInWithCredential(credential).addOnCompleteListener{
             if(it.isSuccessful){//로그인 성공 시
                 val intent : Intent = Intent(this,HomeActivity::class.java)
