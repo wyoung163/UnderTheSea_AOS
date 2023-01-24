@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'kotlin-android-extensions'
 }
 
 Properties properties = new Properties()
@@ -15,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.underthesea_aos"
-        minSdk 29
+        minSdk 25
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -68,6 +69,8 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.android.gms:play-services-auth:20.2.0'//GoogleSignInClient 사용하기 위한 구글로그인 의존성
+    //implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
+    //implementation 'com.google.android.gms:play-services-ads-lite:18.1.1'
 
     //kakao login
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.0'
@@ -77,4 +80,13 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+
+    //slide view
+    implementation("androidx.slidingpanelayout:slidingpanelayout:1.2.0")
+
+    //calendar
+    implementation 'com.prolificinteractive:material-calendarview:1.4.3'
+
+    //view pager
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
 }
