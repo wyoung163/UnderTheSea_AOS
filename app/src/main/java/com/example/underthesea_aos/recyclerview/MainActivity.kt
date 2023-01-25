@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_recyclerview.*
 
 class MainActivity : AppCompatActivity(){
     lateinit var profileAdapter: ListAdapterHorizontal
-    val datas = mutableListOf<ProfileData>()
+    private val datas = mutableListOf<ProfileData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
