@@ -71,6 +71,7 @@ class MainActivity :AppCompatActivity(){
 
     private fun updateUI(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential((account).idToken, null)
+        Log.d("idToken: ", (account).idToken.toString())
         auth.signInWithCredential(credential).addOnCompleteListener{
             if(it.isSuccessful){//로그인 성공 시
                 val intent : Intent = Intent(this,HomeActivity::class.java)
