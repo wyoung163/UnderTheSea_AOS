@@ -1,6 +1,8 @@
-package com.example.underthesea_aos.calendar4;
+package com.example.underthesea_aos.calendar2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -10,7 +12,6 @@ import android.widget.TextView;
 import com.example.underthesea_aos.R;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,19 +20,15 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     private SimpleDateFormat defaultDateFormat =new SimpleDateFormat("yyyy-MM-dd");
     DateFormat defaultMonthFormat=new SimpleDateFormat("yyyy-MM");
     public String selectedDate = "";
-
-
 
     private Date startDate = new Date();
     private Date selectedDateTime = null;
     private ImageButton beforeIB;
     private ImageButton afterIB;
     private TextView dateTV;
-
 
     public RecyclerView calendarRecyclerView;
     private CalendarAdapter calendarAdapter;
@@ -63,6 +60,16 @@ public class MainActivity extends AppCompatActivity {
         selectedDateTime = Calendar.getInstance().getTime();
 
         setCalendarList(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH));
+
+        //구분선 추가
+        DividerItemDecoration dividerDecoration =
+                new DividerItemDecoration(calendarRecyclerView.getContext(), new LinearLayoutManager(this).getOrientation());
+
+        //calendarRecyclerView.addItemDecoration(dividerDecoration);
+
+        //높이 여백 추가
+        HeightDecoration decoration_height = new HeightDecoration(90);
+        //calendarRecyclerView.addItemDecoration(decoration_height);
     }
 
 
@@ -108,21 +115,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setCalendarList(int year, int month) {
-
         try {
-
             dateTV.setText(defaultMonthFormat.format(selectedDateTime));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         List<DayModel> dayModelList = new ArrayList<>();
 
-
         try {
-
-
             GregorianCalendar calendar = new GregorianCalendar();
             GregorianCalendar preCalendar = new GregorianCalendar();
 
@@ -156,11 +157,8 @@ public class MainActivity extends AppCompatActivity {
 
             //앞의 EMPTY 생성
             for (int j = 0; j < dayOfWeek; j++) {
-
-
                 DayModel dayModel = new DayModel();
                 dayModel.setType(102031);
-
 
                 dayModel.setCalendarModel(new GregorianCalendar(calendar.get(Calendar.YEAR), (calendar.get(Calendar.MONTH) - 1), preMonthMax - (dayOfWeek - 1 - j)));
                 dayModelList.add(dayModel);
@@ -173,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
             for (int j = 1; j <= max; j++) {
-
                 DayModel dayModel = new DayModel();
                 dayModel.setType(1);
                 dayModel.setCalendarModel(new GregorianCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), j));
@@ -202,11 +199,9 @@ public class MainActivity extends AppCompatActivity {
                     Date d = new Date(dayModelList.get(dayModelList.size() - 1).getCalendarModel().getTimeInMillis());
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         calendarAdapter.mCalendarList = dayModelList;
         calendarAdapter.notifyDataSetChanged();
