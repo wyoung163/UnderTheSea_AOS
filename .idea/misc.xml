@@ -7,9 +7,15 @@
         <entry key="..\:/UnderTheSea_AOS/app/src/main/res/layout/activity_map.xml" value="0.12335359675785208" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/drawable-v24/background_border_left_top.xml" value="0.231" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/drawable/background_border_left_top.xml" value="0.245" />
+        <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/drawable/background_border_left_top_blue.xml" value="0.1565" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/drawable/background_border_right.xml" value="0.245" />
+        <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/drawable/background_border_top.xml" value="0.1565" />
+        <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/drawable/background_border_top_blue.xml" value="0.1565" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/drawable/background_card_body.xml" value="0.245" />
+        <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/drawable/background_card_header_sky.xml" value="0.1565" />
+        <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/drawable/background_card_round_white.xml" value="0.1565" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1595" />
+        <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/drawable/ripple_effect.xml" value="0.1565" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/activity_calendar.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/activity_calendar1.xml" value="0.1" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/activity_calendar2.xml" value="0.15625" />
@@ -20,10 +26,13 @@
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/activity_main2.xml" value="0.10925925925925926" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/activity_main3.xml" value="0.1" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/activity_main4.xml" value="0.2390625" />
+        <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/activity_main5.xml" value="0.12182971014492754" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/activity_map.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/activity_second.xml" value="0.1" />
+        <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/activity_second.xml" value="0.2" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/card_view.xml" value="0.1" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/fragement_calendar.xml" value="0.1" />
+        <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/fragment_first.xml" value="0.15307971014492755" />
+        <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/item_calendar_gridview.xml" value="0.12182971014492754" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/list_item_calendar.xml" value="0.1" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/view_pager.xml" value="0.1" />
         <entry key="..\:/Users/Owner/UnderTheSea_AOS/app/src/main/res/layout/viewholder_day.xml" value="0.25364583333333335" />

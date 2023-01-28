@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--calendar4-->
     <dimen name="report_title_margin_vertical">7dp</dimen>
     <dimen name="margin_global">15dp</dimen>
     <dimen name="global_text_size">18sp</dimen>
     <dimen name="background_round">10dp</dimen>
+
+    <!--calendar-->
+    <dimen name="numberpicker_height">160dp</dimen>
+    <dimen name="numberpicker_text_size">40sp</dimen>
+    <dimen name="button_style_text_size">20sp</dimen>
+    <dimen name="timer_text_style_text_size">60sp</dimen>
 </resources>
