@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".calendar2.MainActivity">
+    tools:context=".calendar.MainActivity">
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        app:mcv_selectionColor="#03000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:mcv_showOtherDates="all" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
