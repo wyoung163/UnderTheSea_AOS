@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_plan_preview)
 
         initRecycler()
-    }
+    } 
 
     private fun initRecycler(){
         planAdapter = PreviewAdapterVertical(this)
