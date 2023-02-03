@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.R
+import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
@@ -88,6 +89,11 @@ class MainActivity :AppCompatActivity(){
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun GoogleLoginInfo(task: Task<GoogleSignInAccount>){
+        val googleInfo = GoogleInfo()
+        val account : GoogleSignInAccount? = task.result
     }
 
     private fun onClickCreateJwt(){
