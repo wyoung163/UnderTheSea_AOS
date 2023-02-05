@@ -27,7 +27,10 @@ class RecordImageFragment : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        imageFragment!!.btn_UploadPicture.setOnClickListener {
+//        imageFragment!!.btn_UploadPicture.setOnClickListener {
+//            onCreateView()
+//        }
+        btn_UploadPicture.setOnClickListener{
             onCreateView()
         }
     }
