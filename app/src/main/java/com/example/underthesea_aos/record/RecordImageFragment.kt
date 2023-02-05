@@ -24,23 +24,18 @@ class RecordImageFragment : AppCompatActivity() {
     var pickImageFromAlbum = 0
     var fbStorage: FirebaseStorage? = null
     var uriPhoto: Uri? = null
-    lateinit var inflater: LayoutInflater
-    lateinit var container: ViewGroup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         imageFragment!!.btn_UploadPicture.setOnClickListener {
-            onCreateView(inflater, container, savedInstanceState)
+            onCreateView()
         }
     }
 
     //파이어 베이스 초기화하고 upload 클릭 시 동작할 리스너 구성
-    fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    fun onCreateView(){
         Log.d("rrhhhhhhhhhhhhtfufj", "rrr")
-        imageFragment = inflater.inflate(R.layout.activity_record, container, false)
+        //imageFragment = inflater.inflate(R.layout.activity_record, container, false)
 
         //firebase storage 초기화
         fbStorage = FirebaseStorage.getInstance()
@@ -49,7 +44,7 @@ class RecordImageFragment : AppCompatActivity() {
         photoPickerIntent.type = "image/*"
         startActivityForResult(photoPickerIntent, pickImageFromAlbum)
 
-        return imageFragment
+        //return imageFragment
     }
 
     //앨범에서 사진 선택 시 동작
