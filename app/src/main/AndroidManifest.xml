@@ -23,9 +23,7 @@
         android:theme="@style/Theme.UnderTheSea_AOS"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".MainActivity2"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -74,6 +72,9 @@
             android:exported="true" />
         <activity
             android:name=".enter.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".enter.MainActivity2"
             android:exported="true" />
 
         <meta-data
