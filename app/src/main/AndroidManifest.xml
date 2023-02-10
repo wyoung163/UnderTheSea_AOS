@@ -23,7 +23,6 @@
         android:theme="@style/Theme.UnderTheSea_AOS"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -87,6 +86,9 @@
         <activity
             android:name=".googleLogin.MainActivity"
             android:exported="true" /> <!-- 구글 지도 -->
+
+        <activity android:name=".user.MainActivity"
+            android:exported="true"/>
         <activity
             android:name=".map.MapActivity"
             android:exported="true" />
