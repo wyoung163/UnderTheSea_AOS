@@ -52,7 +52,7 @@
             android:name=".kakaoLogIn.SecondActivity"
             android:exported="false" />
         <activity
-            android:name=".googleLogin.HomeActivity"
+            android:name=".googleLogin.SecondActivity"
             android:exported="true" />
         <activity
             android:name=".googleLogin.MainActivity"
