@@ -4,14 +4,16 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.underthesea_aos.R
+import com.example.underthesea_aos.databinding.ActivityMainBinding
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_record.*
 import java.text.SimpleDateFormat
@@ -20,6 +22,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     lateinit var spinner: Spinner
     lateinit var result: TextView
+    val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
 
     private var imageFragment: View? = null
     var pickImageFromAlbum = 0
@@ -50,11 +53,44 @@ class MainActivity : AppCompatActivity() {
         btn_UploadPicture.setOnClickListener{
             onCreateView()
         }
+
+        //글자수 제한
+        with(binding){
+            txt_content.addTextChangedListener(object : TextWatcher {
+                var maxText = ""
+                override fun beforeTextChanged(pos: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    maxText = pos.toString()
+                }
+                override fun onTextChanged(pos: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    if(txt_content.lineCount > 3){
+                        Toast.makeText(this@MainActivity,
+                            "최대 3줄까지 입력 가능합니다.",
+                            Toast.LENGTH_SHORT).show()
+
+                        txt_content.setText(maxText)
+                        txt_content.setSelection(txt_content.length())
+                        count.setText("${txt_content.length()} / 30")
+                    } else if(txt_content.length() > 30){
+                        Toast.makeText(this@MainActivity, "최대 30자까지 입력 가능합니다.",
+                            Toast.LENGTH_SHORT).show()
+
+                        txt_content.setText(maxText)
+                        txt_content.setSelection(txt_content.length())
+                        count.setText("${txt_content.length()} / 30")
+                    } else {
+                        count.setText("${txt_content.length()} / 30")
+                    }
+                }
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+            })
+        }
     }
 
     //파이어 베이스 초기화하고 upload 클릭 시 동작할 리스너 구성
     fun onCreateView(){
-        Log.d("rrhhhhhhhhhhhhtfufj", "rrr")
         //imageFragment = inflater.inflate(R.layout.activity_record, container, false)
 
         //firebase storage 초기화

@@ -87,13 +87,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/txt_comment"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:minHeight="48dp"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="5dp"
-                android:textAlignment="textStart" />
+                android:textAlignment="textStart"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <Button
                 android:id="@+id/btn_save"
