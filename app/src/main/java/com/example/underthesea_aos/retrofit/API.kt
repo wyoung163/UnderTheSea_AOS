@@ -9,5 +9,4 @@ public interface API {
     //kakao login
     @POST("kakao")
     fun getKakaoLoginResponse(@Body token: KakaoToken): Call<String>
-    fun getGoogleLoginResponse(@Body userinfo:) : Call<String>
 }
