@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -14,8 +15,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.databinding.ActivityMainBinding
+import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_record.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -88,12 +93,43 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
+        //만족 버튼 클릭
         smile.setOnClickListener{
             satisfaction = 1
+
         }
 
+        //불만족 버튼 클릭
         sad.setOnClickListener{
             satisfaction = 2
+        }
+
+        //백엔드와의 통신 성공 or 실패
+        fun PostRecords(record: RecordInfo){
+            record.img_url = uriPhoto.toString()
+            record.satisfaction = satisfaction
+            //record.date =
+            //record.content =
+
+            val call = RetrofitBuilder.api.postRecordsResponse(record)
+            //비동기 방식의 통신
+            call.enqueue(object : Callback<String> {
+                //통신 성공
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    //응답 성공
+                    if(response.isSuccessful()){
+                        Log.d("Response: ", response.body().toString())
+                    }
+                    //응답 실패
+                    else{
+                        Log.d("Response: ", "failure")
+                    }
+                }
+                //통신 실패
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d("Connection Failure", t.localizedMessage)
+                }
+            })
         }
     }
 
