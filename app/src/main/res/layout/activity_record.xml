@@ -106,6 +106,45 @@
             android:text="SAVE"
             android:textSize="10sp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="SATISFACTION"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/smile"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:maxWidth="70dp"
+                android:maxHeight="70dp"
+                android:layout_marginRight="40sp"
+                android:src="@drawable/smile"/>
+            <ImageButton
+                android:id="@+id/sad"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:maxWidth="70dp"
+                android:maxHeight="70dp"
+                android:src="@drawable/sad"/>
+
+        </LinearLayout>
+
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
