@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".enter.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/intro"
+            android:layout_width="450dp"
+            android:layout_height="450dp"
+            android:adjustViewBounds="true"
+            android:paddingTop="100dp"
+            android:maxWidth="500dp"
+            android:maxHeight="500dp"
+            android:src="@drawable/intro2"
+            app:layout_constraintTop_toTopOf="@id/title" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="35sp"
+            android:autoSizeMinTextSize="30sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/notosans_bold"
+            android:gravity="center"
+            android:text="With a small \n change in daily lives"
+            android:textSize="30sp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="@id/intro"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/cont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="30dp"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeMinTextSize="18sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/notosans_regular"
+            android:gravity="center"
+            android:text="You can protect \n the earth with us"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="@id/title" />
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeMinTextSize="18sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:background="#00D8C8"
+            android:fontFamily="@font/notosans_bold"
+            android:gravity="center"
+            android:text="NEXT"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/cont"
+            tools:ignore="TextContrastCheck" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
