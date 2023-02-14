@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
     var fbStorage: FirebaseStorage? = null
     var uriPhoto: Uri? = null
 
+    var satisfaction = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_record)
@@ -84,6 +86,14 @@ class MainActivity : AppCompatActivity() {
 
                 }
             })
+        }
+
+        smile.setOnClickListener{
+            satisfaction = 1
+        }
+
+        sad.setOnClickListener{
+            satisfaction = 2
         }
     }
 
