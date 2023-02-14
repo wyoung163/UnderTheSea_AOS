@@ -131,7 +131,6 @@
                     android:maxHeight="70dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/sad" />
-
             </LinearLayout>
 
             <Button
