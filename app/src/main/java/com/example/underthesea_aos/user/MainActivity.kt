@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         //백엔드와의 통신 성공 or 실패
         fun Login(token: KakaoToken){
-            val call = RetrofitBuilder.api.getKakaoLoginResponse(token)
+            val call = RetrofitBuilder.api.postKakaoLoginResponse(token)
             //비동기 방식의 통신
             call.enqueue(object : Callback<String> {
                 //통신 성공
