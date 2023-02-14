@@ -1,8 +1,10 @@
 package com.example.underthesea_aos.calendar
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.R
+import com.example.underthesea_aos.record.MainActivity3
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
@@ -19,11 +21,16 @@ class MainActivity : AppCompatActivity() {
 
         calendar.addDecorator(TodayDecorator(this@MainActivity))
 
+        //날짜에 해당하는 레코드 목록 페이지로 이동할 intent
+        val intent = Intent(this, MainActivity3::class.java)
+
         calendar.setOnDateChangedListener(object: OnDateSelectedListener {
             override fun onDateSelected(widget: MaterialCalendarView, date: CalendarDay, selected: Boolean) {
                 calendar.removeDecorators()
                 calendar.addDecorator(TodayDecorator(this@MainActivity))
                 calendar.addDecorator(EventDecorator(this@MainActivity, date))
+                intent.putExtra("date", date)
+                startActivity(intent)
             }
         })
     }

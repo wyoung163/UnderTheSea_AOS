@@ -70,6 +70,9 @@
             android:name=".record.MainActivity2"
             android:exported="true" />
         <activity
+            android:name=".record.MainActivity3"
+            android:exported="true" />
+        <activity
             android:name=".enter.MainActivity"
             android:exported="true" />
         <activity
@@ -86,9 +89,9 @@
         <activity
             android:name=".googleLogin.MainActivity"
             android:exported="true" /> <!-- 구글 지도 -->
-
-        <activity android:name=".user.MainActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".user.MainActivity"
+            android:exported="true" />
         <activity
             android:name=".map.MapActivity"
             android:exported="true" />
