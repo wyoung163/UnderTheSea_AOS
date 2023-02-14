@@ -13,6 +13,8 @@
         android:layout_centerVertical="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="60dp"
+        app:mcv_tileWidth="match_parent"
         app:mcv_showOtherDates="all" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
