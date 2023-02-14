@@ -73,6 +73,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.android.gms:play-services-auth:20.2.0'//GoogleSignInClient 사용하기 위한 구글로그인 의존성
+    implementation 'com.google.firebase:firebase-storage:20.1.0'
     //implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
     //implementation 'com.google.android.gms:play-services-ads-lite:18.1.1'
 
