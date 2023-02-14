@@ -8,9 +8,11 @@ import com.example.underthesea_aos.record.MainActivity3
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import java.text.SimpleDateFormat
 
 class MainActivity : AppCompatActivity() {
     lateinit var calendar: MaterialCalendarView
+    var sdf: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +31,10 @@ class MainActivity : AppCompatActivity() {
                 calendar.removeDecorators()
                 calendar.addDecorator(TodayDecorator(this@MainActivity))
                 calendar.addDecorator(EventDecorator(this@MainActivity, date))
-                intent.putExtra("date", date)
+                //calendar -> String 변환
+                val strDate = sdf.format(date.date)
+                //println(strDate)
+                intent.putExtra("date", strDate)
                 startActivity(intent)
             }
         })
