@@ -1,7 +1,6 @@
 package com.example.underthesea_aos.kakaoLogIn
 
 import android.content.ContentValues
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
@@ -11,7 +10,6 @@ import com.example.underthesea_aos.R
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause.*
-import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         //백엔드와의 통신 성공 or 실패
         fun Login(token: KakaoToken){
-            val call = RetrofitBuilder.api.getKakaoLoginResponse(token)
+            val call = RetrofitBuilder.api.postKakaoLoginResponse(token)
             //비동기 방식의 통신
             call.enqueue(object : Callback<String>{
                 //통신 성공
