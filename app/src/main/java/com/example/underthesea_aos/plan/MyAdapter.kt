@@ -5,28 +5,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.underthesea_aos.R
+import com.example.underthesea_aos.databinding.ItemRecyclerviewBinding
 import kotlinx.android.synthetic.main.item_recyclerview.view.*
 
-class CustomViewHolder(v: View) : RecyclerView.ViewHolder(v){
-    val itemIcon = v.item_icon
-    val itemData = v.item_data
-}
+class MyViewHolder(val binding: ItemRecyclerviewBinding):RecyclerView.ViewHolder(binding.root)
 
-class Data(val profile: Int, val todo: String)
-
-class MyAdapter : RecyclerView.Adapter<CustomViewHolder>(){
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
-        val cellForRow = LayoutInflater.from(parent.context).inflate(R.layout.item_recyclerview,parent,false)
-        return CustomViewHolder(cellForRow)
-    }
-
-    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.itemIcon.setImageResource(DataList[position].profile)
-        holder.itemData.text = DataList[position].todo
-    }
-
+class MyAdapter(val datas: MutableList<String>?): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     override fun getItemCount(): Int {
-        return DataList.size
+        return datas?.size ?:0
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
+        =MyViewHolder(ItemRecyclerviewBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val binding=(holder as MyViewHolder).binding
+        binding.itemData.text = datas!![position]
+    }
 }
