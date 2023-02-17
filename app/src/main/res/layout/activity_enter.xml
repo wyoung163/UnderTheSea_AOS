@@ -14,12 +14,29 @@
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:id="@+id/intro"
-            android:layout_width="520dp"
-            android:layout_height="520dp"
+            android:id="@+id/vector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:maxWidth="550dp"
-            android:maxHeight="550dp"
+            android:src="@drawable/vector" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/intro"
+            android:paddingTop="130dp"
+            android:layout_width="457dp"
+            android:layout_height="457dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="457dp"
+            android:maxHeight="457dp"
             android:src="@drawable/intro"
             app:layout_constraintTop_toTopOf="@id/title" />
 
@@ -27,50 +44,42 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="35sp"
-            android:autoSizeMinTextSize="30sp"
-            android:autoSizeStepGranularity="2sp"
+            android:autoSizeMaxTextSize="26dp"
+            android:autoSizeMinTextSize="25sp"
+            android:autoSizeStepGranularity="1sp"
             android:autoSizeTextType="uniform"
             android:fontFamily="@font/notosans_bold"
-            android:gravity="center"
-            android:text="Protecting \n marine environment"
-            android:textSize="30sp"
+            android:paddingTop="10dp"
+            android:paddingLeft="25dp"
+            android:text="Protecting \nmarine environment"
             android:textColor="#000000"
-            app:layout_constraintBottom_toBottomOf="@id/intro"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@id/intro" />
 
         <TextView
             android:id="@+id/cont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="30dp"
-            android:autoSizeMaxTextSize="20sp"
-            android:autoSizeMinTextSize="18sp"
+            android:autoSizeMaxTextSize="17sp"
+            android:autoSizeMinTextSize="15sp"
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
             android:fontFamily="@font/notosans_regular"
-            android:gravity="center"
-            android:text="Let's practice environmental \n protection in our daily lives"
-            android:textSize="18sp"
+            android:paddingLeft="30dp"
+            android:text="Let's practice environmental protection in daily lives"
             android:textColor="#000000"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@id/title" />
 
-        <Button
+        <ImageButton
             android:id="@+id/next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="20sp"
-            android:autoSizeMinTextSize="18sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
-            android:background="#00D8C8"
-            android:fontFamily="@font/notosans_bold"
-            android:gravity="center"
-            android:text="NEXT"
-            android:textColor="#ffffff"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@id/cont"
-            tools:ignore="TextContrastCheck" />
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginTop="170dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/button"
+            tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
