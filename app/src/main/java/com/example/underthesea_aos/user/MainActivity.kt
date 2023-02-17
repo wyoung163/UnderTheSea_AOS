@@ -24,6 +24,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.android.synthetic.main.activity_signin.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -145,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        findViewById<Button>(R.id.SignInBtn).setOnClickListener {
+        SignInBtn.setOnClickListener {
             signInGoogle()
         }
     }
