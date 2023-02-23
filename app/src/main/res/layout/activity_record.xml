@@ -25,20 +25,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center">
+                android:paddingBottom="16dp">
 
                 <ImageButton
                     android:id="@+id/back"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="left"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:gravity="left"
                     android:adjustViewBounds="true"
-                    android:maxWidth="70dp"
-                    android:maxHeight="70dp"
-                    android:padding="16dp"
+                    android:maxWidth="40dp"
+                    android:maxHeight="40dp"
+                    android:paddingLeft="30dp"
                     android:scaleType="fitCenter"
                     android:background="@drawable/undo"
                     tools:ignore="SpeakableTextPresentCheck" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -47,40 +52,55 @@
                     android:text="RECORD"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="65dp"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:background="@drawable/bg">
-
-                <ImageButton
-                    android:id="@+id/view"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="left"
-                    android:adjustViewBounds="true"
-                    android:maxWidth="70dp"
-                    android:maxHeight="70dp"
-                    android:padding="16dp"
-                    android:scaleType="fitCenter"
-                    android:background="@drawable/view"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-                <ImageButton
-                    android:id="@+id/writing"
+                <Space
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_gravity="left"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/view"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="left_center"
                     android:adjustViewBounds="true"
-                    android:maxWidth="70dp"
-                    android:maxHeight="70dp"
-                    android:padding="16dp"
-                    android:scaleType="fitCenter"
-                    android:background="@drawable/writing"
+                    android:background="@android:color/tranparent"
+                    android:text="View"
+                    android:textColor="#44000000"
                     tools:ignore="SpeakableTextPresentCheck" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/writing"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/tranparent"
+                    android:text="Writing"
+                    android:textColor="#44000000"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
 
             </LinearLayout>
 
