@@ -33,7 +33,9 @@
                 android:id="@+id/spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end" />
+                android:layout_gravity="end"
+                android:minHeight="48dp"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -76,24 +78,33 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/txt_content"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="5dp"
-                android:textAlignment="textEnd" />
+                android:layout_height="130dp"
+                android:layout_gravity="center"
+                android:background="@drawable/cont_rectangle"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/txt_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"/>
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginEnd="16dp"
-                android:padding="5dp"
+                android:layout_marginEnd="20dp"
+                android:paddingRight="15dp"
                 android:text="0 / 30"
                 android:textSize="10sp"
-                app:layout_constraintTop_toBottomOf="@id/txt_content" />
+                app:layout_constraintTop_toBottomOf="@id/txt_content"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -119,7 +130,8 @@
                     android:maxWidth="70dp"
                     android:maxHeight="70dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/smile" />
+                    android:src="@drawable/smile"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
                     android:id="@+id/sad"
@@ -130,7 +142,8 @@
                     android:maxWidth="70dp"
                     android:maxHeight="70dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/sad" />
+                    android:src="@drawable/sad"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </LinearLayout>
 
             <Button
