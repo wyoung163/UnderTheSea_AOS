@@ -37,7 +37,7 @@
                     android:maxHeight="70dp"
                     android:padding="16dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/undo"
+                    android:background="@drawable/undo"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <TextView
@@ -47,6 +47,41 @@
                     android:text="RECORD"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/bg">
+
+                <ImageButton
+                    android:id="@+id/view"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="left"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="70dp"
+                    android:maxHeight="70dp"
+                    android:padding="16dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/view"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <ImageButton
+                    android:id="@+id/writing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_gravity="left"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="70dp"
+                    android:maxHeight="70dp"
+                    android:padding="16dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/writing"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
             </LinearLayout>
 
             <TextView
