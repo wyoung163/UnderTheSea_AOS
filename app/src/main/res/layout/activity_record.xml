@@ -31,19 +31,19 @@
                     android:id="@+id/back"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:gravity="left"
                     android:adjustViewBounds="true"
+                    android:background="@drawable/undo"
+                    android:gravity="left"
                     android:maxWidth="40dp"
                     android:maxHeight="40dp"
                     android:paddingLeft="30dp"
                     android:scaleType="fitCenter"
-                    android:background="@drawable/undo"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.4"/>
+                    android:layout_weight="1.4" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -56,35 +56,36 @@
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"/>
+                    android:layout_weight="2" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-                android:orientation="horizontal"
+                android:background="@drawable/bg"
                 android:gravity="center"
-                android:background="@drawable/bg">
+                android:orientation="horizontal">
+
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/view"
                     android:layout_width="80dp"
                     android:layout_height="35dp"
-                    android:layout_gravity="left_center"
+                    android:layout_gravity="center"
                     android:adjustViewBounds="true"
-                    android:background="@android:color/tranparent"
+                    android:background="@null"
                     android:text="View"
                     android:textColor="#44000000"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/writing"
@@ -92,15 +93,15 @@
                     android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
-                    android:background="@android:color/tranparent"
+                    android:background="@null"
                     android:text="Writing"
                     android:textColor="#44000000"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
@@ -173,7 +174,8 @@
                     android:id="@+id/txt_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@null" />
+                    android:background="@null"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
             </LinearLayout>
 
@@ -201,42 +203,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:focusableInTouchMode="true">
 
                 <ImageButton
                     android:id="@+id/smile"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginRight="40sp"
                     android:adjustViewBounds="true"
-                    android:maxWidth="70dp"
-                    android:maxHeight="70dp"
+                    android:maxWidth="40dp"
+                    android:maxHeight="40dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/smile"
+                    android:background="@drawable/smile"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
                     android:id="@+id/sad"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
                     android:adjustViewBounds="true"
-                    android:maxWidth="70dp"
-                    android:maxHeight="70dp"
+                    android:maxWidth="40dp"
+                    android:maxHeight="40dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/sad"
+                    android:background="@drawable/sad"
                     tools:ignore="SpeakableTextPresentCheck" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_save"
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20sp"
-                android:text="SAVE"
-                android:textSize="10sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:focusableInTouchMode="true">
+
+                <ImageButton
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15sp"
+                    android:background="@drawable/cancel_btn" />
+
+                <ImageButton
+                    android:id="@+id/btn_save"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15sp"
+                    android:background="@drawable/save_btn"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

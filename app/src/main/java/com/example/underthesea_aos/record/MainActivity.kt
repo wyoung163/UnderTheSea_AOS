@@ -24,17 +24,19 @@ import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
+/*
+    기록 작성 화면
+ */
 class MainActivity : AppCompatActivity() {
     lateinit var spinner: Spinner
     lateinit var result: TextView
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
-
     private var imageFragment: View? = null
     var pickImageFromAlbum = 0
     var fbStorage: FirebaseStorage? = null
     var uriPhoto: Uri? = null
-
     var satisfaction = 1
+    var plan = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         spinner.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
+               plan = spinner.selectedItem.hashCode()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
@@ -96,41 +98,53 @@ class MainActivity : AppCompatActivity() {
         //만족 버튼 클릭
         smile.setOnClickListener{
             satisfaction = 1
-
         }
 
         //불만족 버튼 클릭
         sad.setOnClickListener{
+            Log.d("Response: ", txt_content.context.toString())
             satisfaction = 2
         }
 
-        //백엔드와의 통신 성공 or 실패
-        fun PostRecords(record: RecordInfo){
-            record.img_url = uriPhoto.toString()
-            record.satisfaction = satisfaction
-            //record.date =
-            //record.content =
+        //cancel 버튼 클릭
+        btn_cancel.setOnClickListener{
 
-            val call = RetrofitBuilder.api.postRecordsResponse(record)
-            //비동기 방식의 통신
-            call.enqueue(object : Callback<String> {
-                //통신 성공
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    //응답 성공
-                    if(response.isSuccessful()){
-                        Log.d("Response: ", response.body().toString())
-                    }
-                    //응답 실패
-                    else{
-                        Log.d("Response: ", "failure")
-                    }
-                }
-                //통신 실패
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.d("Connection Failure", t.localizedMessage)
-                }
-            })
         }
+
+        //save 버튼 클릭
+        val recordInfo = RecordInfo()
+        btn_save.setOnClickListener{
+            PostRecords(recordInfo)
+        }
+    }
+
+    //백엔드와의 통신 성공 or 실패
+    fun PostRecords(record: RecordInfo){
+        record.date = "2021-04-05"
+        record.content = txt_content.text.toString()
+        record.img_url = uriPhoto.toString()
+        record.satisfaction = satisfaction
+        record.plan_id = plan
+
+        val call = RetrofitBuilder.retrofit().postRecordsResponse(record)
+        //비동기 방식의 통신
+        call.enqueue(object : Callback<RecordResponse> {
+            //통신 성공
+            override fun onResponse(call: Call<RecordResponse>, response: Response<RecordResponse>) {
+                //응답 성공
+                if(response.isSuccessful()){
+                    Log.d("Response: ", response.body().toString())
+                }
+                //응답 실패
+                else{
+                    Log.d("Response: ", "failure")
+                }
+            }
+            //통신 실패
+            override fun onFailure(call: Call<RecordResponse>, t: Throwable) {
+                Log.d("Connection Failure", t.localizedMessage)
+            }
+        })
     }
 
     //파이어 베이스 초기화하고 upload 클릭 시 동작할 리스너 구성
