@@ -3,7 +3,6 @@ package com.example.underthesea_aos.googleLogin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.example.underthesea_aos.R
@@ -11,9 +10,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthSettings
 
-class HomeActivity : AppCompatActivity() {
+class SecondActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient : GoogleSignInClient

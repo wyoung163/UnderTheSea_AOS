@@ -57,6 +57,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.firebase:firebase-auth:21.1.0'
+    implementation 'com.google.firebase:firebase-functions-ktx:20.2.2'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -72,6 +73,9 @@ dependencies {
     //firebase
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    //GoogleSignInClient 사용하기 위한 구글로그인 의존성
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
     implementation 'com.google.android.gms:play-services-auth:20.2.0'//GoogleSignInClient 사용하기 위한 구글로그인 의존성
     implementation 'com.google.firebase:firebase-storage:20.1.0'
     //implementation 'com.google.android.gms:play-services-ads-identifier:17.0.0'
@@ -94,4 +98,11 @@ dependencies {
 
     //view pager
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+    //recyclerview
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 }
