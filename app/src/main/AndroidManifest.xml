@@ -104,6 +104,9 @@
             android:name=".record.MainActivity2"
             android:exported="true" />
         <activity
+            android:name=".record.MainActivity3"
+            android:exported="true" />
+        <activity
             android:name=".enter.MainActivity"
             android:exported="true" />
         <activity
