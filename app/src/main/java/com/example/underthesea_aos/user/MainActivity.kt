@@ -13,7 +13,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.googleLogin.SecondActivity
 import com.example.underthesea_aos.kakaoLogIn.KakaoToken
-import com.example.underthesea_aos.retrofit.MainApplication
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         //백엔드와의 통신 성공 or 실패
         fun Login(token: KakaoToken){
-            val call = RetrofitBuilder.api.postKakaoLoginResponse(token)
+            val call = RetrofitBuilder.retrofit().postKakaoLoginResponse(token)
             //비동기 방식의 통신
             call.enqueue(object : Callback<KakaoResponse> {
                 //통신 성공

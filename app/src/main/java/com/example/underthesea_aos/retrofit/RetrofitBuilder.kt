@@ -13,15 +13,18 @@ import java.io.IOException
 
 
 object RetrofitBuilder {
-    var api: API
+    //var api: API
+    var jwtToken = " "
 
-    init{
+    fun retrofit(): API {
         val retrofit = Retrofit.Builder()
             .baseUrl("http://10.0.2.2:3000/") //요청 보내는 api 서버 url
-            .client(okHttpClient(AppInterceptor())) // okHttpClient를 Retrofit 빌더에 추가
             .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient(AppInterceptor())) // okHttpClient를 Retrofit 빌더에 추가
             .build()
-        api = retrofit.create(API::class.java)
+            .create(API::class.java)
+
+        return retrofit
     }
 
     fun okHttpClient(interceptor: AppInterceptor): OkHttpClient {
@@ -33,7 +36,6 @@ object RetrofitBuilder {
     }
 
     class AppInterceptor : Interceptor {
-        var jwtToken = ""
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain) : Response = with(chain) {
             val mHandler = Handler(Looper.getMainLooper())

@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
             //record.date =
             //record.content =
 
-            val call = RetrofitBuilder.api.postRecordsResponse(record)
+            val call = RetrofitBuilder.retrofit().postRecordsResponse(record)
             //비동기 방식의 통신
             call.enqueue(object : Callback<String> {
                 //통신 성공
