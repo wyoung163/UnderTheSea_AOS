@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //accesstoken(, refreshtoken) 발급 과정 성공 or 실패
-        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+        val callback: (OAuthToken?, Throwable?) -> Unit = {token, error ->
             //발급 실패
             if (error != null) {
                 when {
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             }
             //발급 성공
             else if (token != null) {
-                Log.d(ContentValues.TAG, "token : ${token}")
+                //Log.d(ContentValues.TAG, "token : ${token}")
 
                 Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                 //val intent = Intent(this, SecondActivity::class.java)

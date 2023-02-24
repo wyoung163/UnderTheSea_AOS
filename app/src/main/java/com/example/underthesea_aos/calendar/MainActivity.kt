@@ -1,7 +1,7 @@
 package com.example.underthesea_aos.calendar
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.R
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar2)
 
-        calendar = findViewById(R.id.calendar)
+        calendar = findViewById(R.id.calendarView)
         calendar.setSelectedDate(CalendarDay.today())
 
         calendar.addDecorator(TodayDecorator(this@MainActivity))

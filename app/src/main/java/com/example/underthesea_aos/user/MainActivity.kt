@@ -11,7 +11,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.underthesea_aos.R
-import com.example.underthesea_aos.googleLogin.HomeActivity
+import com.example.underthesea_aos.googleLogin.SecondActivity
 import com.example.underthesea_aos.kakaoLogIn.KakaoToken
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -137,60 +137,72 @@ class MainActivity : AppCompatActivity() {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
         }
-
+        
+        
+        //google
         auth = FirebaseAuth.getInstance()
+//        Log.d("auth: ", auth.toString())
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
+//        Log.d("gso: ", gso.toString())
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        SignInBtn.setOnClickListener {
+        findViewById<Button>(R.id.SignInBtn).setOnClickListener {
             signInGoogle()
         }
     }
 
-    private fun signInGoogle(){
+    private fun signInGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         launcher.launch(signInIntent)
     }
 
-    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result ->
-        if(result.resultCode == Activity.RESULT_OK){
+        if (result.resultCode == Activity.RESULT_OK) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+//                    Log.d("task: ", task.toString())
             handleResults(task)
         }
     }
 
     private fun handleResults(task: Task<GoogleSignInAccount>) {
-        if(task.isSuccessful){
-            val account : GoogleSignInAccount? = task.result
-            if(account != null){
+        if (task.isSuccessful) {
+            val account: GoogleSignInAccount? = task.result
+//            Log.d("account: ", account.toString())
+            if (account != null) {
                 updateUI(account)
             }
-        }else{
+        } else {
             Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun updateUI(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential((account).idToken, null)
-
-        Log.d(ContentValues.TAG, "cre : ${credential}")
-        Log.d(ContentValues.TAG, "idToken : ${account.idToken}")
-
-        auth.signInWithCredential(credential).addOnCompleteListener{
-            if(it.isSuccessful){//로그인 성공 시
-                val intent : Intent = Intent(this, HomeActivity::class.java)
-                intent.putExtra("email",account.email)
-                intent.putExtra("name",account.displayName)
+//        Log.d("idToken: ", (account).idToken.toString())
+        auth.signInWithCredential(credential).addOnCompleteListener {
+            if (it.isSuccessful) {//로그인 성공 시
+                val intent: Intent = Intent(this, SecondActivity::class.java)
+                intent.putExtra("email", account.email)
+                intent.putExtra("name", account.displayName)
                 startActivity(intent)
-            }else{//로그인 실패 시
+//                Log.d("loginSuccess","login")
+            } else {//로그인 실패 시
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
             }
         }
+//        Log.d("email:::", account?.email.toString())
+//        Log.d("name:::", account?.displayName.toString())
+//        Log.d("pic:::", account?.photoUrl.toString())
     }
+
+//    private fun GoogleLoginInfo(task: Task<GoogleSignInAccount>) {
+//        val googleInfo = GoogleInfo()
+//        val account: GoogleSignInAccount? = task.result
+//    }
 }
