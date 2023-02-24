@@ -7,7 +7,7 @@ object RetrofitBuilder {
     var api: API
     init{
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://localhost:8080/connection/") //요청 보내는 api 서버 url
+            .baseUrl("http://10.0.2.2:3000/") //요청 보내는 api 서버 url
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         api = retrofit.create(API::class.java)
