@@ -14,13 +14,29 @@
         tools:ignore="MissingConstraints">
 
         <ImageView
+            android:id="@+id/vector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/vector2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
             android:id="@+id/intro"
             android:layout_width="450dp"
             android:layout_height="450dp"
             android:adjustViewBounds="true"
-            android:paddingTop="100dp"
-            android:maxWidth="500dp"
-            android:maxHeight="500dp"
+            android:maxWidth="450dp"
+            android:maxHeight="450dp"
+            android:paddingTop="130dp"
             android:src="@drawable/intro2"
             app:layout_constraintTop_toTopOf="@id/title" />
 
@@ -28,15 +44,16 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="35sp"
-            android:autoSizeMinTextSize="30sp"
+            android:autoSizeMaxTextSize="30sp"
+            android:autoSizeMinTextSize="25sp"
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
             android:fontFamily="@font/notosans_bold"
-            android:gravity="center"
-            android:text="With a small \n change in daily lives"
-            android:textSize="30sp"
+            android:paddingLeft="30dp"
+            android:paddingTop="30dp"
+            android:text="With a small \nchange in daily life"
             android:textColor="#000000"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="@id/intro"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -44,34 +61,37 @@
             android:id="@+id/cont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="30dp"
-            android:autoSizeMaxTextSize="20sp"
-            android:autoSizeMinTextSize="18sp"
+            android:autoSizeMaxTextSize="25sp"
+            android:autoSizeMinTextSize="15sp"
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
             android:fontFamily="@font/notosans_regular"
-            android:gravity="center"
-            android:text="You can protect \n the earth with us"
-            android:textSize="18sp"
+            android:paddingLeft="30dp"
+            android:paddingBottom="30dp"
+            android:text="You can protect the earth with us"
             android:textColor="#000000"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@id/title" />
 
-        <Button
-            android:id="@+id/next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="20sp"
-            android:autoSizeMinTextSize="18sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
-            android:background="#00D8C8"
-            android:fontFamily="@font/notosans_bold"
-            android:gravity="center"
-            android:text="NEXT"
-            android:textColor="#ffffff"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@id/cont"
-            tools:ignore="TextContrastCheck" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/next"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginTop="660dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/button"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
