@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar2)
 
-        calendar = findViewById(R.id.calendar)
+        calendar = findViewById(R.id.calendarView)
         calendar.setSelectedDate(CalendarDay.today())
 
         calendar.addDecorator(TodayDecorator(this@MainActivity))

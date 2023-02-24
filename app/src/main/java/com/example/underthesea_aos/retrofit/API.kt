@@ -9,9 +9,10 @@ import retrofit2.http.POST
 
 public interface API {
     //kakao login
-    @POST("kakao")
-    fun postKakaoLoginResponse(@Body token: KakaoToken): Call<String>
 
+    @POST("login/kakao")
+    fun getKakaoLoginResponse(@Body token: KakaoToken): Call<KakaoResponse>
+    
     //post records
     @POST("records")
     fun postRecordsResponse(@Body record: RecordInfo): Call<String>
