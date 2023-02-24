@@ -1,7 +1,5 @@
 package com.example.underthesea_aos.kakaoLogIn
 
-import android.content.ContentValues
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
@@ -9,9 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
+import com.example.underthesea_aos.user.KakaoResponse
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause.*
-import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,9 +40,9 @@ class MainActivity : AppCompatActivity() {
         fun Login(token: KakaoToken){
             val call = RetrofitBuilder.api.getKakaoLoginResponse(token)
             //비동기 방식의 통신
-            call.enqueue(object : Callback<String>{
+            call.enqueue(object : Callback<KakaoResponse>{
                 //통신 성공
-                override fun onResponse(call: Call<String>, response: Response<String>) {
+                override fun onResponse(call: Call<KakaoResponse>, response: Response<KakaoResponse>) {
                     //응답 성공
                     if(response.isSuccessful()){
                         Log.d("Response: ", response.body().toString())
@@ -55,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 //통신 실패
-                override fun onFailure(call: Call<String>, t: Throwable) {
+                override fun onFailure(call: Call<KakaoResponse>, t: Throwable) {
                     Log.d("Connection Failure", t.localizedMessage)
                 }
             })

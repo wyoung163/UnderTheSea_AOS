@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.googleLogin.SecondActivity
 import com.example.underthesea_aos.kakaoLogIn.KakaoToken
+import com.example.underthesea_aos.retrofit.MainApplication
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -32,6 +33,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
     private lateinit var auth : FirebaseAuth
     private lateinit var googleSignInClient : GoogleSignInClient
+    public var jwtToken = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,12 +59,16 @@ class MainActivity : AppCompatActivity() {
             Log.d("Response: ", "ok")
             val call = RetrofitBuilder.api.getKakaoLoginResponse(token)
             //비동기 방식의 통신
-            call.enqueue(object : Callback<String> {
+            call.enqueue(object : Callback<KakaoResponse> {
                 //통신 성공
-                override fun onResponse(call: Call<String>, response: Response<String>) {
+                override fun onResponse(call: Call<KakaoResponse>, response: Response<KakaoResponse>) {
                     //응답 성공
                     if(response.isSuccessful()){
-                        Log.d("Response: ", response.body().toString())
+                        //Log.d("Response: ", response.headers().value(0))
+                        //Log.d("Response: ", response.body().toString())
+                        // SharedPreference 에 jwt token 저장
+                        jwtToken = response.headers().value(0).toString()
+                        Log.d("jwt", jwtToken)
                     }
                     //응답 실패
                     else{
@@ -70,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 //통신 실패
-                override fun onFailure(call: Call<String>, t: Throwable) {
+                override fun onFailure(call: Call<KakaoResponse>, t: Throwable) {
                     Log.d("Connection Failure", t.localizedMessage)
                 }
             })
@@ -151,7 +157,7 @@ class MainActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        findViewById<Button>(R.id.SignInBtn).setOnClickListener {
+        SignInBtn.setOnClickListener {
             signInGoogle()
         }
     }
