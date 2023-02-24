@@ -4,33 +4,42 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.underthesea_aos.R
+import com.example.underthesea_aos.databinding.ActivityMainBinding
+import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_record.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
     lateinit var spinner: Spinner
     lateinit var result: TextView
+    val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
 
     private var imageFragment: View? = null
     var pickImageFromAlbum = 0
     var fbStorage: FirebaseStorage? = null
     var uriPhoto: Uri? = null
 
+    var satisfaction = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_record)
         spinner = findViewById(R.id.spinner)
-        result = findViewById(R.id.txt)
         var data = listOf("aaa", "bbb", "ccc");
         var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data);
         spinner.adapter = adapter
@@ -39,8 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         spinner.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                //position은 선택한 아이템의 위치를 넘겨주는 인자입니다.
-                result.text = data.get(position)
+
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
@@ -50,11 +58,83 @@ class MainActivity : AppCompatActivity() {
         btn_UploadPicture.setOnClickListener{
             onCreateView()
         }
+
+        //글자수 제한
+        with(binding){
+            txt_content.addTextChangedListener(object : TextWatcher {
+                var maxText = ""
+                override fun beforeTextChanged(pos: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    maxText = pos.toString()
+                }
+                override fun onTextChanged(pos: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    if(txt_content.lineCount > 3){
+                        Toast.makeText(this@MainActivity,
+                            "최대 3줄까지 입력 가능합니다.",
+                            Toast.LENGTH_SHORT).show()
+
+                        txt_content.setText(maxText)
+                        txt_content.setSelection(txt_content.length())
+                        count.setText("${txt_content.length()} / 30")
+                    } else if(txt_content.length() > 30){
+                        Toast.makeText(this@MainActivity, "최대 30자까지 입력 가능합니다.",
+                            Toast.LENGTH_SHORT).show()
+
+                        txt_content.setText(maxText)
+                        txt_content.setSelection(txt_content.length())
+                        count.setText("${txt_content.length()} / 30")
+                    } else {
+                        count.setText("${txt_content.length()} / 30")
+                    }
+                }
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+            })
+        }
+
+        //만족 버튼 클릭
+        smile.setOnClickListener{
+            satisfaction = 1
+
+        }
+
+        //불만족 버튼 클릭
+        sad.setOnClickListener{
+            satisfaction = 2
+        }
+
+        //백엔드와의 통신 성공 or 실패
+        fun PostRecords(record: RecordInfo){
+            record.img_url = uriPhoto.toString()
+            record.satisfaction = satisfaction
+            //record.date =
+            //record.content =
+
+            val call = RetrofitBuilder.retrofit().postRecordsResponse(record)
+            //비동기 방식의 통신
+            call.enqueue(object : Callback<String> {
+                //통신 성공
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    //응답 성공
+                    if(response.isSuccessful()){
+                        Log.d("Response: ", response.body().toString())
+                    }
+                    //응답 실패
+                    else{
+                        Log.d("Response: ", "failure")
+                    }
+                }
+                //통신 실패
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d("Connection Failure", t.localizedMessage)
+                }
+            })
+        }
     }
 
     //파이어 베이스 초기화하고 upload 클릭 시 동작할 리스너 구성
     fun onCreateView(){
-        Log.d("rrhhhhhhhhhhhhtfufj", "rrr")
         //imageFragment = inflater.inflate(R.layout.activity_record, container, false)
 
         //firebase storage 초기화
