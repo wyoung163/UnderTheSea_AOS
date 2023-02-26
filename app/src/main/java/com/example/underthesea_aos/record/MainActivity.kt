@@ -41,6 +41,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_record)
+
+        //back 버튼 클릭 시
+        val intent1 = Intent(this, com.example.underthesea_aos.calendar.MainActivity::class.java)
+        back.setOnClickListener{ startActivity(intent1) }
+
         spinner = findViewById(R.id.spinner)
         var data = listOf("aaa", "bbb", "ccc");
         var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data);
@@ -106,9 +111,14 @@ class MainActivity : AppCompatActivity() {
             satisfaction = 2
         }
 
-        //cancel 버튼 클릭
+        //cancel 버튼 클릭 -> 기록 view page로 이동
+        val intent2 = Intent(this, MainActivity3::class.java)
         btn_cancel.setOnClickListener{
-
+            startActivity(intent2)
+        }
+        //view 버튼 클릭 -> 기록 view page로 이동
+        view.setOnClickListener{
+            startActivity(intent2)
         }
 
         //save 버튼 클릭

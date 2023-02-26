@@ -1,10 +1,14 @@
 package com.example.underthesea_aos.record
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.R
 import kotlinx.android.synthetic.main.activity_record3.*
 
+/*
+   짧은 기록 view 페이지
+ */
 class MainActivity3 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,5 +21,11 @@ class MainActivity3 : AppCompatActivity() {
             date.text = intent.getStringExtra("date").toString()
         }
 
+        val intent1 = Intent(this, com.example.underthesea_aos.calendar.MainActivity::class.java)
+        back.setOnClickListener{ startActivity(intent1) }
+
+        //writing 버튼 클릭 -> 기록 작성 페이지로 이동
+        val intent2 = Intent(this, MainActivity::class.java)
+        writing.setOnClickListener { startActivity(intent2) }
     }
 }
