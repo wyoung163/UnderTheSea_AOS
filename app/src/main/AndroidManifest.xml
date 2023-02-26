@@ -112,12 +112,15 @@
         <activity
             android:name=".enter.MainActivity2"
             android:exported="true" />
-
+        <activity
+            android:name=".enter.MainActivity3"
+            android:exported="true" />
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="${KAKAO_LOGIN_API_KEY}" />
 
-        <activity android:name=".user.MainActivity"
+        <activity
+            android:name=".user.MainActivity"
             android:exported="true"/>
 
         <meta-data
