@@ -73,12 +73,14 @@
 
                 <Button
                     android:id="@+id/view"
-                    android:layout_width="80dp"
-                    android:layout_height="35dp"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
-                    android:background="@null"
+                    android:background="#00ff0000"
                     android:text="View"
+                    android:textAllCaps="false"
+                    android:textSize="17sp"
                     android:textColor="#44000000"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
@@ -87,13 +89,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                <Button
+                <ImageButton
                     android:id="@+id/writing"
-                    android:layout_width="100dp"
-                    android:layout_height="35dp"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
-                    android:background="@null"
+                    android:background="@drawable/writing_selected"
                     android:text="Writing"
                     android:textColor="#44000000"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
