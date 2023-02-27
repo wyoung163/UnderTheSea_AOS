@@ -5,6 +5,7 @@ import com.example.underthesea_aos.kakaoLogIn.GlobalApplication
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
@@ -25,17 +26,14 @@ class RetrofitBuilder : AppCompatActivity() {
     fun okHttpClient(interceptor: AppInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
-            .build() // okHttp에 인터셉터 추가
-           // .addInterceptor(HttpLoggingInterceptor().apply {
-           //     level = HttpLoggingInterceptor.Level.BODY })
-
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }).build() // okHttp에 인터셉터 추가
     }
 
     class AppInterceptor() : Interceptor {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
-//            Log.d("jwt3", jwtToken)
-//            Log.d("jwt3", GlobalApplication.prefs.token.toString())
             val newRequest = chain.request().newBuilder()
                 .addHeader("Authorization", GlobalApplication.prefs.token ?: "")
                 .build()
