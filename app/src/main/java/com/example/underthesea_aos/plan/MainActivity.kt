@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.underthesea_aos.R
-import com.example.underthesea_aos.databinding.ActivityAddBinding
 import com.example.underthesea_aos.databinding.ActivityMainBinding
 import com.example.underthesea_aos.databinding.ActivityPlanMainBinding
 import kotlinx.android.synthetic.main.activity_plan_main.*
