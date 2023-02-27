@@ -1,14 +1,15 @@
 package com.example.underthesea_aos.retrofit
 
 import com.example.underthesea_aos.kakaoLogIn.KakaoToken
+import com.example.underthesea_aos.plan.GetPlanRes
+import com.example.underthesea_aos.record.PostRecordRes
 import com.example.underthesea_aos.record.RecordInfo
-import com.example.underthesea_aos.record.RecordResponse
 import com.example.underthesea_aos.user.KakaoResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 public interface API {
     //kakao login
@@ -18,14 +19,28 @@ public interface API {
     //post records
     @POST("records")
     fun postRecordsResponse(
-        @Header("Authorization") jwtToken: String,
+        //@Header("Authorization") jwtToken: String,
         @Body record: RecordInfo
-    ): Call<RecordResponse>
+    ): Call<PostRecordRes>
 
     //get records
     @GET("records")
     fun getRecordsResponse(
-        @Header("token") token: String?,
-        @Body record: RecordInfo
+        //@Header("Authorization") jwtToken: String,
+        @Query("date") date: String
     ): Call<String>
+
+    //get plans
+    @GET("plans")
+    fun getPlansResponse(
+        //@Header("Authorization") jwtToken: String,
+        @Query("date") date: String
+    ): Call<List<GetPlanRes>>
+
+    //get plan
+    @GET("plan")
+    fun getPlanResponse(
+        //@Header("Authorization") jwtToken: String,
+        @Query("plan_id") plan_id: Long
+    ): Call<GetPlanRes>
 }
