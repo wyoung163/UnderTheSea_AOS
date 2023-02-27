@@ -6,16 +6,11 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.firebase.storage.FirebaseStorage
-import com.example.underthesea_aos.R
-import kotlinx.android.synthetic.main.activity_record.*
-import kotlinx.android.synthetic.main.activity_record.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,9 +25,12 @@ class RecordImageFragment : AppCompatActivity() {
 //        imageFragment!!.btn_UploadPicture.setOnClickListener {
 //            onCreateView()
 //        }
+        /*
         btn_UploadPicture.setOnClickListener{
             onCreateView()
         }
+
+         */
     }
 
     //파이어 베이스 초기화하고 upload 클릭 시 동작할 리스너 구성
@@ -58,7 +56,7 @@ class RecordImageFragment : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 //path for selected image
                 uriPhoto = data?.data
-                user_image.setImageURI(uriPhoto)
+                //user_image.setImageURI(uriPhoto)
 
                 if (ContextCompat.checkSelfPermission(
                         imageFragment!!.context,

@@ -18,7 +18,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar2)
 
-        calendar = findViewById(R.id.calendarView)
+        //back 버튼 클릭 시
+        //val intent1 = Intent(this, com.example.underthesea_aos.calendar.MainActivity::class.java)
+        //back.setOnClickListener{ startActivity(intent1) }
+
+        calendar = findViewById(R.id.calendar)
         calendar.setSelectedDate(CalendarDay.today())
 
         calendar.addDecorator(TodayDecorator(this@MainActivity))

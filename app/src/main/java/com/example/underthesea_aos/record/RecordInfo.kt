@@ -13,4 +13,7 @@ class RecordInfo {
     var satisfaction: Int? = null
         get() { return field }
         set(value) { field = value }
+    var plan_id: Int? = null
+        get() { return field }
+        set(value) { field = value }
 }
