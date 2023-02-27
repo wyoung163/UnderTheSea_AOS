@@ -3,16 +3,19 @@ package com.example.underthesea_aos.user
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.googleLogin.SecondActivity
+import com.example.underthesea_aos.kakaoLogIn.GlobalApplication
 import com.example.underthesea_aos.kakaoLogIn.KakaoToken
+import com.example.underthesea_aos.record.Prefs
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -24,15 +27,17 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.android.synthetic.main.activity_record.*
 import kotlinx.android.synthetic.main.activity_signin.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var auth : FirebaseAuth
     private lateinit var googleSignInClient : GoogleSignInClient
-    public var jwtToken = ""
+    var jwtToken = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
         //백엔드와의 통신 성공 or 실패
         fun Login(token: KakaoToken){
-            val call = RetrofitBuilder.retrofit().postKakaoLoginResponse(token)
+            val call = RetrofitBuilder().retrofit().postKakaoLoginResponse(token)
             //비동기 방식의 통신
             call.enqueue(object : Callback<KakaoResponse> {
                 //통신 성공
@@ -64,9 +69,10 @@ class MainActivity : AppCompatActivity() {
                     if(response.isSuccessful()){
                         //Log.d("Response: ", response.headers().value(0))
                         //Log.d("Response: ", response.body().toString())
-                        // SharedPreference 에 jwt token 저장
+                        // jwt token 저장
                         jwtToken = response.headers().value(0).toString().split(" ")[1]
-                        Log.d("jwt", jwtToken)
+                        GlobalApplication.prefs.token = jwtToken
+                        Log.d("jwt", GlobalApplication.prefs.token.toString())
                     }
                     //응답 실패
                     else{
@@ -78,6 +84,9 @@ class MainActivity : AppCompatActivity() {
                     Log.d("Connection Failure", t.localizedMessage)
                 }
             })
+            //화면전환을 테스트 하기 위한 임시 intent
+            val intent1 = Intent(this, com.example.underthesea_aos.calendar.MainActivity::class.java)
+            startActivity(intent1)
         }
 
         //accesstoken(, refreshtoken) 발급 과정 성공 or 실패
