@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.mainFab.setOnClickListener{
+        binding.addBtn.setOnClickListener{
             val intent = Intent(this, AddActivity::class.java)
             requestLauncher.launch(intent)
         }
