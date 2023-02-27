@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.plan.GetPlanRes
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
@@ -37,7 +38,6 @@ class MainActivity2 : AppCompatActivity() {
             // date라는 id의 textview의 문구를 date라는 키값을 가진 intent의 정보로 변경
             strDate = intent.getStringExtra("date").toString()
             Log.d("date", intent.getStringExtra("date").toString())
-            //date.text = intent.getStringExtra("date").toString()
             intent2.putExtra("date", strDate)
         }
 
@@ -45,15 +45,12 @@ class MainActivity2 : AppCompatActivity() {
         fun GetPlans(planDate: String){
             val call = RetrofitBuilder().retrofit().getPlansResponse(planDate)
             //비동기 방식의 통신
-            call.enqueue(object : Callback<List<GetPlanRes>> {
+            call.enqueue(object : Callback<BaseResponse<GetPlanRes>> {
                 //통신 성공
-                override fun onResponse(call: Call<List<GetPlanRes>>, response: Response<List<GetPlanRes>>) {
+                override fun onResponse(call: Call<BaseResponse<GetPlanRes>>, response: Response<BaseResponse<GetPlanRes>>) {
                     //응답 성공
                     if(response.isSuccessful()){
-                        Log.d("Response: ", response.body().toString())
-                        for (i in 0..(response.body()?.size ?: 0)){
-
-                        }
+                        //Log.d("Response2: ", Gson().toJson(response.body()))
                     }
                     //응답 실패
                     else{
@@ -61,7 +58,7 @@ class MainActivity2 : AppCompatActivity() {
                     }
                 }
                 //통신 실패
-                override fun onFailure(call: Call<List<GetPlanRes>>, t: Throwable) {
+                override fun onFailure(call: Call<BaseResponse<GetPlanRes>>, t: Throwable) {
                     Log.d("Connection Failure", t.localizedMessage)
                 }
             })

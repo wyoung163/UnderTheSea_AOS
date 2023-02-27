@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
         record.satisfaction = satisfaction
         record.plan_id = plan
 
-        val call = RetrofitBuilder.retrofit().postRecordsResponse(record)
+        val call = RetrofitBuilder().retrofit().postRecordsResponse(record)
         //비동기 방식의 통신
         call.enqueue(object : Callback<PostRecordRes> {
             //통신 성공
