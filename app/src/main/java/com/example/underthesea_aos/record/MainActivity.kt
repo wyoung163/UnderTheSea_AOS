@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.databinding.ActivityMainBinding
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
+import com.example.underthesea_aos.retrofit.RetrofitBuilder.jwtToken
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_record.*
 import retrofit2.Call
@@ -136,7 +137,7 @@ class MainActivity : AppCompatActivity() {
         record.satisfaction = satisfaction
         record.plan_id = plan
 
-        val call = RetrofitBuilder.retrofit().postRecordsResponse(record)
+        val call = RetrofitBuilder.retrofit().postRecordsResponse(jwtToken, record)
         //비동기 방식의 통신
         call.enqueue(object : Callback<RecordResponse> {
             //통신 성공

@@ -7,6 +7,7 @@ import com.example.underthesea_aos.user.KakaoResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 public interface API {
@@ -16,9 +17,15 @@ public interface API {
     
     //post records
     @POST("records")
-    fun postRecordsResponse(@Body record: RecordInfo): Call<RecordResponse>
+    fun postRecordsResponse(
+        @Header("Authorization") jwtToken: String,
+        @Body record: RecordInfo
+    ): Call<RecordResponse>
 
     //get records
     @GET("records")
-    fun getRecordsResponse(@Body record: RecordInfo): Call<String>
+    fun getRecordsResponse(
+        @Header("token") token: String?,
+        @Body record: RecordInfo
+    ): Call<String>
 }

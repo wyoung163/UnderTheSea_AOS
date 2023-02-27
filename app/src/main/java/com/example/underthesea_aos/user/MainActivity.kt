@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                         //Log.d("Response: ", response.headers().value(0))
                         //Log.d("Response: ", response.body().toString())
                         // SharedPreference 에 jwt token 저장
-                        jwtToken = response.headers().value(0).toString()
+                        jwtToken = response.headers().value(0).toString().split(" ")[1]
                         Log.d("jwt", jwtToken)
                     }
                     //응답 실패
