@@ -13,26 +13,37 @@ import java.util.Date
 
 class AddActivity : AppCompatActivity() {
     lateinit var planAdapter: PlanAdapter
+    private val dataSet = mutableListOf<RecommendationData>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_add)
 
         showDate()
-        planadd()
+        initRecycler()
 
     }
 
-    fun showDate(){
+    private fun showDate(){
         val date = Date()
         val formatType = SimpleDateFormat("yyyy-MM-dd")
         dateTextView.text = formatType.format(date)
     }
 
-    fun planadd(){
+    private fun initRecycler(){
         planAdapter = PlanAdapter(this)
 
-        imageview_plan_recycler.adapter = planAdapter
-        imageview_plan_recycler.addItemDecoration(VeritcalItemDecorator(20))
-        imageview_plan_recycler.addItemDecoration(HorizontalItemDecorator(10))
+        recommendation.adapter = planAdapter
+        recommendation.addItemDecoration(VeritcalItemDecorator(20))
+        recommendation.addItemDecoration(HorizontalItemDecorator(10))
+
+        dataSet.apply {
+            add(RecommendationData(img1 = R.drawable.rectangle1, img2 = R.drawable.rectangle1))
+            add(RecommendationData(img1 = R.drawable.rectangle1, img2 = R.drawable.rectangle1))
+            add(RecommendationData(img1 = R.drawable.rectangle1, img2 = R.drawable.rectangle1))
+        }
+
+        planAdapter.dataSet = dataSet
+        planAdapter.notifyDataSetChanged()
     }
 }
