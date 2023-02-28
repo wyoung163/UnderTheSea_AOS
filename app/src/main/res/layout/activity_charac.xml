@@ -44,6 +44,7 @@
     </FrameLayout>
 
     <ImageView
+        android:id="@+id/btn_confirm"
         android:paddingTop="10dp"
         android:layout_width="380dp"
         android:layout_height="110dp"
