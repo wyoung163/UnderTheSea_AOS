@@ -1,11 +1,12 @@
 package com.example.underthesea_aos.character
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.underthesea_aos.R
+import com.example.underthesea_aos.calendar.MainActivity
 import kotlinx.android.synthetic.main.activity_charac.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,11 +17,14 @@ class MainActivity : AppCompatActivity() {
         add(R.drawable.penguin1)
         add(R.drawable.dolphin1)
     }
+    lateinit var intent1: Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_charac)
         mainInitViewPager2()
+        //캘린더로 화면 전환할 intent
+        intent1 = Intent(this, MainActivity::class.java)
     }
 
     private fun mainInitViewPager2(){
@@ -40,7 +44,8 @@ class MainActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 btn_confirm.setOnClickListener{
                     characNum = position;
-                    Log.d("num", characNum.toString())
+                    //Log.d("num", characNum.toString())
+                    startActivity(intent1)
                 }
             }
         })
