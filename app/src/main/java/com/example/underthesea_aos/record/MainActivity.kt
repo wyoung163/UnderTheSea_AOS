@@ -4,33 +4,57 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.underthesea_aos.R
+import com.example.underthesea_aos.databinding.ActivityMainBinding
+import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_record.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
+/*
+    기록 작성 화면
+ */
 class MainActivity : AppCompatActivity() {
     lateinit var spinner: Spinner
     lateinit var result: TextView
-
+    val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
     private var imageFragment: View? = null
     var pickImageFromAlbum = 0
     var fbStorage: FirebaseStorage? = null
     var uriPhoto: Uri? = null
+    var satisfaction = 1
+    var plan = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_record)
+
+        //back 버튼 클릭 시
+        val intent1 = Intent(this, com.example.underthesea_aos.calendar.MainActivity::class.java)
+        back.setOnClickListener{ startActivity(intent1) }
+
+        //캘린더로부터 날짜 받아올 인텐트
+        if(intent.hasExtra("date")) {  //date라는 키값을 가진 intent가 정보를 가지고 있다면 실행
+            // date라는 id의 textview의 문구를 date라는 키값을 가진 intent의 정보로 변경
+            val strDate = intent.getStringExtra("date").toString()
+            Log.d("date", intent.getStringExtra("date").toString())
+            date.text = strDate
+        }
+
         spinner = findViewById(R.id.spinner)
-        result = findViewById(R.id.txt)
         var data = listOf("aaa", "bbb", "ccc");
         var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data);
         spinner.adapter = adapter
@@ -39,8 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         spinner.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                //position은 선택한 아이템의 위치를 넘겨주는 인자입니다.
-                result.text = data.get(position)
+               plan = spinner.selectedItem.hashCode()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
@@ -50,11 +73,100 @@ class MainActivity : AppCompatActivity() {
         btn_UploadPicture.setOnClickListener{
             onCreateView()
         }
+
+        //글자수 제한
+        with(binding){
+            txt_content.addTextChangedListener(object : TextWatcher {
+                var maxText = ""
+                override fun beforeTextChanged(pos: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    maxText = pos.toString()
+                }
+                override fun onTextChanged(pos: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    if(txt_content.lineCount > 3){
+                        Toast.makeText(this@MainActivity,
+                            "최대 3줄까지 입력 가능합니다.",
+                            Toast.LENGTH_SHORT).show()
+
+                        txt_content.setText(maxText)
+                        txt_content.setSelection(txt_content.length())
+                        count.setText("${txt_content.length()} / 30")
+                    } else if(txt_content.length() > 30){
+                        Toast.makeText(this@MainActivity, "최대 30자까지 입력 가능합니다.",
+                            Toast.LENGTH_SHORT).show()
+
+                        txt_content.setText(maxText)
+                        txt_content.setSelection(txt_content.length())
+                        count.setText("${txt_content.length()} / 30")
+                    } else {
+                        count.setText("${txt_content.length()} / 30")
+                    }
+                }
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+            })
+        }
+
+        //만족 버튼 클릭
+        smile.setOnClickListener{
+            satisfaction = 1
+        }
+
+        //불만족 버튼 클릭
+        sad.setOnClickListener{
+            Log.d("Response: ", txt_content.context.toString())
+            satisfaction = 2
+        }
+
+        //cancel 버튼 클릭 -> 기록 view page로 이동
+        val intent2 = Intent(this, MainActivity3::class.java)
+        btn_cancel.setOnClickListener{
+            startActivity(intent2)
+        }
+        //view 버튼 클릭 -> 기록 view page로 이동
+        view.setOnClickListener{
+            startActivity(intent2)
+        }
+
+        //save 버튼 클릭
+        val recordInfo = RecordInfo()
+        btn_save.setOnClickListener{
+            PostRecords(recordInfo)
+        }
+    }
+
+    //백엔드와의 통신 성공 or 실패
+    fun PostRecords(record: RecordInfo){
+        record.date = "2021-04-05"
+        record.content = txt_content.text.toString()
+        record.img_url = uriPhoto.toString()
+        record.satisfaction = satisfaction
+        record.plan_id = plan
+
+        val call = RetrofitBuilder().retrofit().postRecordsResponse(record)
+        //비동기 방식의 통신
+        call.enqueue(object : Callback<PostRecordRes> {
+            //통신 성공
+            override fun onResponse(call: Call<PostRecordRes>, response: Response<PostRecordRes>) {
+                //응답 성공
+                if(response.isSuccessful()){
+                    Log.d("Response: ", response.body().toString())
+                }
+                //응답 실패
+                else{
+                    Log.d("Response: ", "failure")
+                }
+            }
+            //통신 실패
+            override fun onFailure(call: Call<PostRecordRes>, t: Throwable) {
+                Log.d("Connection Failure", t.localizedMessage)
+            }
+        })
     }
 
     //파이어 베이스 초기화하고 upload 클릭 시 동작할 리스너 구성
     fun onCreateView(){
-        Log.d("rrhhhhhhhhhhhhtfufj", "rrr")
         //imageFragment = inflater.inflate(R.layout.activity_record, container, false)
 
         //firebase storage 초기화

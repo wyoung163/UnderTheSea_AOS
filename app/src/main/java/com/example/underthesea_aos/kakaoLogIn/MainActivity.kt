@@ -1,17 +1,16 @@
 package com.example.underthesea_aos.kakaoLogIn
 
-import android.content.ContentValues
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
+import com.example.underthesea_aos.user.KakaoResponse
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause.*
-import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,11 +39,11 @@ class MainActivity : AppCompatActivity() {
 
         //백엔드와의 통신 성공 or 실패
         fun Login(token: KakaoToken){
-            val call = RetrofitBuilder.api.getKakaoLoginResponse(token)
+            val call = RetrofitBuilder().retrofit().postKakaoLoginResponse(token)
             //비동기 방식의 통신
-            call.enqueue(object : Callback<String>{
+            call.enqueue(object : Callback<BaseResponse<KakaoResponse>>{
                 //통신 성공
-                override fun onResponse(call: Call<String>, response: Response<String>) {
+                override fun onResponse(call: Call<BaseResponse<KakaoResponse>>, response: Response<BaseResponse<KakaoResponse>>) {
                     //응답 성공
                     if(response.isSuccessful()){
                         Log.d("Response: ", response.body().toString())
@@ -55,14 +54,14 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 //통신 실패
-                override fun onFailure(call: Call<String>, t: Throwable) {
+                override fun onFailure(call: Call<BaseResponse<KakaoResponse>>, t: Throwable) {
                     Log.d("Connection Failure", t.localizedMessage)
                 }
             })
         }
 
         //accesstoken(, refreshtoken) 발급 과정 성공 or 실패
-        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+        val callback: (OAuthToken?, Throwable?) -> Unit = {token, error ->
             //발급 실패
             if (error != null) {
                 when {
@@ -97,7 +96,7 @@ class MainActivity : AppCompatActivity() {
             }
             //발급 성공
             else if (token != null) {
-                Log.d(ContentValues.TAG, "token : ${token}")
+                //Log.d(ContentValues.TAG, "token : ${token}")
 
                 Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                 //val intent = Intent(this, SecondActivity::class.java)
