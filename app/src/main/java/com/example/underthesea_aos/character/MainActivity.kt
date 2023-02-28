@@ -29,14 +29,5 @@ class MainActivity : AppCompatActivity() {
         }
         viewPager.setPageTransformer(MarginPageTransformer(0))
         viewPager.setPadding(100,0,100,0)
-        //mainViewChangeEvent()
     }
-//
-//    private fun mainViewChangeEvent(){
-//        viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
-//            override fun onPageSelected(position: Int) {
-//
-//            }
-//        })
-//    }
 }
