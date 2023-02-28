@@ -122,9 +122,8 @@
         <activity
             android:name=".user.MainActivity"
             android:exported="true"/>
-
-
-        <activity android:name=".retrofit.RetrofitBuilder"
+        <activity
+            android:name=".character.MainActivity"
             android:exported="true"/>
 
         <meta-data
