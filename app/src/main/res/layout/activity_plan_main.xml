@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="264dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:background="#7EEED4">
         <ImageButton
             android:id="@+id/back_img"
@@ -42,14 +42,26 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5">
+        android:layout_height="0dp"
+        android:layout_weight="10">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_recyclerView"
-            tools:listitem="@layout/activity_plan_preview_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:layout_height="match_parent"
+            tools:listitem="@layout/activity_plan_preview_recyclerview"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="#5C89FC"
+            app:icon="@android:drawable/ic_input_add"
+            android:layout_marginStart="320dp"
+            android:layout_marginTop="350dp"/>
+    </RelativeLayout>
+
+
+        <!--<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/add_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,7 +72,15 @@
             app:backgroundTint="#5C89FC"
             app:icon="@android:drawable/ic_input_add"
             app:iconTint="@color/white" />
-    </RelativeLayout>
+-->
 
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="#5C89FC"
+        app:icon="@android:drawable/ic_input_add"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="350dp"/>-->
 </LinearLayout>
 
