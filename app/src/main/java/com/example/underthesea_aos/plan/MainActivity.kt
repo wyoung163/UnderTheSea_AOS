@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         val requestLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         )
-        //contract -> contract는 ActivityResultLauncher로 실행될 요청을 처리하는 역할
         {
             it.data!!.getStringExtra("result")?.let {
                 datas?.add(it)
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.addBtn.setOnClickListener {
             val intent = Intent(this, AddActivity::class.java)
-            requestLauncher.launch(intent)//ActivityResultLauncher 실행행        }
+            requestLauncher.launch(intent)
 
             datas = savedInstanceState?.let {
                 it.getStringArrayList("datas")?.toMutableList()
