@@ -3,27 +3,18 @@ package com.example.underthesea_aos.googleLogin
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
-import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.R
-import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.internal.StringResourceValueReader
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.functions.FirebaseFunctionsException
-import org.json.JSONObject
 
 class MainActivity :AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
