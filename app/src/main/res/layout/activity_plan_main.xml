@@ -46,21 +46,21 @@
         android:layout_weight="5">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main_recyclerView"
+            tools:listitem="@layout/activity_plan_preivew_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/add_btn"
             android:layout_width="wrap_content"
-            android:layout_height="699dp"
-            android:layout_marginTop="430dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="320dp"
+            android:layout_marginTop="430dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="20dp"
             app:backgroundTint="#5C89FC"
             app:icon="@android:drawable/ic_input_add"
             app:iconTint="@color/white" />
     </RelativeLayout>
-
 
 </LinearLayout>
 
