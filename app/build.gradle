@@ -85,6 +85,15 @@ dependencies {
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.0'
     implementation 'com.kakao.sdk:v2-user:2.10.0'
 
+    //slide view
+    implementation("androidx.slidingpanelayout:slidingpanelayout:1.2.0")
+
+    //calendar
+    implementation 'com.prolificinteractive:material-calendarview:1.4.3'
+
+    //view pager
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
     //Retrofit2
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
