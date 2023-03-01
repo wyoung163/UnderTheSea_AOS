@@ -1,19 +1,28 @@
 package com.example.underthesea_aos.plan
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.example.underthesea_aos.R
 import kotlinx.android.synthetic.main.activity_plan_add.*
 import kotlinx.android.synthetic.main.activity_plan_recyclerview.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.underthesea_aos.databinding.ActivityPlanPreivewRecyclerviewBinding
 import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
 import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
 import java.text.SimpleDateFormat
 import java.util.Date
 
+/*
+     계획 상세 페이지
+ */
+
 class AddActivity : AppCompatActivity() {
     lateinit var planAdapter: PlanAdapter
     private val dataSet = mutableListOf<RecommendationData>()
+    lateinit var binding : ActivityPlanPreivewRecyclerviewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +30,6 @@ class AddActivity : AppCompatActivity() {
 
         showDate()
         initRecycler()
-
     }
 
     private fun showDate(){
@@ -46,4 +54,5 @@ class AddActivity : AppCompatActivity() {
         planAdapter.dataSet = dataSet
         planAdapter.notifyDataSetChanged()
     }
+
 }
