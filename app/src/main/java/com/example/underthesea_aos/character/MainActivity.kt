@@ -2,15 +2,22 @@ package com.example.underthesea_aos.character
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.calendar.MainActivity
+import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import kotlinx.android.synthetic.main.activity_charac.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     var characNum = 0
+
     private val imageList = mutableListOf<Int>().apply {
         add(R.drawable.turtle1)
         add(R.drawable.seal1)
@@ -25,6 +32,34 @@ class MainActivity : AppCompatActivity() {
         mainInitViewPager2()
         //캘린더로 화면 전환할 intent
         intent1 = Intent(this, MainActivity::class.java)
+    }
+
+
+    //백엔드와의 통신 성공 or 실패
+    fun PutCharacter(character: CharacterInfo) {
+        val call = RetrofitBuilder().retrofit().putCharacterResponse(character)
+        //비동기 방식의 통신
+        call.enqueue(object : Callback<BaseResponse<Long>> {
+            //통신 성공
+            override fun onResponse(
+                call: Call<BaseResponse<Long>>,
+                response: Response<BaseResponse<Long>>
+            ) {
+                //응답 성공
+                if (response.isSuccessful()) {
+                    Log.d("Response: ", response.body().toString())
+                }
+                //응답 실패
+                else {
+                    Log.d("Response: ", "failure")
+                }
+            }
+
+            //통신 실패
+            override fun onFailure(call: Call<BaseResponse<Long>>, t: Throwable) {
+                Log.d("Connection Failure", t.localizedMessage)
+            }
+        })
     }
 
     private fun mainInitViewPager2(){
@@ -44,7 +79,10 @@ class MainActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 btn_confirm.setOnClickListener{
                     characNum = position;
-                    //Log.d("num", characNum.toString())
+                    val characInfo = CharacterInfo()
+                    characInfo.character_id = characNum.toLong()
+                    characInfo.character_name = "임시이름"
+                    PutCharacter(characInfo)
                     startActivity(intent1)
                 }
             }

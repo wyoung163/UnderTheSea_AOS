@@ -1,6 +1,7 @@
 package com.example.underthesea_aos.retrofit
 
 import com.example.underthesea_aos.BaseResponse.BaseResponse
+import com.example.underthesea_aos.character.CharacterInfo
 import com.example.underthesea_aos.kakaoLogIn.KakaoToken
 import com.example.underthesea_aos.plan.GetPlanRes
 import com.example.underthesea_aos.plan.Plan
@@ -8,10 +9,7 @@ import com.example.underthesea_aos.record.PostRecordRes
 import com.example.underthesea_aos.record.RecordInfo
 import com.example.underthesea_aos.user.KakaoResponse
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 public interface API {
     //kakao login
@@ -19,7 +17,13 @@ public interface API {
     fun postKakaoLoginResponse(
         @Body token: KakaoToken
     ): Call<BaseResponse<KakaoResponse>>
-    
+
+    //put character
+    @PUT("character")
+    fun putCharacterResponse(
+        @Body character: CharacterInfo
+    ): Call<BaseResponse<Long>>
+
     //post records
     @POST("records")
     fun postRecordsResponse(
