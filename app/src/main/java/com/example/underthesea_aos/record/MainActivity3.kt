@@ -2,12 +2,13 @@ package com.example.underthesea_aos.record
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.R
 import kotlinx.android.synthetic.main.activity_record3.*
 
 /*
-   짧은 기록 view 페이지
+   기록 상세 view 페이지
  */
 class MainActivity3 : AppCompatActivity() {
 
@@ -26,7 +27,10 @@ class MainActivity3 : AppCompatActivity() {
         //캘린더로부터 날짜 받아올 인텐트
         if(intent.hasExtra("date")) {  //date라는 키값을 가진 intent가 정보를 가지고 있다면 실행
             // date라는 id의 textview의 문구를 date라는 키값을 가진 intent의 정보로 변경
-            date.text = intent.getStringExtra("date").toString()
+            val strDate = intent.getStringExtra("date").toString()
+            Log.d("date", intent.getStringExtra("date").toString())
+            date.text = strDate
+            intent2.putExtra("date", strDate)
         }
     }
 }
