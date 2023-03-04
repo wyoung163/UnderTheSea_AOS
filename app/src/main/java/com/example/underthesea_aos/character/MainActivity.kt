@@ -8,7 +8,7 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
-import com.example.underthesea_aos.calendar.MainActivity
+import com.example.underthesea_aos.main.MainActivity
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.example.underthesea_aos.user.UserResponse
 import kotlinx.android.synthetic.main.activity_charac.*
