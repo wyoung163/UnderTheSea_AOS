@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
                     characInfo.character_id = characNum.toLong()
                     characInfo.character_name = "임시이름"
                     PutCharacter(characInfo)
-                    GetUser()
+                    //GetUser()
                     startActivity(intent1)
                 }
             }
