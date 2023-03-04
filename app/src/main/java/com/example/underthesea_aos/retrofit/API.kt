@@ -8,6 +8,7 @@ import com.example.underthesea_aos.plan.Plan
 import com.example.underthesea_aos.record.PostRecordRes
 import com.example.underthesea_aos.record.RecordInfo
 import com.example.underthesea_aos.user.KakaoResponse
+import com.example.underthesea_aos.user.UserResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -17,6 +18,11 @@ public interface API {
     fun postKakaoLoginResponse(
         @Body token: KakaoToken
     ): Call<BaseResponse<KakaoResponse>>
+
+    //get user
+    @GET("userInfo")
+    fun getUserResponse(
+    ): Call<BaseResponse<UserResponse>>
 
     //put character
     @PUT("character")

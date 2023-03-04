@@ -10,6 +10,7 @@ import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.calendar.MainActivity
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
+import com.example.underthesea_aos.user.UserResponse
 import kotlinx.android.synthetic.main.activity_charac.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    //백엔드와의 통신 성공 or 실패
+    //캐릭터 정보 update
     fun PutCharacter(character: CharacterInfo) {
         val call = RetrofitBuilder().retrofit().putCharacterResponse(character)
         //비동기 방식의 통신
@@ -62,6 +63,33 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    //업데이트된 캐릭터 정보를 포함한 사용자 정보 받아오기
+    fun GetUser() {
+        val call = RetrofitBuilder().retrofit().getUserResponse()
+        //비동기 방식의 통신
+        call.enqueue(object : Callback<BaseResponse<UserResponse>> {
+            //통신 성공
+            override fun onResponse(
+                call: Call<BaseResponse<UserResponse>>,
+                response: Response<BaseResponse<UserResponse>>
+            ) {
+                //응답 성공
+                if (response.isSuccessful()) {
+                    Log.d("Response: ", response.body()!!.result.toString())
+                }
+                //응답 실패
+                else {
+                    Log.d("Response: ", "failure")
+                }
+            }
+
+            //통신 실패
+            override fun onFailure(call: Call<BaseResponse<UserResponse>>, t: Throwable) {
+                Log.d("Connection Failure", t.localizedMessage)
+            }
+        })
+    }
+
     private fun mainInitViewPager2(){
         viewPager.apply {
             clipToPadding= false
@@ -83,6 +111,7 @@ class MainActivity : AppCompatActivity() {
                     characInfo.character_id = characNum.toLong()
                     characInfo.character_name = "임시이름"
                     PutCharacter(characInfo)
+                    GetUser()
                     startActivity(intent1)
                 }
             }
