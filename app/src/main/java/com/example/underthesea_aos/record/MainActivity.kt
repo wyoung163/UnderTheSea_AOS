@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_record)
 
         //back 버튼 클릭 시
-        val intent1 = Intent(this, com.example.underthesea_aos.calendar.MainActivity::class.java)
+        val intent1 = Intent(this, com.example.underthesea_aos.calendar_record.MainActivity::class.java)
         back.setOnClickListener{ startActivity(intent1) }
 
         spinner = findViewById(R.id.spinner)

@@ -92,8 +92,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".calendar.MainActivity"
+            android:name=".calendar_record.MainActivity"
             android:exported="true" /> <!-- 계획을 위한 캘린더 -->
+        <activity
+            android:name=".calendar_plan.MainActivity"
+            android:exported="true" />
         <activity
             android:name=".calendar2.MainActivity"
             android:exported="true" />
