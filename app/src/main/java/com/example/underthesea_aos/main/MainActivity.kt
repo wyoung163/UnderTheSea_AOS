@@ -32,13 +32,13 @@ class MainActivity : AppCompatActivity() {
         charac_img.setImageResource(imageList[characNum])
 
         //plan calendar로 이동
-        val intent1 = Intent(this, com.example.underthesea_aos.plan.MainActivity::class.java)
+        val intent1 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
         plan.setOnClickListener{
             startActivity(intent1)
         }
 
         //record calendar로 이동
-        val intent2 = Intent(this, com.example.underthesea_aos.calendar.MainActivity::class.java)
+        val intent2 = Intent(this, com.example.underthesea_aos.calendar_record.MainActivity::class.java)
         record.setOnClickListener{
             startActivity(intent2)
         }

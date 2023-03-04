@@ -24,7 +24,7 @@ class MainActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_recoed2)
 
         //back 버튼 클릭 시
-        val intent1 = Intent(this, com.example.underthesea_aos.calendar.MainActivity::class.java)
+        val intent1 = Intent(this, com.example.underthesea_aos.calendar_record.MainActivity::class.java)
         back.setOnClickListener{ startActivity(intent1) }
 
         //add 버튼 클릭 -> 새 기록 작성 페이지로 이동
