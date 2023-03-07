@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     var uriPhoto: Uri? = null
     var satisfaction = 1
     var plan = -1
+    var date2 = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         if(intent.hasExtra("date")) {  //date라는 키값을 가진 intent가 정보를 가지고 있다면 실행
             // date라는 id의 textview의 문구를 date라는 키값을 가진 intent의 정보로 변경
             val strDate = intent.getStringExtra("date").toString()
+            date2 = strDate
             Log.d("date", intent.getStringExtra("date").toString())
             date.text = strDate
         }
@@ -138,7 +140,7 @@ class MainActivity : AppCompatActivity() {
 
     //백엔드와의 통신 성공 or 실패
     fun PostRecords(record: RecordInfo){
-        record.date = "2021-04-05"
+        record.date = date2
         record.content = txt_content.text.toString()
         record.img_url = uriPhoto.toString()
         record.satisfaction = satisfaction
