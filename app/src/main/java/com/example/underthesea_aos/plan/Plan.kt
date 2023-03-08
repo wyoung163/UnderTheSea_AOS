@@ -7,6 +7,9 @@ class Plan {
     var planId: Long? = null
         get() { return field }
         set(value) { field = value }
+    var title: String? = null
+        get() { return field }
+        set(value) { field = value }
     var friend: Friend? = null
         get() { return field }
         set(value) { field = value }

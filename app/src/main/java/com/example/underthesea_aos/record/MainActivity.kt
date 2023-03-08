@@ -13,8 +13,10 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.databinding.ActivityMainBinding
+import com.example.underthesea_aos.plan.GetPlanRes
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_record.*
@@ -36,8 +38,9 @@ class MainActivity : AppCompatActivity() {
     var fbStorage: FirebaseStorage? = null
     var uriPhoto: Uri? = null
     var satisfaction = 1
-    var plan = -1
-    var date2 = ""
+    lateinit var plan: String
+    var strDate = ""
+    var planTitles =  ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,22 +53,21 @@ class MainActivity : AppCompatActivity() {
         //캘린더로부터 날짜 받아올 인텐트
         if(intent.hasExtra("date")) {  //date라는 키값을 가진 intent가 정보를 가지고 있다면 실행
             // date라는 id의 textview의 문구를 date라는 키값을 가진 intent의 정보로 변경
-            val strDate = intent.getStringExtra("date").toString()
-            date2 = strDate
+            strDate = intent.getStringExtra("date").toString()
             Log.d("date", intent.getStringExtra("date").toString())
             date.text = strDate
         }
 
+        GetPlans(strDate)
         spinner = findViewById(R.id.spinner)
-        var data = listOf("aaa", "bbb", "ccc");
-        var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data);
+        var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, planTitles);
         spinner.adapter = adapter
 
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
 
         spinner.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-               plan = spinner.selectedItem.hashCode()
+               plan = spinner.selectedItem.toString()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
@@ -138,13 +140,41 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //백엔드와의 통신 성공 or 실패
+    //날짜에 해당하는 계획 목록 불러올 API
+    fun GetPlans(date: String){
+        val call = RetrofitBuilder().retrofit().getPlansResponse(date)
+        //비동기 방식의 통신
+        call.enqueue(object : Callback<BaseResponse<GetPlanRes>> {
+            //통신 성공
+            override fun onResponse(call: Call<BaseResponse<GetPlanRes>>, response: Response<BaseResponse<GetPlanRes>>) {
+                //응답 성공
+                if(response.isSuccessful()){
+                    Log.d("Response: ", response.body()!!.result.toString())
+                    if(response!!.body()?.result?.plans != null){
+                        for(i in 0..response.body()!!.result!!.plans!!.size-1) {
+                            planTitles.add(response.body()!!.result!!.plans!![i].title.toString());
+                        }
+                    }
+                }
+                //응답 실패
+                else{
+                    Log.d("Response: ", "failure")
+                }
+            }
+            //통신 실패
+            override fun onFailure(call: Call<BaseResponse<GetPlanRes>>, t: Throwable) {
+                Log.d("Connection Failure", t.localizedMessage)
+            }
+        })
+    }
+
+    //기록 작성 후 서버와 통신할 API
     fun PostRecords(record: RecordInfo){
-        record.date = date2
+        record.date = strDate
         record.content = txt_content.text.toString()
         record.img_url = uriPhoto.toString()
         record.satisfaction = satisfaction
-        record.plan_id = plan
+        //record.plan_id = plan
 
         val call = RetrofitBuilder().retrofit().postRecordsResponse(record)
         //비동기 방식의 통신
