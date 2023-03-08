@@ -174,7 +174,7 @@ class MainActivity : AppCompatActivity() {
         record.content = txt_content.text.toString()
         record.img_url = uriPhoto.toString()
         record.satisfaction = satisfaction
-        record.plan_id = plan
+        //record.plan_id = plan
 
         val call = RetrofitBuilder().retrofit().postRecordsResponse(record)
         //비동기 방식의 통신
