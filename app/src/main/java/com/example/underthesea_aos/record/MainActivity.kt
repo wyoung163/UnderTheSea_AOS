@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     var satisfaction = 1
     lateinit var plan: String
     var strDate = ""
-    lateinit var planTitles: Array<String>
+    var planTitles =  ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
             date.text = strDate
         }
 
+        GetPlans(strDate)
         spinner = findViewById(R.id.spinner)
         var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, planTitles);
         spinner.adapter = adapter
@@ -149,8 +150,10 @@ class MainActivity : AppCompatActivity() {
                 //응답 성공
                 if(response.isSuccessful()){
                     Log.d("Response: ", response.body()!!.result.toString())
-                    for(i in 0..response.body()!!.result!!.plans!!.size) {
-                        planTitles[i] = response.body()!!.result!!.plans!![i].title.toString();
+                    if(response!!.body()?.result?.plans != null){
+                        for(i in 0..response.body()!!.result!!.plans!!.size-1) {
+                            planTitles.add(response.body()!!.result!!.plans!![i].title.toString());
+                        }
                     }
                 }
                 //응답 실패
