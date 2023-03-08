@@ -14,7 +14,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    var characNum = 0
     private val imageList = mutableListOf<Int>().apply {
         add(R.drawable.turtle1)
         add(R.drawable.seal1)
@@ -26,10 +25,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
+        //캐릭터 불러오기
         GetUser()
-        Log.d("Charac: ", characNum.toString())
-        Log.d("Charac: ", imageList[0].toString())
-        charac_img.setImageResource(imageList[characNum])
 
         //plan calendar로 이동
         val intent1 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
@@ -56,12 +53,14 @@ class MainActivity : AppCompatActivity() {
             ) {
                 //응답 성공
                 if (response.isSuccessful()) {
-                    Log.d("Response: ", response.body()!!.result!!.characterId.toString())
-                    characNum = response.body()!!.result!!.characterId!!.toInt()
+                    //Log.d("Response2: ", response.body()!!.result!!.characterId.toString())
+                    val characNum = response.body()!!.result!!.characterId!!.toInt()
+                    Log.d("Response2: ", characNum.toString())
+                    charac_img.setImageResource(imageList[characNum])
                 }
                 //응답 실패
                 else {
-                    Log.d("Response: ", "failure")
+                    Log.d("Response2: ", "failure")
                 }
             }
 
