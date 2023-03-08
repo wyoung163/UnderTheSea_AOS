@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_record)
 
         //back 버튼 클릭 시
-        val intent1 = Intent(this, com.example.underthesea_aos.calendar.MainActivity::class.java)
+        val intent1 = Intent(this, com.example.underthesea_aos.calendar_record.MainActivity::class.java)
         back.setOnClickListener{ startActivity(intent1) }
 
         //캘린더로부터 날짜 받아올 인텐트

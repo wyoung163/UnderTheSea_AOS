@@ -91,8 +91,8 @@ class MainActivity : AppCompatActivity() {
             val jsonObject = JSONObject()
             val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonObject.toString())
 
-            //화면전환을 테스트 하기 위한 임시 intent
-            val intent1 = Intent(this, com.example.underthesea_aos.calendar.MainActivity::class.java)
+            //캐릭터 선택 페이지 전환활 intent
+            val intent1 = Intent(this, com.example.underthesea_aos.character.MainActivity::class.java)
             startActivity(intent1)
         }
 
