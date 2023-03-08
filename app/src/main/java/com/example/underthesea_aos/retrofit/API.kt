@@ -42,6 +42,12 @@ public interface API {
         @Query("date") date: String
     ): Call<String>
 
+    //post plans
+    @POST("plans")
+    fun postPlanResponse(
+        @Body plan: Plan
+    ):Call<BaseResponse<Plan>>
+
     //get plans
     @GET("plans")
     fun getPlansResponse(
