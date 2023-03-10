@@ -48,21 +48,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
 
-        /*
-        // 로그인 정보 확인
-        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-            if (error != null) {
-                Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
-            }
-            else if (tokenInfo != null) {
-                Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, SecondActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
-            }
-        }
-         */
-
         //백엔드와의 통신 성공 or 실패
         fun Login(token: KakaoToken){
             val call = RetrofitBuilder().retrofit().postKakaoLoginResponse(token)
@@ -176,9 +161,9 @@ class MainActivity : AppCompatActivity() {
         launcher.launch(signInIntent)
     }
 
-    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            result ->
-        if (result.resultCode == Activity.RESULT_OK) {
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+    {
+            result -> if (result.resultCode == Activity.RESULT_OK) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             handleResults(task)
         }
@@ -199,10 +184,11 @@ class MainActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential((account).idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {//로그인 성공 시
-                //val intent: Intent = Intent(this, SecondActivity::class.java)
-                intent.putExtra("email", account.email)
-                intent.putExtra("name", account.displayName)
-                //startActivity(intent)
+                val intent2: Intent = Intent(this, com.example.underthesea_aos.character.MainActivity::class.java)
+                //intent.putExtra("email", account.email)
+                //intent.putExtra("name", account.displayName)
+                startActivity(intent2)
+                Log.d("LoginSuccess","login")
             } else {//로그인 실패 시
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
             }
