@@ -60,30 +60,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
+            <ImageButton
                 android:id="@+id/image01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/cake_card"
+                android:background="@drawable/cake_card"
                 android:layout_margin="5dp"/>
-            <ImageView
+            <ImageButton
                 android:id="@+id/image02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/salad_card"
+                android:background="@drawable/salad_card"
                 android:layout_margin="5dp"/>
-            <ImageView
+            <ImageButton
                 android:id="@+id/image03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/pie_card"
+                android:background="@drawable/pie_card"
                 android:layout_margin="5dp"/>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/image04"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/pie_card"
+                android:background="@drawable/pie_card"
                 android:layout_margin="5dp"/><!--바꿀 필요있음-->
         </LinearLayout>
 
