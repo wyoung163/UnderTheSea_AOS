@@ -46,7 +46,7 @@ public interface API {
     @POST("plans")
     fun postPlanResponse(
         @Body plan: Plan
-    ):Call<BaseResponse<Plan>>
+    ):Call<BaseResponse<Long>>
 
     //get plans
     @GET("plans")

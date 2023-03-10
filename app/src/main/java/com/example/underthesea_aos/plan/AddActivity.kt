@@ -80,7 +80,7 @@ class AddActivity : AppCompatActivity() {
 
         val call = RetrofitBuilder().retrofit().postPlanResponse(plan)
         //비동기 방식의 통신
-        call.enqueue(object : retrofit2.Callback<BaseResponse<Plan>> {
+        call.enqueue(object : retrofit2.Callback<BaseResponse<Long>> {
             //통신 성공
             override fun onResponse(call: Call<BaseResponse<Plan>>, response: Response<BaseResponse<Plan>>) {
                 //응답 성공
