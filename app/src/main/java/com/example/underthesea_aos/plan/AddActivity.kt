@@ -82,8 +82,10 @@ class AddActivity : AppCompatActivity() {
         //비동기 방식의 통신
         call.enqueue(object : retrofit2.Callback<BaseResponse<Long>> {
             //통신 성공
-            override fun onResponse(call: Call<BaseResponse<Plan>>, response: Response<BaseResponse<Plan>>) {
-                //응답 성공
+            override fun onResponse(
+                call: Call<BaseResponse<Long>>,
+                response: Response<BaseResponse<Long>>
+            ) {
                 if(response.isSuccessful()){
                     Log.d("Response: ", response.body().toString())
                 }
@@ -92,8 +94,8 @@ class AddActivity : AppCompatActivity() {
                     Log.d("Response: ", "failure")
                 }
             }
-            //통신 실패
-            override fun onFailure(call: Call<BaseResponse<Plan>>, t: Throwable) {
+
+            override fun onFailure(call: Call<BaseResponse<Long>>, t: Throwable) {
                 Log.d("Connection Failure", t.localizedMessage)
             }
         })
