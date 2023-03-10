@@ -98,10 +98,11 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/black">
             </TextView>
+
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/stroke_1"/>
+                android:background="@drawable/stroke_1" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
