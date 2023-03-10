@@ -16,7 +16,6 @@ import com.example.underthesea_aos.R
 import com.example.underthesea_aos.googleLogin.SecondActivity
 import com.example.underthesea_aos.kakaoLogIn.GlobalApplication
 import com.example.underthesea_aos.kakaoLogIn.KakaoToken
-import com.example.underthesea_aos.record.Prefs
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -25,7 +24,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.gson.Gson
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
@@ -199,10 +197,10 @@ class MainActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential((account).idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {//로그인 성공 시
-                val intent: Intent = Intent(this, SecondActivity::class.java)
+                //val intent: Intent = Intent(this, SecondActivity::class.java)
                 intent.putExtra("email", account.email)
                 intent.putExtra("name", account.displayName)
-                startActivity(intent)
+                //startActivity(intent)
             } else {//로그인 실패 시
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
             }
