@@ -30,8 +30,8 @@
                 android:layout_marginStart="75dp"/>
         </LinearLayout>
         <TextView
+            android:id="@+id/date"
             android:layout_marginTop="7dp"
-            android:id="@+id/dateTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="날짜 들어갈 위치"
@@ -46,10 +46,18 @@
             android:textSize="15dp"
             android:textStyle="bold"
             android:textColor="@android:color/black"/>
-        <SearchView
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:minHeight="48dp" />
+
+        <!--<SearchView
             android:id="@+id/search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"/>-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -128,6 +136,7 @@
             android:textSize="15dp"
             android:textColor="@android:color/black"/>
         <EditText
+            android:id="@+id/contents_memo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
