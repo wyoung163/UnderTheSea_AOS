@@ -6,9 +6,9 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatSpinner
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
@@ -37,7 +37,7 @@ class AddActivity : AppCompatActivity() {
         setContentView(R.layout.activity_plan_add)
 
         spinner = findViewById(R.id.spinner)
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, friendNames)
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, friendNames)
         spinner.adapter = adapter
         adapter.notifyDataSetChanged()
 
