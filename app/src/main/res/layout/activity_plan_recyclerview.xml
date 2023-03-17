@@ -6,7 +6,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:paddingHorizontal="10dp"
     android:paddingVertical="10dp"
-    android:background="#ACE3EF"
+    android:background="@color/white"
     android:layout_marginHorizontal="2dp"
     >
 
@@ -14,7 +14,7 @@
         android:id="@+id/imageview_plan_recycler1"
         android:layout_width="150dp"
         android:layout_height="300dp"
-        android:src="@color/white"
+        android:src="#ACE3EF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

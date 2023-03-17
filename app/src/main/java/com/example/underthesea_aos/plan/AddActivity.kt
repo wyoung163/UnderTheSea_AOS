@@ -31,7 +31,7 @@ import javax.security.auth.callback.Callback
 class AddActivity : AppCompatActivity() {
     lateinit var planAdapter: PlanAdapter
     private val dataSet = mutableListOf<RecommendationData>()
-    lateinit var binding : ActivityPlanAddBinding
+    lateinit var binding: ActivityPlanAddBinding
     var strDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +50,7 @@ class AddActivity : AppCompatActivity() {
 
         //save 저장하기 버튼
         val planInfo = Plan()
-        save_button.setOnClickListener{
+        save_button.setOnClickListener {
             PostPlan(planInfo)
 
             val intent3 = Intent(this, MainActivity::class.java)
@@ -60,19 +60,19 @@ class AddActivity : AppCompatActivity() {
         }
 
         //뒤로 가기 버튼
-        back_btn.setOnClickListener{
+        back_btn.setOnClickListener {
             val intent1 = Intent(this, MainActivity::class.java)
             startActivity(intent1)
         }
 
         //cancel 버튼
-        cancel_button.setOnClickListener{
-            val intent2 = Intent(this,MainActivity::class.java)
+        cancel_button.setOnClickListener {
+            val intent2 = Intent(this, MainActivity::class.java)
             startActivity(intent2)
         }
     }
 
-    private fun PostPlan(plan: Plan){
+    private fun PostPlan(plan: Plan) {
         plan.title = title_plan.text.toString()
         plan.content = contents_memo.text.toString()
         plan.date = strDate
@@ -86,11 +86,11 @@ class AddActivity : AppCompatActivity() {
                 call: Call<BaseResponse<Long>>,
                 response: Response<BaseResponse<Long>>
             ) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Log.d("Response: ", response.body().toString())
                 }
                 //응답 실패
-                else{
+                else {
                     Log.d("Response: ", "failure")
                 }
             }
@@ -101,7 +101,7 @@ class AddActivity : AppCompatActivity() {
         })
     }
 
-    private fun initRecycler(){
+    private fun initRecycler() {
         planAdapter = PlanAdapter(this)
 
         recommendation.adapter = planAdapter
@@ -109,12 +109,12 @@ class AddActivity : AppCompatActivity() {
         recommendation.addItemDecoration(HorizontalItemDecorator(10))
 
         dataSet.apply {
-            add(RecommendationData(img1 = R.drawable.rectangle1, img2 = R.drawable.rectangle1))
-            add(RecommendationData(img1 = R.drawable.rectangle1, img2 = R.drawable.rectangle1))
-            add(RecommendationData(img1 = R.drawable.rectangle1, img2 = R.drawable.rectangle1))
-        }
+            add(RecommendationData(img1 = R.drawable.rectangle1))
+            add(RecommendationData(img1 = R.drawable.rectangle1))
+            add(RecommendationData(img1 = R.drawable.rectangle1))
 
-        planAdapter.dataSet = dataSet
-        planAdapter.notifyDataSetChanged()
+            planAdapter.dataSet = dataSet
+            planAdapter.notifyDataSetChanged()
+        }
     }
 }

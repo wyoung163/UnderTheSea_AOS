@@ -31,10 +31,10 @@ class PlanAdapter(private val context: Context) :
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val r1Image : ImageView = itemView.findViewById(R.id.imageview_plan_recycler1)
-        private val r2Image : ImageView = itemView.findViewById(R.id.imageview_plan_recycler2)
+        //private val r2Image : ImageView = itemView.findViewById(R.id.imageview_plan_recycler2)
         fun bind(item: RecommendationData){
             Glide.with(itemView).load(item.img1).into(r1Image)
-            Glide.with(itemView).load(item.img2).into(r2Image)
+            //Glide.with(itemView).load(item.img2).into(r2Image)
         }
     }
 }
