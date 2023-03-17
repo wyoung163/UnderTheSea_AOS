@@ -14,12 +14,9 @@ class PlanAdapter(private val context: Context) :
     var dataSet = mutableListOf<RecommendationData>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.activity_plan_recyclerview, parent, false)
-        return ViewHolder(view) //view 객체는 한개의 사진이 디자인 된 레이아웃
+        return ViewHolder(view)
     }
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        //onBindViewHolder는 스크롤을 해서 데이터 바인딩이 새롭게 필요할 때 마다 호출된다.
-        //Get element from your dataset at this position and replace the
-        //contents of the view with that element
         viewHolder.bind(dataSet[position])
     }
 
@@ -27,16 +24,14 @@ class PlanAdapter(private val context: Context) :
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val name : TextView = itemView.findViewById(R.id.name_plan_recycler1)
-        private val cont : TextView = itemView.findViewById(R.id.name_plan_recycler1)
-        private val page : TextView = itemView.findViewById(R.id.name_plan_recycler1)
-        //private val r2Image : ImageView = itemView.findViewById(R.id.imageview_plan_recycler2)
+        private val name : TextView = itemView.findViewById(R.id.res_name)
+        private val cont : TextView = itemView.findViewById(R.id.res_content)
+        private val page : TextView = itemView.findViewById(R.id.res_url)
+
         fun bind(item: RecommendationData){
             name.text = item.name
             cont.text = item.cont
             page.text = item.page
-            //Glide.with(itemView).load(item.name).into(r1Image)
-            //Glide.with(itemView).load(item.img2).into(r2Image)
         }
     }
 }
