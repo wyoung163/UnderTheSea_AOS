@@ -3,8 +3,6 @@ package com.example.underthesea_aos.retrofit
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.character.CharacterInfo
 import com.example.underthesea_aos.kakaoLogIn.KakaoToken
-import com.example.underthesea_aos.plan.GetPlanRes
-import com.example.underthesea_aos.plan.Plan
 import com.example.underthesea_aos.record.PostRecordRes
 import com.example.underthesea_aos.record.RecordInfo
 import com.example.underthesea_aos.user.KakaoResponse

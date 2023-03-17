@@ -1,6 +1,5 @@
 package com.example.underthesea_aos.plan
 
-import com.example.underthesea_aos.user.Friend
 import java.util.*
 
 class Plan {
