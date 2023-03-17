@@ -29,14 +29,15 @@ class AddActivity : AppCompatActivity() {
     lateinit var planAdapter: PlanAdapter
     private val dataSet = mutableListOf<RecommendationData>()
     var strDate = ""
-    lateinit var spinner: Spinner
-    var friendNames =  ArrayList<String>()
-    var friendIdx =  ArrayList<Long>()
-    var friendId = 0.toLong()
+
     //food db
     lateinit var dbHelper: FoodHelper
     lateinit var  database: SQLiteDatabase
     var nameSet = mutableListOf<RecommendationData>()
+    lateinit var spinner: Spinner
+    var friendNames =  ArrayList<String>()
+    var friendIdx =  ArrayList<Long>()
+    var friendId = 0.toLong()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

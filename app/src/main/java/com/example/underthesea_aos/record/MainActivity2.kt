@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
+import com.example.underthesea_aos.plan.GetPlanRes
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import kotlinx.android.synthetic.main.activity_recoed2.*
 import retrofit2.Call

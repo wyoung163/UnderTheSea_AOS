@@ -16,7 +16,6 @@ import com.example.underthesea_aos.R
 import com.example.underthesea_aos.googleLogin.SecondActivity
 import com.example.underthesea_aos.kakaoLogIn.GlobalApplication
 import com.example.underthesea_aos.kakaoLogIn.KakaoToken
-import com.example.underthesea_aos.record.Prefs
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -25,7 +24,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.gson.Gson
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
