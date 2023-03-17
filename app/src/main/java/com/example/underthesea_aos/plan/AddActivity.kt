@@ -2,27 +2,25 @@ package com.example.underthesea_aos.plan
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
-import com.example.underthesea_aos.R
-import kotlinx.android.synthetic.main.activity_plan_add.*
-import kotlinx.android.synthetic.main.activity_plan_recyclerview.*
-import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.BaseResponse.BaseResponse
-import com.example.underthesea_aos.databinding.ActivityPlanAddBinding
-import com.example.underthesea_aos.databinding.ActivityPlanPreviewRecyclerviewBinding
+import com.example.underthesea_aos.R
+import com.example.underthesea_aos.map.FoodHelper
 import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
 import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
+import com.example.underthesea_aos.user.GetFriendRes
+import kotlinx.android.synthetic.main.activity_plan_add.*
 import retrofit2.Call
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.Date
-import javax.security.auth.callback.Callback
 
 /*
      계획 상세 페이지
@@ -34,9 +32,37 @@ class AddActivity : AppCompatActivity() {
     lateinit var binding: ActivityPlanAddBinding
     var strDate = ""
 
+    //food db
+    lateinit var dbHelper: FoodHelper
+    lateinit var  database: SQLiteDatabase
+    var nameSet = mutableListOf<RecommendationData>()
+    lateinit var spinner: Spinner
+    var friendNames =  ArrayList<String>()
+    var friendIdx =  ArrayList<Long>()
+    var friendId = 0.toLong()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_add)
+
+        spinner = findViewById(R.id.spinner)
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, friendNames)
+        spinner.adapter = adapter
+        adapter.notifyDataSetChanged()
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                adapterView: AdapterView<*>?,
+                view: View,
+                i: Int,
+                l: Long
+            ) {
+                friendId = friendIdx[i]
+                Log.d("friend: ", friendId.toString())
+            }
+
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {}
+        }
 
         if (intent.hasExtra("date")) {  //date라는 키값을 가진 intent가 정보를 가지고 있다면 실행
             // date라는 id의 textview의 문구를 date라는 키값을 가진 intent의 정보로 변경
@@ -70,13 +96,68 @@ class AddActivity : AppCompatActivity() {
             val intent2 = Intent(this, MainActivity::class.java)
             startActivity(intent2)
         }
+
+        //친구 목록을 보여주는 spinner
+        GetFriends()
+
+        //제로웨이스트 식당 recommendation
+        image01.setOnClickListener{
+            //food db에 접근
+            dbHelper = FoodHelper(this, "food.db", null, 2);
+            database = dbHelper.writableDatabase
+            //place 정보 insert
+            dbHelper.insertFood()
+            database = dbHelper.readableDatabase
+            val select = "select * from Food"
+            //db 데이터에 접근하기 위한 커서
+            val cursor = database.rawQuery(select,null)
+            while(cursor.moveToNext()) {
+                nameSet.add(RecommendationData(cursor.getString(3), cursor.getString(4), cursor.getString(5)))
+            }
+
+            recommendation.adapter = planAdapter
+            planAdapter.dataSet = nameSet
+            planAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun GetFriends(){
+        val call = RetrofitBuilder().retrofit().getFriendResponse()
+        //비동기 방식의 통신
+        call.enqueue(object : retrofit2.Callback<BaseResponse<GetFriendRes>> {
+            //통신 성공
+            override fun onResponse(
+                call: Call<BaseResponse<GetFriendRes>>,
+                response: Response<BaseResponse<GetFriendRes>>
+            ) {
+                if(response.isSuccessful()){
+                    Log.d("Response: ", response.body().toString())
+                    Log.d("length: ", response.body()?.result?.friend?.size.toString())
+                    if(response.body()?.result?.friend?.size != null){
+                        for(i in 0..response.body()!!.result!!.friend!!.size-1) {
+                            friendNames.add(response.body()!!.result!!.friend!![i].nickname.toString())
+                            friendIdx.add(response.body()!!.result!!.friend!![i].userId!!)
+                            //Log.d("friend", friendIdx[0].toString())
+                        }
+                    }
+                }
+                //응답 실패
+                else{
+                    Log.d("Response: ", "failure")
+                }
+            }
+
+            override fun onFailure(call: Call<BaseResponse<GetFriendRes>>, t: Throwable) {
+                Log.d("Connection Failure", t.localizedMessage)
+            }
+        })
     }
 
     private fun PostPlan(plan: Plan) {
         plan.title = title_plan.text.toString()
         plan.content = contents_memo.text.toString()
         plan.date = strDate
-        plan.friend = 0
+        plan.friend = friendId
 
         val call = RetrofitBuilder().retrofit().postPlanResponse(plan)
         //비동기 방식의 통신
@@ -101,7 +182,7 @@ class AddActivity : AppCompatActivity() {
         })
     }
 
-    private fun initRecycler() {
+    private fun initRecycler(){
         planAdapter = PlanAdapter(this)
 
         recommendation.adapter = planAdapter
@@ -109,9 +190,12 @@ class AddActivity : AppCompatActivity() {
         recommendation.addItemDecoration(HorizontalItemDecorator(10))
 
         dataSet.apply {
-            add(RecommendationData(img1 = R.drawable.rectangle1))
-            add(RecommendationData(img1 = R.drawable.rectangle1))
-            add(RecommendationData(img1 = R.drawable.rectangle1))
+            /*
+            add(RecommendationData( = R.drawable.rectangle1, img2 = R.drawable.rectangle1))
+            add(RecommendationData(img1 = R.drawable.rectangle1, img2 = R.drawable.rectangle1))
+            add(RecommendationData(img1 = R.drawable.rectangle1, img2 = R.drawable.rectangle1))
+             */
+        }
 
             planAdapter.dataSet = dataSet
             planAdapter.notifyDataSetChanged()

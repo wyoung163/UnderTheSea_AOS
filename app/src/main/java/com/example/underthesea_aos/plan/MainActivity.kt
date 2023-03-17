@@ -2,13 +2,7 @@ package com.example.underthesea_aos.plan
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.underthesea_aos.R
-import com.example.underthesea_aos.databinding.ActivityMainBinding
 import com.example.underthesea_aos.databinding.ActivityPlanMainBinding
 import kotlinx.android.synthetic.main.activity_plan_main.*
 /*
