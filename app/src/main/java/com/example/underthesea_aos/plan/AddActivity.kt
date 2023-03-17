@@ -13,7 +13,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
+import com.example.underthesea_aos.databinding.ActivityPlanAddBinding
 import com.example.underthesea_aos.map.FoodHelper
+import com.example.underthesea_aos.map.PromotionHelper
 import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
 import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
@@ -34,8 +36,10 @@ class AddActivity : AppCompatActivity() {
 
     //food db
     lateinit var dbHelper: FoodHelper
+    lateinit var dbHelper1: PromotionHelper
     lateinit var  database: SQLiteDatabase
     var nameSet = mutableListOf<RecommendationData>()
+    var nameSet1 = mutableListOf<RecommendationData>()
     lateinit var spinner: Spinner
     var friendNames =  ArrayList<String>()
     var friendIdx =  ArrayList<Long>()
@@ -119,6 +123,25 @@ class AddActivity : AppCompatActivity() {
             planAdapter.dataSet = nameSet
             planAdapter.notifyDataSetChanged()
         }
+        
+        //홍보물
+        image02.setOnClickListener{
+            dbHelper1 = PromotionHelper(this, "promotion.db", null, 2);
+            database = dbHelper1.writableDatabase
+            //place 정보 insert
+            dbHelper1.insertPromotion()
+            database = dbHelper1.readableDatabase
+            val select1 = "select * from Promotion"
+            //db 데이터에 접근하기 위한 커서
+            val cursor1 = database.rawQuery(select1,null)
+            while(cursor1.moveToNext()) {
+                nameSet1.add(RecommendationData(cursor1.getString(1), cursor1.getString(2), cursor1.getString(3)))
+            }
+
+            recommendation.adapter = planAdapter
+            planAdapter.dataSet = nameSet1
+            planAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun GetFriends(){
@@ -200,5 +223,4 @@ class AddActivity : AppCompatActivity() {
             planAdapter.dataSet = dataSet
             planAdapter.notifyDataSetChanged()
         }
-    }
 }

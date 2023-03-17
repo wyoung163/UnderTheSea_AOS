@@ -34,6 +34,7 @@
         app:layout_constraintLeft_toRightOf="@+id/imageview_plan_recycler1"
         app:layout_constraintTop_toTopOf="parent"/>
     <TextView
+        android:id="@+id/res_content"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보"
@@ -42,5 +43,15 @@
         android:layout_marginLeft="10dp"
         app:layout_constraintLeft_toRightOf="@+id/imageview_plan_recycler1"
         app:layout_constraintTop_toBottomOf="@id/res_name"/>
+    <TextView
+        android:id="@+id/res_url"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:text="url"
+        android:fontFamily="@font/notosans_bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/imageview_plan_recycler1"
+        app:layout_constraintTop_toBottomOf="@+id/res_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
