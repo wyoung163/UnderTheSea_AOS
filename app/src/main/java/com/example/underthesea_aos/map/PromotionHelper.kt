@@ -10,7 +10,7 @@ class PromotionHelper(
     name: String?,
     factory: SQLiteDatabase.CursorFactory?,
     version: Int
-): SQLiteOpenHelper(context, name, factory, version) {
+    ): SQLiteOpenHelper(context, name, factory, version) {
     //lateinit var lats: ArrayList<String>
     //lateinit var lngs: ArrayList<String>
     lateinit var names: Array<String>
@@ -24,10 +24,10 @@ class PromotionHelper(
 
     //Place table 생성
     override fun onCreate(db: SQLiteDatabase) {
-        var sql: String = "CREATE TABLE if not exists Food(" +
+        var sql: String = "CREATE TABLE if not exists Promotion(" +
                 "food_id integer primary key autoincrement," +
-                "latitude text not null, " +
-                "longitude text not null, " +
+                //"latitude text not null, " +
+                //"longitude text not null, " +
                 "name text not null, " +
                 "content text, " +
                 "homepage blob)"
@@ -57,6 +57,8 @@ class PromotionHelper(
         for(i in 0..names.size-1) {
             //insert할 문자열 데이터
             val values = ContentValues()
+            //values.put("latitude", lats[i])
+            //values.put("longitude", lngs[i])
             values.put("name", names[i])
             values.put("content", contents[i])
             values.put("homepage", homepages[i])
