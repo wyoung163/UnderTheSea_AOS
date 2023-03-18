@@ -5,15 +5,11 @@ import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.Request
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.kakaoLogIn.GlobalApplication
@@ -24,7 +20,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.kakao.sdk.auth.model.OAuthToken
@@ -64,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         }
          */
 
-        //백엔드와의 통신 성공 or 실패
+        //백엔드와의 통신 성공 or 실패 (카카오)
         fun Login(token: KakaoToken){
             val call = RetrofitBuilder().retrofit().postKakaoLoginResponse(token)
             //비동기 방식의 통신
@@ -79,7 +74,8 @@ class MainActivity : AppCompatActivity() {
                         GlobalApplication.prefs.token = jwtToken
 
                         auth = FirebaseAuth.getInstance()
-                        auth.signInWithCustomToken(jwtToken)
+                        val firebaseJwt = response.body()!!.result!!.firebaseJwt
+                        auth.signInWithCustomToken(firebaseJwt!!)
 
                         Log.d("jwt", GlobalApplication.prefs.token.toString())
                     }
@@ -160,7 +156,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         
-        
         //google
         auth = FirebaseAuth.getInstance()
 
@@ -174,6 +169,40 @@ class MainActivity : AppCompatActivity() {
         SignInBtn.setOnClickListener {
             signInGoogle()
         }
+    }
+
+    //백엔드와의 통신 성공 or 실패 (구글)
+    fun Login2(googleUserInfo: GoogleUserInfo){
+        val call = RetrofitBuilder().retrofit().postGoogleLoginResponse(googleUserInfo)
+        //비동기 방식의 통신
+        call.enqueue(object : Callback<BaseResponse<KakaoResponse>> {
+            //통신 성공
+            override fun onResponse(call: Call<BaseResponse<KakaoResponse>>, response: Response<BaseResponse<KakaoResponse>>) {
+                //응답 성공
+                if(response.isSuccessful()){
+                    //Log.d("Response1: ", Gson().toJson(response.body()))
+                    // jwt token 저장
+                    jwtToken = response.headers().value(0).toString().split(" ")[1]
+                    GlobalApplication.prefs.token = jwtToken
+
+                    Log.d("jwt", GlobalApplication.prefs.token.toString())
+                }
+                //응답 실패
+                else{
+                    Log.d("Response: ", "failure")
+                }
+            }
+            //통신 실패
+            override fun onFailure(call: Call<BaseResponse<KakaoResponse>>, t: Throwable) {
+                Log.d("Connection Failure", t.localizedMessage)
+            }
+        })
+        val jsonObject = JSONObject()
+        val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonObject.toString())
+
+        //캐릭터 선택 페이지 전환활 intent
+        val intent1 = Intent(this, com.example.underthesea_aos.character.MainActivity::class.java)
+        startActivity(intent1)
     }
 
     private fun signInGoogle() {
@@ -205,6 +234,12 @@ class MainActivity : AppCompatActivity() {
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {//로그인 성공 시
                 //val intent: Intent = Intent(this, SecondActivity::class.java)
+                val googleUser = GoogleUserInfo()
+                googleUser.email = account.email
+                googleUser.nickname = account.displayName
+                googleUser.profileImgUrl = account.photoUrl.toString()
+                //구글 사용자 서버에도 저장
+                Login2(googleUser)
                 intent.putExtra("email", account.email)
                 intent.putExtra("name", account.displayName)
                 //startActivity(intent)
