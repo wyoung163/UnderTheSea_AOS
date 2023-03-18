@@ -2,18 +2,20 @@ package com.example.underthesea_aos.user
 
 import android.app.Activity
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
+import android.util.Base64
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
-import com.example.underthesea_aos.googleLogin.SecondActivity
 import com.example.underthesea_aos.kakaoLogIn.GlobalApplication
 import com.example.underthesea_aos.kakaoLogIn.KakaoToken
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
@@ -22,6 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.kakao.sdk.auth.model.OAuthToken
@@ -74,6 +77,10 @@ class MainActivity : AppCompatActivity() {
                         // jwt token 저장
                         jwtToken = response.headers().value(0).toString().split(" ")[1]
                         GlobalApplication.prefs.token = jwtToken
+
+                        auth = FirebaseAuth.getInstance()
+                        auth.signInWithCustomToken(jwtToken)
+
                         Log.d("jwt", GlobalApplication.prefs.token.toString())
                     }
                     //응답 실패
