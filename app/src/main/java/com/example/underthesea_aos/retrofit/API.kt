@@ -8,6 +8,7 @@ import com.example.underthesea_aos.plan.Plan
 import com.example.underthesea_aos.record.PostRecordRes
 import com.example.underthesea_aos.record.RecordInfo
 import com.example.underthesea_aos.user.GetFriendRes
+import com.example.underthesea_aos.user.GoogleUserInfo
 import com.example.underthesea_aos.user.KakaoResponse
 import com.example.underthesea_aos.user.UserResponse
 import retrofit2.Call
@@ -19,6 +20,12 @@ public interface API {
     fun postKakaoLoginResponse(
         @Body token: KakaoToken
     ): Call<BaseResponse<KakaoResponse>>
+
+    //kakao login
+    @POST("login/google")
+    fun postGoogleLoginResponse(
+        @Body googleUserInfo: GoogleUserInfo
+    ):Call<BaseResponse<KakaoResponse>>
 
     //get user
     @GET("userInfo")
