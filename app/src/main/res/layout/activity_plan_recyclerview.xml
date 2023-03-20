@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="280dp"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +11,7 @@
     android:layout_marginHorizontal="2dp"
     >
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/imageview_plan_recycler1"
         android:layout_width="150dp"
         android:layout_height="300dp"
@@ -21,37 +21,37 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0" />-->
     <TextView
         android:id="@+id/res_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="식당 이름"
+        android:gravity="center"
         android:textStyle="bold"
         android:fontFamily="@font/notosans_bold"
         android:textSize="24dp"
         android:layout_marginLeft="15dp"
-        app:layout_constraintLeft_toRightOf="@+id/imageview_plan_recycler1"
         app:layout_constraintTop_toTopOf="parent"/>
     <TextView
         android:id="@+id/res_content"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center"
         android:text="식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보식당 정보"
         android:fontFamily="@font/notosans_bold"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        app:layout_constraintLeft_toRightOf="@+id/imageview_plan_recycler1"
         app:layout_constraintTop_toBottomOf="@id/res_name"/>
     <TextView
         android:id="@+id/res_url"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="url"
         android:fontFamily="@font/notosans_bold"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        app:layout_constraintLeft_toRightOf="@+id/imageview_plan_recycler1"
         app:layout_constraintTop_toBottomOf="@+id/res_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
