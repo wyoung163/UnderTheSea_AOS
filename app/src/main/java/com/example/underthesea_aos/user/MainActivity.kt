@@ -44,22 +44,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
 
-        /*
-        // 로그인 정보 확인
-        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-            if (error != null) {
-                Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
-            }
-            else if (tokenInfo != null) {
-                Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, SecondActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
-            }
-        }
-         */
-
-        //백엔드와의 통신 성공 or 실패 (카카오)
+        //백엔드와의 통신 성공 or 실패
         fun Login(token: KakaoToken){
             val call = RetrofitBuilder().retrofit().postKakaoLoginResponse(token)
             //비동기 방식의 통신
@@ -155,7 +140,7 @@ class MainActivity : AppCompatActivity() {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
         }
-        
+
         //google
         auth = FirebaseAuth.getInstance()
 
@@ -210,9 +195,9 @@ class MainActivity : AppCompatActivity() {
         launcher.launch(signInIntent)
     }
 
-    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            result ->
-        if (result.resultCode == Activity.RESULT_OK) {
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+    {
+            result -> if (result.resultCode == Activity.RESULT_OK) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             handleResults(task)
         }

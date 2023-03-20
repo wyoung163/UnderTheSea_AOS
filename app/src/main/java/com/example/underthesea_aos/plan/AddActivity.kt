@@ -1,6 +1,7 @@
 package com.example.underthesea_aos.plan
 
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
+import com.example.underthesea_aos.map.FoodHelper
 import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
 import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
@@ -28,6 +30,11 @@ class AddActivity : AppCompatActivity() {
     lateinit var planAdapter: PlanAdapter
     private val dataSet = mutableListOf<RecommendationData>()
     var strDate = ""
+
+    //food db
+    lateinit var dbHelper: FoodHelper
+    lateinit var  database: SQLiteDatabase
+    var nameSet = mutableListOf<RecommendationData>()
     lateinit var spinner: Spinner
     var friendNames =  ArrayList<String>()
     var friendIdx =  ArrayList<Long>()
@@ -92,6 +99,26 @@ class AddActivity : AppCompatActivity() {
 
         //친구 목록을 보여주기
         GetFriends()
+
+        //제로웨이스트 식당 recommendation
+        image01.setOnClickListener{
+            //food db에 접근
+            dbHelper = FoodHelper(this, "food.db", null, 2);
+            database = dbHelper.writableDatabase
+            //place 정보 insert
+            dbHelper.insertFood()
+            database = dbHelper.readableDatabase
+            val select = "select * from Food"
+            //db 데이터에 접근하기 위한 커서
+            val cursor = database.rawQuery(select,null)
+            while(cursor.moveToNext()) {
+                nameSet.add(RecommendationData(cursor.getString(3), cursor.getString(4), cursor.getString(5)))
+            }
+
+            recommendation.adapter = planAdapter
+            planAdapter.dataSet = nameSet
+            planAdapter.notifyDataSetChanged()
+        }
 
         //친구 추가를 위한 버튼
         friend_btn.setOnClickListener{
@@ -198,9 +225,11 @@ class AddActivity : AppCompatActivity() {
         recommendation.addItemDecoration(HorizontalItemDecorator(10))
 
         dataSet.apply {
+            /*
+            add(RecommendationData( = R.drawable.rectangle1, img2 = R.drawable.rectangle1))
             add(RecommendationData(img1 = R.drawable.rectangle1, img2 = R.drawable.rectangle1))
             add(RecommendationData(img1 = R.drawable.rectangle1, img2 = R.drawable.rectangle1))
-            add(RecommendationData(img1 = R.drawable.rectangle1, img2 = R.drawable.rectangle1))
+             */
         }
 
         planAdapter.dataSet = dataSet
