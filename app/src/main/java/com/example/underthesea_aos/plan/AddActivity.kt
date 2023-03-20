@@ -15,6 +15,7 @@ import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.databinding.ActivityPlanAddBinding
 import com.example.underthesea_aos.map.FoodHelper
+import com.example.underthesea_aos.map.PlaceHelper
 import com.example.underthesea_aos.map.PromotionHelper
 import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
 import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
@@ -37,9 +38,11 @@ class AddActivity : AppCompatActivity() {
     //food db
     lateinit var dbHelper: FoodHelper
     lateinit var dbHelper1: PromotionHelper
+    lateinit var dbHelper2 : PlaceHelper
     lateinit var  database: SQLiteDatabase
     var nameSet = mutableListOf<RecommendationData>()
     var nameSet1 = mutableListOf<RecommendationData>()
+    var nameSet2 = mutableListOf<RecommendationData>()
     lateinit var spinner: Spinner
     var friendNames =  ArrayList<String>()
     var friendIdx =  ArrayList<Long>()
@@ -140,6 +143,25 @@ class AddActivity : AppCompatActivity() {
 
             recommendation.adapter = planAdapter
             planAdapter.dataSet = nameSet1
+            planAdapter.notifyDataSetChanged()
+        }
+
+        image03.setOnClickListener{
+            //food db에 접근
+            dbHelper2 = PlaceHelper(this, "food.db", null, 2);
+            database = dbHelper2.writableDatabase
+            //place 정보 insert
+            dbHelper2.insertPlace()
+            database = dbHelper2.readableDatabase
+            val select2 = "select * from Place"
+            //db 데이터에 접근하기 위한 커서
+            val cursor2 = database.rawQuery(select2,null)
+            while(cursor2.moveToNext()) {
+                nameSet2.add(RecommendationData(cursor2.getString(3), cursor2.getString(4), cursor2.getString(5)))
+            }
+
+            recommendation.adapter = planAdapter
+            planAdapter.dataSet = nameSet2
             planAdapter.notifyDataSetChanged()
         }
     }
