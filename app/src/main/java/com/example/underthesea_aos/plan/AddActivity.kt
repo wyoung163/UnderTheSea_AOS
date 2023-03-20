@@ -15,6 +15,7 @@ import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
 import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.example.underthesea_aos.user.GetFriendRes
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_plan_add.*
 import retrofit2.Call
 import retrofit2.Response
@@ -36,6 +37,7 @@ class AddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_add)
 
+        //친구 목록을 위한 스피너
         spinner = findViewById(R.id.spinner)
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, friendNames)
         spinner.adapter = adapter
@@ -88,10 +90,18 @@ class AddActivity : AppCompatActivity() {
             startActivity(intent2)
         }
 
-        //친구 목록을 보여주는 spinner
+        //친구 목록을 보여주기
         GetFriends()
+
+        //친구 추가를 위한 버튼
+        friend_btn.setOnClickListener{
+            val freindEmail = addFriends.text
+            PostFriends(freindEmail.toString())
+            GetFriends()
+        }
     }
 
+    //친구 목록 조회를 위한 백엔드 통신
     private fun GetFriends(){
         val call = RetrofitBuilder().retrofit().getFriendResponse()
         //비동기 방식의 통신
@@ -119,6 +129,33 @@ class AddActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<BaseResponse<GetFriendRes>>, t: Throwable) {
+                Log.d("Connection Failure", t.localizedMessage)
+            }
+        })
+    }
+
+    //친구 등록을 위한 백엔드 통신
+    private fun PostFriends(email: String){
+        val call = RetrofitBuilder().retrofit().postFriendResponse(email)
+        //비동기 방식의 통신
+        call.enqueue(object : retrofit2.Callback<BaseResponse<Long>> {
+            //통신 성공
+            override fun onResponse(
+                call: Call<BaseResponse<Long>>,
+                response: Response<BaseResponse<Long>>
+            ) {
+                if(response.isSuccessful()){
+                    if(response.body()?.result != null) {
+                        Log.d("Response: ", "success")
+                    }
+                }
+                //응답 실패
+                else{
+                    Log.d("Response: ", "failure")
+                }
+            }
+
+            override fun onFailure(call: Call<BaseResponse<Long>>, t: Throwable) {
                 Log.d("Connection Failure", t.localizedMessage)
             }
         })
