@@ -58,6 +58,7 @@ class AddActivity : AppCompatActivity() {
                 l: Long
             ) {
                 friendId = friendIdx[i]
+                friend_name.text = friendNames[i]
                 Log.d("friend: ", friendId.toString())
             }
 
