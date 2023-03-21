@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth : FirebaseAuth
     private lateinit var googleSignInClient : GoogleSignInClient
     var jwtToken = ""
+    var char = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,9 +92,17 @@ class MainActivity : AppCompatActivity() {
             val jsonObject = JSONObject()
             val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonObject.toString())
 
-            //캐릭터 선택 페이지 전환활 intent
-            val intent1 = Intent(this, com.example.underthesea_aos.character.MainActivity::class.java)
-            startActivity(intent1)
+            //이미 캐릭터 정보를 선택한 사용자라면 바로 메인 화면으로 전환
+            GetUser()
+            if(char < 0){
+                val intent2 = Intent(this, com.example.underthesea_aos.main.MainActivity::class.java)
+                startActivity(intent2)
+            } else {
+                //캐릭터 선택 페이지 전환활 intent
+                val intent1 =
+                    Intent(this, com.example.underthesea_aos.character.MainActivity::class.java)
+                startActivity(intent1)
+            }
         }
 
         //accesstoken(, refreshtoken) 발급 과정 성공 or 실패
@@ -207,5 +216,36 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+
+    //사용자 정보 받아오기
+    fun GetUser() {
+        val call = RetrofitBuilder().retrofit().getUserResponse()
+        //비동기 방식의 통신
+        call.enqueue(object : Callback<BaseResponse<UserResponse>> {
+            //통신 성공
+            override fun onResponse(
+                call: Call<BaseResponse<UserResponse>>,
+                response: Response<BaseResponse<UserResponse>>
+            ) {
+                //응답 성공
+                if (response.isSuccessful()) {
+                    Log.d("Response: ", response.body()!!.result.toString())
+                    if(response.body()?.result?.characterId == null){
+                        char = -1
+                    }
+                }
+                //응답 실패
+                else {
+                    Log.d("Response: ", "failure")
+                }
+            }
+
+            //통신 실패
+            override fun onFailure(call: Call<BaseResponse<UserResponse>>, t: Throwable) {
+                Log.d("Connection Failure", t.localizedMessage)
+            }
+        })
     }
 }
