@@ -20,17 +20,47 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/imageview_plan_recycler2"
+    <TextView
+        android:id="@+id/name_plan_recycler1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/rectangle1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.995"
-        app:layout_constraintRight_toRightOf="@+id/imageview_plan_recycler1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_centerInParent="true"
+        android:text="goatlab"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:letterSpacing="0.04"
+        android:typeface="sans"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/cont_plan_recycler1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerInParent="true"
+        app:layout_constraintBottom_toBottomOf="@id/name_plan_recycler1"
+        android:text="goatlab"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:letterSpacing="0.04"
+        android:typeface="sans"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/page_plan_recycler1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:letterSpacing="0.04"
+        android:text="goatlab"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="@id/cont_plan_recycler1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

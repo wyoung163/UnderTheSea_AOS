@@ -3,6 +3,7 @@ package com.example.underthesea_aos.plan
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -19,6 +20,8 @@ import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.example.underthesea_aos.user.GetFriendRes
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_plan_add.*
+import kotlinx.android.synthetic.main.activity_plan_add.date
+import kotlinx.android.synthetic.main.activity_plan_main.*
 import retrofit2.Call
 import retrofit2.Response
 
@@ -26,7 +29,7 @@ import retrofit2.Response
      계획 상세 페이지
  */
 
-class AddActivity : AppCompatActivity() {
+class UpdateActivity : AppCompatActivity() {
     lateinit var planAdapter: PlanAdapter
     private val dataSet = mutableListOf<RecommendationData>()
     var strDate = ""
@@ -58,7 +61,6 @@ class AddActivity : AppCompatActivity() {
                 l: Long
             ) {
                 friendId = friendIdx[i]
-                friend_name.text = friendNames[i]
                 Log.d("friend: ", friendId.toString())
             }
 
@@ -78,7 +80,7 @@ class AddActivity : AppCompatActivity() {
         //save 저장하기 버튼
         val planInfo = Plan()
         save_button.setOnClickListener{
-            PostPlan(planInfo)
+            //PostPlan(planInfo)
 
             val intent3 = Intent(this, MainActivity::class.java)
             startActivity(intent3)
@@ -127,6 +129,12 @@ class AddActivity : AppCompatActivity() {
             PostFriends(freindEmail.toString())
             GetFriends()
         }
+
+        //계획 정보 조회
+        if (intent.hasExtra("plan_id")) {
+            val plan_id = intent.getLongExtra("plan_id", -1)
+            GetPlan(plan_id)
+        }
     }
 
     //친구 목록 조회를 위한 백엔드 통신
@@ -140,8 +148,8 @@ class AddActivity : AppCompatActivity() {
                 response: Response<BaseResponse<GetFriendRes>>
             ) {
                 if(response.isSuccessful()){
-                    Log.d("Response: ", response.body().toString())
-                    Log.d("length: ", response.body()?.result?.friend?.size.toString())
+                    //Log.d("Response: ", response.body().toString())
+                    //Log.d("length: ", response.body()?.result?.friend?.size.toString())
                     if(response.body()?.result?.friend?.size != null){
                         for(i in 0..response.body()!!.result!!.friend!!.size-1) {
                             friendNames.add(response.body()!!.result!!.friend!![i].nickname.toString())
@@ -189,22 +197,24 @@ class AddActivity : AppCompatActivity() {
         })
     }
 
-    private fun PostPlan(plan: Plan){
-        plan.title = title_plan.text.toString()
-        plan.content = contents_memo.text.toString()
-        plan.date = strDate
-        plan.friend = friendId
+    private fun GetPlan(plan_id: Long){
 
-        val call = RetrofitBuilder().retrofit().postPlanResponse(plan)
+        val call = RetrofitBuilder().retrofit().getPlanResponse(plan_id)
         //비동기 방식의 통신
-        call.enqueue(object : retrofit2.Callback<BaseResponse<Long>> {
+        call.enqueue(object : retrofit2.Callback<BaseResponse<Plan>> {
             //통신 성공
             override fun onResponse(
-                call: Call<BaseResponse<Long>>,
-                response: Response<BaseResponse<Long>>
+                call: Call<BaseResponse<Plan>>,
+                response: Response<BaseResponse<Plan>>
             ) {
                 if(response.isSuccessful()){
-                    Log.d("Response: ", response.body().toString())
+                    var plan = Plan()
+                    plan = response.body()?.result!!
+                    //Log.d("Response1: ", response.body()!!.result?.content.toString())
+                    //Log.d("Response2: ",Editable.Factory.getInstance().newEditable(response.body()!!.result!!.content).toString())
+                    contents_memo.text = Editable.Factory.getInstance().newEditable(plan.content)
+                    title_plan.text = Editable.Factory.getInstance().newEditable(response.body()!!.result!!.title)
+                    friend_name.text = Editable.Factory.getInstance().newEditable(response.body()!!.result!!.friend_email)
                 }
                 //응답 실패
                 else{
@@ -212,7 +222,7 @@ class AddActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<BaseResponse<Long>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<Plan>>, t: Throwable) {
                 Log.d("Connection Failure", t.localizedMessage)
             }
         })

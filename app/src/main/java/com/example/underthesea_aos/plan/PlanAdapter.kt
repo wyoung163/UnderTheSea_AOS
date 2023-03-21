@@ -4,12 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewParent
-import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.underthesea_aos.R
-import kotlinx.android.synthetic.main.activity_recyclerview_hori.view.*
 
 class PlanAdapter(private val context: Context) :
     RecyclerView.Adapter<PlanAdapter.ViewHolder>()
@@ -30,11 +27,16 @@ class PlanAdapter(private val context: Context) :
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val r1Image : ImageView = itemView.findViewById(R.id.imageview_plan_recycler1)
-        private val r2Image : ImageView = itemView.findViewById(R.id.imageview_plan_recycler2)
+        private val name : TextView = itemView.findViewById(R.id.name_plan_recycler1)
+        private val cont : TextView = itemView.findViewById(R.id.name_plan_recycler1)
+        private val page : TextView = itemView.findViewById(R.id.name_plan_recycler1)
+        //private val r2Image : ImageView = itemView.findViewById(R.id.imageview_plan_recycler2)
         fun bind(item: RecommendationData){
-            Glide.with(itemView).load(item.img1).into(r1Image)
-            Glide.with(itemView).load(item.img2).into(r2Image)
+            name.text = item.name
+            cont.text = item.cont
+            page.text = item.page
+            //Glide.with(itemView).load(item.name).into(r1Image)
+            //Glide.with(itemView).load(item.img2).into(r2Image)
         }
     }
 }
