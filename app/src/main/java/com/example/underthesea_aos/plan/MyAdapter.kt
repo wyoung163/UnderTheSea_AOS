@@ -1,6 +1,7 @@
 package com.example.underthesea_aos.plan
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,10 +27,17 @@ class MyAdapter(private val context: Context) :
     override fun getItemCount(): Int = datas.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
         private val title : TextView = itemView.findViewById(R.id.plan_title)
         fun bind(item: Plan){
             title.text = item.title
+
+            title.setOnClickListener {
+                //상세 조회를 위해 클릭한 계획의 식별자 함께 넘겨주기
+                val intent1 = Intent(context, UpdateActivity::class.java)
+                intent1.putExtra("plan_id", item.planId)
+                context.startActivity(intent1)
+            }
         }
+
     }
 }
