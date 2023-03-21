@@ -77,7 +77,7 @@ public interface API {
 
     @POST("friends")
     fun postFriendResponse(
-        @Body friendEmail: String
+        @Query("email") friendEmail: String
     ): Call<BaseResponse<Long>>
 
     //get friend
