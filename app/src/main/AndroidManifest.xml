@@ -143,6 +143,9 @@
         <activity
             android:name=".character.MainActivity"
             android:exported="true" />
+        <activity
+            android:name=".plan.UpdateActivity"
+            android:exported="true" />
 
         <service
             android:name=".firebase.MyFirebaseMessagingService"
