@@ -11,12 +11,12 @@ class PlaceHelper(
     name: String?,
     factory: SQLiteDatabase.CursorFactory?,
     version: Int
-): SQLiteOpenHelper(context, name, factory, version){
-    lateinit var lats: ArrayList<String>
-    lateinit var lngs: ArrayList<String>
-    lateinit var contents: Array<String>
-    lateinit var names: Array<String>
-    lateinit var pages: Array<String>
+    ): SQLiteOpenHelper(context, name, factory, version){
+        lateinit var lats: ArrayList<String>
+        lateinit var lngs: ArrayList<String>
+        lateinit var contents: Array<String>
+        lateinit var names: Array<String>
+        lateinit var pages: Array<String>
 
     override fun onConfigure(db: SQLiteDatabase) {
         super.onConfigure(db)

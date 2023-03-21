@@ -3,6 +3,7 @@ package com.example.underthesea_aos.plan
 import android.app.Activity
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -22,6 +23,7 @@ import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.example.underthesea_aos.user.GetFriendRes
 import kotlinx.android.synthetic.main.activity_plan_add.*
+import kotlinx.android.synthetic.main.activity_plan_recyclerview.*
 import retrofit2.Call
 import retrofit2.Response
 
@@ -35,7 +37,6 @@ class AddActivity : AppCompatActivity() {
     lateinit var binding: ActivityPlanAddBinding
     var strDate = ""
 
-    //food db
     lateinit var dbHelper: FoodHelper
     lateinit var dbHelper1: PromotionHelper
     lateinit var dbHelper2 : PlaceHelper
@@ -125,6 +126,8 @@ class AddActivity : AppCompatActivity() {
             recommendation.adapter = planAdapter
             planAdapter.dataSet = nameSet
             planAdapter.notifyDataSetChanged()
+
+            //res_url
         }
         
         //홍보물
@@ -147,8 +150,9 @@ class AddActivity : AppCompatActivity() {
         }
 
         image03.setOnClickListener{
-            //food db에 접근
-            dbHelper2 = PlaceHelper(this, "food.db", null, 2);
+            //Log.d("image03","SetOnClickListener 작동")
+            //place db에 접근
+            dbHelper2 = PlaceHelper(this, "place.db", null, 2);
             database = dbHelper2.writableDatabase
             //place 정보 insert
             dbHelper2.insertPlace()
