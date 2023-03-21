@@ -27,4 +27,7 @@ class Plan {
     var updated_at: Date? = null
         get() { return field }
         set(value) { field = value }
+    var friend_email: String? = null
+        get() { return field }
+        set(value) { field = value }
 }
