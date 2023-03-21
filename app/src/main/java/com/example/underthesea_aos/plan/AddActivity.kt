@@ -150,7 +150,13 @@ class AddActivity : AppCompatActivity() {
             //db 데이터에 접근하기 위한 커서
             val cursor1 = database.rawQuery(select1,null)
             while(cursor1.moveToNext()) {
-                nameSet1.add(RecommendationData(cursor1.getString(1), cursor1.getString(2), cursor1.getString(3)))
+                nameSet1.add(
+                    RecommendationData(
+                        cursor1.getString(1),
+                        cursor1.getString(2),
+                        cursor1.getString(3)
+                    )
+                )
             }
 
             recommendation.adapter = planAdapter
@@ -159,7 +165,6 @@ class AddActivity : AppCompatActivity() {
         }
 
         image03.setOnClickListener{
-            //Log.d("image03","SetOnClickListener 작동")
             //place db에 접근
             dbHelper2 = PlaceHelper(this, "place.db", null, 2);
             database = dbHelper2.writableDatabase
@@ -170,7 +175,14 @@ class AddActivity : AppCompatActivity() {
             //db 데이터에 접근하기 위한 커서
             val cursor2 = database.rawQuery(select2,null)
             while(cursor2.moveToNext()) {
-                nameSet2.add(RecommendationData(cursor2.getString(3), cursor2.getString(4), cursor2.getString(5)))
+                Log.d("cursor2","cursor2cursor2cursor2")
+                nameSet2.add(
+                    RecommendationData(
+                        cursor2.getString(3),
+                        cursor2.getString(4),
+                        cursor2.getString(5)
+                    )
+                )
             }
 
             recommendation.adapter = planAdapter

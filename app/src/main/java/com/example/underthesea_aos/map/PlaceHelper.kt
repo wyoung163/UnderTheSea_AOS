@@ -16,7 +16,7 @@ class PlaceHelper(
         lateinit var lngs: ArrayList<String>
         lateinit var contents: Array<String>
         lateinit var names: Array<String>
-        lateinit var pages: Array<String>
+        lateinit var homepages: Array<String>
 
     override fun onConfigure(db: SQLiteDatabase) {
         super.onConfigure(db)
@@ -31,7 +31,7 @@ class PlaceHelper(
                 "longitude text not null, " +
                 "name text not null,"+
                 "content text,"+
-                "page blob)"
+                "homepage blob)"
                 //"type integer not null," +
                 //"site_url blob);"
         db.execSQL(sql)
@@ -64,7 +64,7 @@ class PlaceHelper(
         "태안해안국립공원은 충청남도 태안반도를 중심으로 하여 가로림만에서 안면도에 이르는 해안국립공원입니다.",
         "함덕해수욕장은 제주시에서 동쪽으로 14km 떨어져 있으며, 제주도에서 가장 아름다운 해수욕장 중 하나입니다.",
         "김녕해수욕장은 성세기 해변이라고도 불리며, 거대한 너럭바위 용암 위에 모래가 쌓여 만들어졌습니다.")
-        pages = arrayOf("https://ggtour.or.kr/tourdb/goosuk.php?tmenu=&smenu=&stitle=&tsort=2&msort=15&board_code=71&board=71&s_category_name=&s_view_yn=&key=&page=1&mode=detail&no=1919",
+        homepages = arrayOf("https://ggtour.or.kr/tourdb/goosuk.php?tmenu=&smenu=&stitle=&tsort=2&msort=15&board_code=71&board=71&s_category_name=&s_view_yn=&key=&page=1&mode=detail&no=1919",
             "https://hangang.seoul.go.kr/www/contents/669.do?mid=473",
             "https://hangang.seoul.go.kr/www/contents/672.do?mid=478",
             "https://hangang.seoul.go.kr/www/contents/663.do?mid=463",
@@ -87,7 +87,7 @@ class PlaceHelper(
             values.put("longitude", lngs[i])
             values.put("name", names[i])
             values.put("content",contents[i])
-            values.put("pages",pages[i])
+            values.put("homepage",homepages[i])
             //insert data
             db.insert("Place", null, values)
         }

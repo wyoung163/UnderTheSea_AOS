@@ -6,4 +6,4 @@ data class Place(
     var longitude:String,
     var name:String,
     var content:String,
-    var page:String ) {}
+    var homepage:String ) {}
