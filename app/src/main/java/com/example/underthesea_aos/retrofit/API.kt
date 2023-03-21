@@ -7,6 +7,8 @@ import com.example.underthesea_aos.plan.GetPlanRes
 import com.example.underthesea_aos.plan.Plan
 import com.example.underthesea_aos.record.PostRecordRes
 import com.example.underthesea_aos.record.RecordInfo
+import com.example.underthesea_aos.user.GetFriendRes
+import com.example.underthesea_aos.user.GoogleUserInfo
 import com.example.underthesea_aos.user.KakaoResponse
 import com.example.underthesea_aos.user.UserResponse
 import retrofit2.Call
@@ -18,6 +20,12 @@ public interface API {
     fun postKakaoLoginResponse(
         @Body token: KakaoToken
     ): Call<BaseResponse<KakaoResponse>>
+
+    //kakao login
+    @POST("login/google")
+    fun postGoogleLoginResponse(
+        @Body googleUserInfo: GoogleUserInfo
+    ):Call<BaseResponse<KakaoResponse>>
 
     //get user
     @GET("userInfo")
@@ -42,6 +50,12 @@ public interface API {
         @Query("date") date: String
     ): Call<String>
 
+    //post plans
+    @POST("plans")
+    fun postPlanResponse(
+        @Body plan: Plan
+    ):Call<BaseResponse<Long>>
+
     //get plans
     @GET("plans")
     fun getPlansResponse(
@@ -53,4 +67,9 @@ public interface API {
     fun getPlanResponse(
         @Query("plan_id") plan_id: Long
     ): Call<Plan>
+
+    //get friend
+    @GET("friends")
+    fun getFriendResponse(
+    ): Call<BaseResponse<GetFriendRes>>
 }
