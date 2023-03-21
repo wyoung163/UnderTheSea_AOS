@@ -37,7 +37,7 @@ import java.util.regex.Matcher
 class AddActivity : AppCompatActivity() {
     lateinit var planAdapter: PlanAdapter
     private val dataSet = mutableListOf<RecommendationData>()
-    lateinit var binding: ActivityPlanAddBinding
+    //lateinit var binding: ActivityPlanAddBinding
     var strDate = ""
 
     lateinit var dbHelper: FoodHelper
@@ -90,7 +90,7 @@ class AddActivity : AppCompatActivity() {
         save_button.setOnClickListener {
             PostPlan(planInfo)
 
-            val intent3 = Intent(this, MainActivity::class.java)
+            val intent3 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
             startActivity(intent3)
             finish()
             Toast.makeText(this, "저장이 완료되었습니다", Toast.LENGTH_SHORT).show()
@@ -98,13 +98,13 @@ class AddActivity : AppCompatActivity() {
 
         //뒤로 가기 버튼
         back_btn.setOnClickListener {
-            val intent1 = Intent(this, MainActivity::class.java)
+            val intent1 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
             startActivity(intent1)
         }
 
         //cancel 버튼
         cancel_button.setOnClickListener {
-            val intent2 = Intent(this, MainActivity::class.java)
+            val intent2 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
             startActivity(intent2)
         }
 
@@ -175,7 +175,6 @@ class AddActivity : AppCompatActivity() {
             //db 데이터에 접근하기 위한 커서
             val cursor2 = database.rawQuery(select2,null)
             while(cursor2.moveToNext()) {
-                Log.d("cursor2","cursor2cursor2cursor2")
                 nameSet2.add(
                     RecommendationData(
                         cursor2.getString(3),

@@ -29,8 +29,8 @@ class PlaceHelper(
                 "place_id integer primary key autoincrement," +
                 "latitude text not null, " +
                 "longitude text not null, " +
-                "name text not null,"+
-                "content text,"+
+                "name text not null, " +
+                "content text, " +
                 "homepage blob)"
                 //"type integer not null," +
                 //"site_url blob);"
@@ -74,7 +74,7 @@ class PlaceHelper(
         "https://www.knps.or.kr/front/portal/visit/visitCourseMain.do?parkId=120300&menuNo=7020103",
         "https://www.knps.or.kr/front/portal/visit/visitCourseMain.do?parkId=120300&menuNo=7020103",
         "https://archive.much.go.kr/data/01/folderView.do?jobdirSeq=1726",
-        "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500083&menuId=DOM_000001718002000000")
+        "https://www.jeju.go.kr/vill/gimnyeong/index.htm")
 
         //insert할 db 준비
         val db = this.writableDatabase
@@ -86,8 +86,8 @@ class PlaceHelper(
             values.put("latitude", lats[i])
             values.put("longitude", lngs[i])
             values.put("name", names[i])
-            values.put("content",contents[i])
-            values.put("homepage",homepages[i])
+            values.put("content", contents[i])
+            values.put("homepage", homepages[i])
             //insert data
             db.insert("Place", null, values)
         }
