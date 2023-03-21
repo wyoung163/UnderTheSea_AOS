@@ -5,11 +5,13 @@ import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
 import android.os.Bundle
+import android.text.util.Linkify
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.BaseResponse.BaseResponse
@@ -26,6 +28,7 @@ import kotlinx.android.synthetic.main.activity_plan_add.*
 import kotlinx.android.synthetic.main.activity_plan_recyclerview.*
 import retrofit2.Call
 import retrofit2.Response
+import java.util.regex.Matcher
 
 /*
      계획 상세 페이지
@@ -109,7 +112,7 @@ class AddActivity : AppCompatActivity() {
         GetFriends()
 
         //제로웨이스트 식당 recommendation
-        image01.setOnClickListener{
+        image01.setOnClickListener {
             //food db에 접근
             dbHelper = FoodHelper(this, "food.db", null, 2);
             database = dbHelper.writableDatabase
@@ -118,9 +121,15 @@ class AddActivity : AppCompatActivity() {
             database = dbHelper.readableDatabase
             val select = "select * from Food"
             //db 데이터에 접근하기 위한 커서
-            val cursor = database.rawQuery(select,null)
-            while(cursor.moveToNext()) {
-                nameSet.add(RecommendationData(cursor.getString(3), cursor.getString(4), cursor.getString(5)))
+            val cursor = database.rawQuery(select, null)
+            while (cursor.moveToNext()) {
+                nameSet.add(
+                    RecommendationData(
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5)
+                    )
+                )
             }
 
             recommendation.adapter = planAdapter
