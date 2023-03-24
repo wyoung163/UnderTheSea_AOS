@@ -1,6 +1,5 @@
 package com.example.underthesea_aos.plan
 
-import com.example.underthesea_aos.user.Friend
 import java.util.*
 
 class Plan {
@@ -8,9 +7,9 @@ class Plan {
         get() { return field }
         set(value) { field = value }
     var title: String? = null
-        get() { return field }
-        set(value) { field = value }
-    var friend: Friend? = null
+        get(){return field}
+        set(value){field = value}
+    var friend: Long? = null
         get() { return field }
         set(value) { field = value }
     var content: String? = null
@@ -26,6 +25,9 @@ class Plan {
         get() { return field }
         set(value) { field = value }
     var updated_at: Date? = null
+        get() { return field }
+        set(value) { field = value }
+    var friend_email: String? = null
         get() { return field }
         set(value) { field = value }
 }
