@@ -31,5 +31,10 @@ class MainActivity : AppCompatActivity() {
         add_btn.setOnClickListener{
             startActivity(intent1)
         }
+
+        back_img.setOnClickListener{
+            val intent = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

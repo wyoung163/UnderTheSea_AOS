@@ -9,7 +9,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import java.text.SimpleDateFormat
-
+/*달력 출력 페이지*/
 class MainActivity : AppCompatActivity() {
     lateinit var calendar: MaterialCalendarView
     var sdf: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
