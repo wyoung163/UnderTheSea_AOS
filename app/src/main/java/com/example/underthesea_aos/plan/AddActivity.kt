@@ -1,22 +1,17 @@
 package com.example.underthesea_aos.plan
 
-import android.app.Activity
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
-import android.net.Uri
 import android.os.Bundle
-import android.text.util.Linkify
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
-import com.example.underthesea_aos.databinding.ActivityPlanAddBinding
 import com.example.underthesea_aos.map.FoodHelper
 import com.example.underthesea_aos.map.PlaceHelper
 import com.example.underthesea_aos.map.PromotionHelper
@@ -28,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_plan_add.*
 import retrofit2.Call
 import retrofit2.Response
-import java.util.regex.Matcher
 
 /*
      계획 상세 페이지
@@ -93,6 +87,7 @@ class AddActivity : AppCompatActivity() {
             PostPlan(planInfo)
 
             val intent3 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
+            intent3.putExtra("date",strDate)
             startActivity(intent3)
             finish()
             Toast.makeText(this, "저장이 완료되었습니다", Toast.LENGTH_SHORT).show()
@@ -100,7 +95,8 @@ class AddActivity : AppCompatActivity() {
 
         //뒤로 가기 버튼
         back_btn.setOnClickListener {
-            val intent1 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
+            val intent1 = Intent(this, MainActivity::class.java)
+            intent1.putExtra("date",strDate)
             startActivity(intent1)
         }
 
@@ -198,6 +194,13 @@ class AddActivity : AppCompatActivity() {
             GetFriends()
         }
     }
+
+//    override fun onPause() {
+//        super.onPause();
+//        // 화면에서 보이지 않도록 하는 과정
+//        // 화면의 상태를 임시 저장
+//        Toast.makeText(getApplicationContext(), "onPause() 호출됨", Toast.LENGTH_LONG).show();
+//    }
 
     //친구 목록 조회를 위한 백엔드 통신
     private fun GetFriends(){

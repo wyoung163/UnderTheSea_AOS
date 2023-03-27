@@ -22,6 +22,7 @@ import java.util.*
  */
 
 class MainActivity : AppCompatActivity() {
+
     lateinit var binding: ActivityPlanMainBinding
     private val datas = mutableListOf<Plan>()
     lateinit var  myAdapter: MyAdapter
@@ -92,5 +93,10 @@ class MainActivity : AppCompatActivity() {
 
         myAdapter.datas = datas
         myAdapter.notifyDataSetChanged()
+
+        back_img.setOnClickListener{
+            val intent = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
