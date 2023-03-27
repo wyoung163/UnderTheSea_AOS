@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.map.FoodHelper
+import com.example.underthesea_aos.map.PlaceHelper
+import com.example.underthesea_aos.map.PromotionHelper
 import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
 import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
@@ -29,12 +31,16 @@ import retrofit2.Response
 class AddActivity : AppCompatActivity() {
     lateinit var planAdapter: PlanAdapter
     private val dataSet = mutableListOf<RecommendationData>()
+    //lateinit var binding: ActivityPlanAddBinding
     var strDate = ""
 
-    //food db
     lateinit var dbHelper: FoodHelper
+    lateinit var dbHelper1: PromotionHelper
+    lateinit var dbHelper2 : PlaceHelper
     lateinit var  database: SQLiteDatabase
     var nameSet = mutableListOf<RecommendationData>()
+    var nameSet1 = mutableListOf<RecommendationData>()
+    var nameSet2 = mutableListOf<RecommendationData>()
     lateinit var spinner: Spinner
     var friendNames =  ArrayList<String>()
     var friendIdx =  ArrayList<Long>()
@@ -77,24 +83,26 @@ class AddActivity : AppCompatActivity() {
 
         //save 저장하기 버튼
         val planInfo = Plan()
-        save_button.setOnClickListener{
+        save_button.setOnClickListener {
             PostPlan(planInfo)
 
-            val intent3 = Intent(this, MainActivity::class.java)
+            val intent3 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
+            intent3.putExtra("date",strDate)
             startActivity(intent3)
             finish()
             Toast.makeText(this, "저장이 완료되었습니다", Toast.LENGTH_SHORT).show()
         }
 
         //뒤로 가기 버튼
-        back_btn.setOnClickListener{
+        back_btn.setOnClickListener {
             val intent1 = Intent(this, MainActivity::class.java)
+            intent1.putExtra("date",strDate)
             startActivity(intent1)
         }
 
         //cancel 버튼
-        cancel_button.setOnClickListener{
-            val intent2 = Intent(this,MainActivity::class.java)
+        cancel_button.setOnClickListener {
+            val intent2 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
             startActivity(intent2)
         }
 
@@ -102,7 +110,7 @@ class AddActivity : AppCompatActivity() {
         GetFriends()
 
         //제로웨이스트 식당 recommendation
-        image01.setOnClickListener{
+        image01.setOnClickListener {
             //food db에 접근
             dbHelper = FoodHelper(this, "food.db", null, 2);
             database = dbHelper.writableDatabase
@@ -111,13 +119,71 @@ class AddActivity : AppCompatActivity() {
             database = dbHelper.readableDatabase
             val select = "select * from Food"
             //db 데이터에 접근하기 위한 커서
-            val cursor = database.rawQuery(select,null)
-            while(cursor.moveToNext()) {
-                nameSet.add(RecommendationData(cursor.getString(3), cursor.getString(4), cursor.getString(5)))
+            val cursor = database.rawQuery(select, null)
+            while (cursor.moveToNext()) {
+                nameSet.add(
+                    RecommendationData(
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5)
+                    )
+                )
             }
 
             recommendation.adapter = planAdapter
             planAdapter.dataSet = nameSet
+            planAdapter.notifyDataSetChanged()
+
+            //res_url
+        }
+
+        //홍보물
+        image02.setOnClickListener{
+            dbHelper1 = PromotionHelper(this, "promotion.db", null, 2);
+            database = dbHelper1.writableDatabase
+            //place 정보 insert
+            dbHelper1.insertPromotion()
+            database = dbHelper1.readableDatabase
+            val select1 = "select * from Promotion"
+            //db 데이터에 접근하기 위한 커서
+            val cursor1 = database.rawQuery(select1,null)
+            while(cursor1.moveToNext()) {
+                nameSet1.add(
+                    RecommendationData(
+                        cursor1.getString(1),
+                        cursor1.getString(2),
+                        cursor1.getString(3)
+                    )
+                )
+            }
+
+            recommendation.adapter = planAdapter
+            planAdapter.dataSet = nameSet1
+            planAdapter.notifyDataSetChanged()
+        }
+
+        image03.setOnClickListener{
+            //place db에 접근
+            dbHelper2 = PlaceHelper(this, "place.db", null, 2);
+            database = dbHelper2.writableDatabase
+            //place 정보 insert
+            dbHelper2.insertPlace()
+            database = dbHelper2.readableDatabase
+            val select2 = "select * from Place"
+            //db 데이터에 접근하기 위한 커서
+            val cursor2 = database.rawQuery(select2,null)
+            while(cursor2.moveToNext()) {
+                nameSet2.add(
+                    RecommendationData(
+                        cursor2.getString(3),
+                        cursor2.getString(4),
+                        cursor2.getString(5)
+                    )
+                )
+            }
+
+            recommendation.adapter = planAdapter
+            planAdapter.dataSet = nameSet2
             planAdapter.notifyDataSetChanged()
         }
 
@@ -128,6 +194,13 @@ class AddActivity : AppCompatActivity() {
             GetFriends()
         }
     }
+
+//    override fun onPause() {
+//        super.onPause();
+//        // 화면에서 보이지 않도록 하는 과정
+//        // 화면의 상태를 임시 저장
+//        Toast.makeText(getApplicationContext(), "onPause() 호출됨", Toast.LENGTH_LONG).show();
+//    }
 
     //친구 목록 조회를 위한 백엔드 통신
     private fun GetFriends(){
@@ -189,7 +262,7 @@ class AddActivity : AppCompatActivity() {
         })
     }
 
-    private fun PostPlan(plan: Plan){
+    private fun PostPlan(plan: Plan) {
         plan.title = title_plan.text.toString()
         plan.content = contents_memo.text.toString()
         plan.date = strDate
@@ -203,11 +276,11 @@ class AddActivity : AppCompatActivity() {
                 call: Call<BaseResponse<Long>>,
                 response: Response<BaseResponse<Long>>
             ) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Log.d("Response: ", response.body().toString())
                 }
                 //응답 실패
-                else{
+                else {
                     Log.d("Response: ", "failure")
                 }
             }
@@ -233,7 +306,7 @@ class AddActivity : AppCompatActivity() {
              */
         }
 
-        planAdapter.dataSet = dataSet
-        planAdapter.notifyDataSetChanged()
-    }
+            planAdapter.dataSet = dataSet
+            planAdapter.notifyDataSetChanged()
+        }
 }

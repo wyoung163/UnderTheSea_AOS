@@ -3,12 +3,13 @@ package com.example.underthesea_aos.calendar_plan
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.underthesea_aos.plan.MainActivity
 import com.example.underthesea_aos.R
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import java.text.SimpleDateFormat
-
+/*달력 출력 페이지*/
 class MainActivity : AppCompatActivity() {
     lateinit var calendar: MaterialCalendarView
     var sdf: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
