@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 class SecondActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
+/*    private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient : GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,5 +39,5 @@ class SecondActivity : AppCompatActivity() {
             googleSignInClient.signOut()
             startActivity(Intent(this,MainActivity::class.java))
         }
-    }
+    }*/
 }
