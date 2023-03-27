@@ -139,10 +139,12 @@
 
         <activity
             android:name=".user.MainActivity"
-            android:exported="true" />
-        <activity
+            android:exported="true"/>
+
+       <activity
             android:name=".character.MainActivity"
             android:exported="true" />
+
         <activity
             android:name=".plan.UpdateActivity"
             android:exported="true" />

@@ -2,7 +2,6 @@ package com.example.underthesea_aos.user
 
 import android.app.Activity
 import android.content.ContentValues
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -197,6 +196,7 @@ class MainActivity : AppCompatActivity() {
         //캐릭터 선택 페이지 전환활 intent
         val intent1 = Intent(this, com.example.underthesea_aos.character.MainActivity::class.java)
         startActivity(intent1)
+        //com.example.underthesea_aos.character.MainActivity::class.java
     }
 
     private fun signInGoogle() {
