@@ -4,5 +4,4 @@ data class RecommendationData(
     val name : String,
     val cont : String,
     val page : String,
-    //val img2 : Int
 )
