@@ -77,20 +77,20 @@
                 android:id="@+id/image02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/salad_card"
+                android:src="@drawable/image02"
                 android:layout_margin="5dp"/>
             <ImageView
                 android:id="@+id/image03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/pie_card"
+                android:src="@drawable/image03"
                 android:layout_margin="5dp"/>
 
             <ImageView
                 android:id="@+id/image04"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/pie_card"
+                android:src="@drawable/image04"
                 android:layout_margin="5dp"/><!--바꿀 필요있음-->
         </LinearLayout>
 
