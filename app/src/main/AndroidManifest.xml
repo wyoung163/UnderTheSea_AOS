@@ -30,6 +30,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".character.MainActivity2"
+            android:exported="true" />
+        <activity
             android:name=".firebase.FirebaseActivity"
             android:exported="true" />
         <activity
