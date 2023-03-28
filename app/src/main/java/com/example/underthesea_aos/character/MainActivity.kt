@@ -8,7 +8,6 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
-import com.example.underthesea_aos.main.MainActivity
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import kotlinx.android.synthetic.main.activity_charac.*
 import retrofit2.Call
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_charac)
         mainInitViewPager2()
         //캘린더로 화면 전환할 intent
-        intent1 = Intent(this, MainActivity::class.java)
+        intent1 = Intent(this, MainActivity2::class.java)
     }
 
 
@@ -81,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                     characNum = position;
                     val characInfo = CharacterInfo()
                     characInfo.character_id = characNum.toLong()
-                    characInfo.character_name = "임시이름"
+                    characInfo.character_name = "임시"
                     PutCharacter(characInfo)
                     //GetUser()
                     startActivity(intent1)
