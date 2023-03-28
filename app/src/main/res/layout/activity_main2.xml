@@ -25,14 +25,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="180dp"
+        android:paddingTop="80dp"
+        android:orientation="vertical"
         tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:text="I haven't eaten a meal today... \nWon't you feed me?"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/charac_img"
             android:layout_width="320dp"
             android:layout_height="320dp"
             android:adjustViewBounds="true" />
+
+        <TextView
+            android:id="@+id/charac_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:textStyle="bold"
+            android:textSize="15dp"/>
     </LinearLayout>
 
     <LinearLayout

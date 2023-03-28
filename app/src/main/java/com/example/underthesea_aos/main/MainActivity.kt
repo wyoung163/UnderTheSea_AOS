@@ -61,8 +61,10 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful()) {
                     //Log.d("Response2: ", response.body()!!.result!!.characterId.toString())
                     val characNum = response.body()!!.result!!.characterId!!.toInt()
+                    val characName = response.body()!!.result!!.characterName
                     Log.d("Response2: ", characNum.toString())
                     charac_img.setImageResource(imageList[characNum])
+                    charac_name.text = characName
                 }
                 //응답 실패
                 else {
