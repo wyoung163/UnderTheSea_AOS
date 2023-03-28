@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".enter.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/vector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/vector" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/intro"
+            android:paddingTop="130dp"
+            android:layout_width="457dp"
+            android:layout_height="457dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="457dp"
+            android:maxHeight="457dp"
+            android:src="@drawable/intro"
+            app:layout_constraintTop_toTopOf="@id/title" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="26dp"
+            android:autoSizeMinTextSize="25sp"
+            android:autoSizeStepGranularity="1sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/notosans_bold"
+            android:paddingTop="10dp"
+            android:paddingLeft="25dp"
+            android:text="Protecting \nmarine environment"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@id/intro" />
+
+        <TextView
+            android:id="@+id/cont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="17sp"
+            android:autoSizeMinTextSize="15sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/notosans_regular"
+            android:paddingLeft="30dp"
+            android:text="Let's practice environmental protection in daily lives"
+            android:textColor="#000000"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/title" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/next"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginTop="660dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/button"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

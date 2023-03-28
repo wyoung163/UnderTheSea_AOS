@@ -3,20 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.underthesea_aos">
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 소셜 로그인을 위한 인터넷 허용 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 갤러리 권한 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 소셜 로그인을 위한 인터넷 허용 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
+        android:name=".kakaoLogIn.GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:launchMode="singleTask"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UnderTheSea_AOS"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".map.MapActivity"
+            android:name=".character.MainActivity2"
+            android:exported="true" />
+        <activity
+            android:name=".firebase.FirebaseActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
@@ -27,9 +44,123 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".plan.AddActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".plan.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".recyclerview.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".main.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".googleLogin.SecondActivity"
+            android:exported="true" />
+        <activity
+            android:name=".googleLogin.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".map.MapActivity"
+            android:exported="true" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity
+            android:name=".kakaoLogIn.SecondActivity"
+            android:exported="false" /> <!-- 카카오 소셜 로그인 -->
+        <activity
+            android:name=".kakaoLogIn.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="${KAKAO_LOGIN_NATIVE_KEY}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".calendar_record.MainActivity"
+            android:exported="true" /> <!-- 계획을 위한 캘린더 -->
+        <activity
+            android:name=".calendar_plan.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".calendar2.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".record.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".record.MainActivity2"
+            android:exported="true" />
+        <activity
+            android:name=".record.MainActivity3"
+            android:exported="true" />
+        <activity
+            android:name=".enter.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".enter.MainActivity2"
+            android:exported="true" />
+        <activity
+            android:name=".enter.MainActivity3"
+            android:exported="true" />
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="${KAKAO_LOGIN_API_KEY}" />
+
+        <activity
+            android:name=".user.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".character.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".plan.UpdateActivity"
+            android:exported="true" />
+
+        <service
+            android:name=".firebase.MyFirebaseMessagingService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="" />
+            android:value="${MAPS_API_KEY}" />
     </application>
 
 </manifest>
