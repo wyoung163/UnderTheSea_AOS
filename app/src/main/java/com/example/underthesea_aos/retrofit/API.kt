@@ -6,6 +6,7 @@ import com.example.underthesea_aos.firebase.PostFirebaseReq
 import com.example.underthesea_aos.kakaoLogIn.KakaoToken
 import com.example.underthesea_aos.plan.GetPlanRes
 import com.example.underthesea_aos.plan.Plan
+import com.example.underthesea_aos.record.GetRecordRes
 import com.example.underthesea_aos.record.PostRecordRes
 import com.example.underthesea_aos.record.RecordInfo
 import com.example.underthesea_aos.user.GetFriendRes
@@ -44,13 +45,19 @@ public interface API {
     @POST("records")
     fun postRecordsResponse(
         @Body record: RecordInfo
-    ): Call<PostRecordRes>
+    ): Call<BaseResponse<Long>>
 
     //get records
     @GET("records")
     fun getRecordsResponse(
         @Query("date") date: String
-    ): Call<String>
+    ): Call<BaseResponse<GetRecordRes>>
+
+    //get record
+    @GET("record")
+    fun getRecordResponse(
+        @Query("record_id") record_id: Long
+    ): Call<BaseResponse<RecordInfo>>
 
     //post plans
     @POST("plans")

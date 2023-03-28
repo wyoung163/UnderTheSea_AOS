@@ -137,6 +137,10 @@ class MainActivity : AppCompatActivity() {
         val recordInfo = RecordInfo()
         btn_save.setOnClickListener{
             PostRecords(recordInfo)
+            Toast.makeText(this, "저장이 완료되었습니다", Toast.LENGTH_SHORT).show()
+            val intent3 = Intent(this, com.example.underthesea_aos.calendar_record.MainActivity::class.java)
+            intent3.putExtra("date",strDate)
+            startActivity(intent3)
         }
     }
 
@@ -178,9 +182,9 @@ class MainActivity : AppCompatActivity() {
 
         val call = RetrofitBuilder().retrofit().postRecordsResponse(record)
         //비동기 방식의 통신
-        call.enqueue(object : Callback<PostRecordRes> {
+        call.enqueue(object : Callback<BaseResponse<Long>> {
             //통신 성공
-            override fun onResponse(call: Call<PostRecordRes>, response: Response<PostRecordRes>) {
+            override fun onResponse(call: Call<BaseResponse<Long>>, response: Response<BaseResponse<Long>>) {
                 //응답 성공
                 if(response.isSuccessful()){
                     Log.d("Response: ", response.body().toString())
@@ -191,7 +195,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             //통신 실패
-            override fun onFailure(call: Call<PostRecordRes>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<Long>>, t: Throwable) {
                 Log.d("Connection Failure", t.localizedMessage)
             }
         })
