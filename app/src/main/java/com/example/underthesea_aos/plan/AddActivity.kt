@@ -110,7 +110,7 @@ class AddActivity : AppCompatActivity() {
         GetFriends()
 
         //제로웨이스트 식당 recommendation
-        image01.setOnClickListener {
+        image02.setOnClickListener {
             //food db에 접근
             dbHelper = FoodHelper(this, "food.db", null, 2);
             database = dbHelper.writableDatabase
@@ -138,7 +138,7 @@ class AddActivity : AppCompatActivity() {
         }
 
         //홍보물
-        image02.setOnClickListener{
+        image03.setOnClickListener{
             dbHelper1 = PromotionHelper(this, "promotion.db", null, 2);
             database = dbHelper1.writableDatabase
             //place 정보 insert
@@ -162,7 +162,32 @@ class AddActivity : AppCompatActivity() {
             planAdapter.notifyDataSetChanged()
         }
 
-        image03.setOnClickListener{
+        image01.setOnClickListener{
+            //place db에 접근
+            dbHelper2 = PlaceHelper(this, "place.db", null, 2);
+            database = dbHelper2.writableDatabase
+            //place 정보 insert
+            dbHelper2.insertPlace()
+            database = dbHelper2.readableDatabase
+            val select2 = "select * from Place"
+            //db 데이터에 접근하기 위한 커서
+            val cursor2 = database.rawQuery(select2,null)
+            while(cursor2.moveToNext()) {
+                nameSet2.add(
+                    RecommendationData(
+                        cursor2.getString(3),
+                        cursor2.getString(4),
+                        cursor2.getString(5)
+                    )
+                )
+            }
+
+            recommendation.adapter = planAdapter
+            planAdapter.dataSet = nameSet2
+            planAdapter.notifyDataSetChanged()
+        }
+
+        image04.setOnClickListener{
             //place db에 접근
             dbHelper2 = PlaceHelper(this, "place.db", null, 2);
             database = dbHelper2.writableDatabase
@@ -266,7 +291,7 @@ class AddActivity : AppCompatActivity() {
         plan.title = title_plan.text.toString()
         plan.content = contents_memo.text.toString()
         plan.date = strDate
-        plan.friend = friendId
+        plan.friend = 3
 
         val call = RetrofitBuilder().retrofit().postPlanResponse(plan)
         //비동기 방식의 통신
