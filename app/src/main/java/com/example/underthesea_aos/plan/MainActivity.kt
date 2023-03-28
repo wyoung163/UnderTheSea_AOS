@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityPlanMainBinding
     private val datas = mutableListOf<Plan>()
     lateinit var  myAdapter: MyAdapter
-    lateinit var strDate: String
+    var strDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

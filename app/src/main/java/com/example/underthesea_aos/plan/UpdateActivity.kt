@@ -43,6 +43,7 @@ class UpdateActivity : AppCompatActivity() {
     var friendNames =  ArrayList<String>()
     var friendIdx =  ArrayList<Long>()
     var friendId = 0.toLong()
+    var id = 0.toLong()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,12 +89,12 @@ class UpdateActivity : AppCompatActivity() {
         //save 저장하기 버튼
         val planInfo = Plan()
         save_button.setOnClickListener{
-            //PostPlan(planInfo)
-
-            val intent3 = Intent(this, MainActivity::class.java)
+            PutPlan(planInfo)
+            Toast.makeText(this, "저장이 완료되었습니다", Toast.LENGTH_SHORT).show()
+            val intent3 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
+            intent3.putExtra("date",strDate)
             startActivity(intent3)
             finish()
-            Toast.makeText(this, "저장이 완료되었습니다", Toast.LENGTH_SHORT).show()
         }
 
         //뒤로 가기 버튼
@@ -140,8 +141,8 @@ class UpdateActivity : AppCompatActivity() {
 
         //계획 정보 조회
         if (intent.hasExtra("plan_id")) {
-            val plan_id = intent.getLongExtra("plan_id", -1)
-            GetPlan(plan_id)
+            id = intent.getLongExtra("plan_id", -1)
+            GetPlan(id)
         }
     }
 
@@ -231,6 +232,36 @@ class UpdateActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<BaseResponse<Plan>>, t: Throwable) {
+                Log.d("Connection Failure", t.localizedMessage)
+            }
+
+        })
+    }
+
+    private fun PutPlan(plan: Plan){
+        plan.planId = id
+        plan.title = title_plan.text.toString()
+        plan.friend = 3.toLong()
+        plan.content = contents_memo.text.toString()
+
+        val call = RetrofitBuilder().retrofit().putPlanResponse(plan)
+        //비동기 방식의 통신
+        call.enqueue(object : retrofit2.Callback<BaseResponse<Long>> {
+            //통신 성공
+            override fun onResponse(
+                call: Call<BaseResponse<Long>>,
+                response: Response<BaseResponse<Long>>
+            ) {
+                if(response.isSuccessful()){
+                    Log.d("Response1: ", response.body()!!.result.toString())
+                }
+                //응답 실패
+                else{
+                    Log.d("Response: ", "failure")
+                }
+            }
+
+            override fun onFailure(call: Call<BaseResponse<Long>>, t: Throwable) {
                 Log.d("Connection Failure", t.localizedMessage)
             }
 

@@ -70,6 +70,12 @@ public interface API {
         @Query("plan_id") plan_id: Long
     ): Call<BaseResponse<Plan>>
 
+    //put plan
+    @PUT("plans")
+    fun putPlanResponse(
+        @Body plan: Plan
+    ): Call<BaseResponse<Long>>
+
     //get friend
     @GET("friends")
     fun getFriendResponse(
