@@ -39,6 +39,12 @@ class MainActivity : AppCompatActivity() {
         record.setOnClickListener{
             startActivity(intent2)
         }
+
+        //main(캐릭터 화면)으로 이동
+        val intent3 = Intent(this, com.example.underthesea_aos.main.MainActivity::class.java)
+        charac.setOnClickListener{
+            startActivity(intent3)
+        }
     }
 
     //업데이트된 캐릭터 정보를 포함한 사용자 정보 받아오기

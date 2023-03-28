@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            android:src="@drawable/main_back" />
+            android:src="@drawable/bg_main" />
 
     </LinearLayout>
 
@@ -37,51 +37,69 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:paddingBottom="40dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="15dp">
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="5dp"
+        tools:ignore="MissingConstraints">
 
         <ImageButton
             android:id="@+id/charac"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="bottom"
             android:layout_marginTop="660dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/main_rect"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="20dp"
+            android:radius="50dp"
+            android:background="@color/white"
+            android:src="@drawable/home_icon"
+            android:scaleType="fitCenter"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/plan"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="bottom"
             android:layout_marginTop="660dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/main_rect"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="20dp"
+            android:radius="50dp"
+            android:background="@color/white"
+            android:src="@drawable/calendar_icon"
+            android:scaleType="fitCenter"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/record"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="bottom"
             android:layout_marginTop="660dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/main_rect"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="20dp"
+            android:radius="50dp"
+            android:background="@color/white"
+            android:src="@drawable/record_icon"
+            android:scaleType="fitCenter"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/user"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="bottom"
             android:layout_marginTop="660dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/main_rect"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="20dp"
+            android:radius="50dp"
+            android:background="@color/white"
+            android:src="@drawable/profile_icon"
+            android:scaleType="fitCenter"
             tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
