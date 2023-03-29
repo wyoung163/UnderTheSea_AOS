@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var plan: String
     var strDate = ""
     var planTitles =  ArrayList<String>()
+    var planIds =  ArrayList<Long>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,9 +67,12 @@ class MainActivity : AppCompatActivity() {
 
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
 
+        val intent4 = Intent(this, com.example.underthesea_aos.plan.UpdateActivity::class.java)
         spinner.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-               plan = spinner.selectedItem.toString()
+                plan = spinner.selectedItem.toString()
+                intent4.putExtra("plan_id", planIds[position])
+                startActivity(intent4)
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
@@ -157,6 +162,7 @@ class MainActivity : AppCompatActivity() {
                     if(response!!.body()?.result?.plans != null){
                         for(i in 0..response.body()!!.result!!.plans!!.size-1) {
                             planTitles.add(response.body()!!.result!!.plans!![i].title.toString());
+                            planIds.add(response.body()!!.result!!.plans!![i].planId!!.toLong())
                         }
                     }
                 }
