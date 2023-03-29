@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.map.FoodHelper
+import com.example.underthesea_aos.map.PlaceHelper
+import com.example.underthesea_aos.map.PromotionHelper
 import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
 import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
@@ -35,10 +37,13 @@ class UpdateActivity : AppCompatActivity() {
     private val dataSet = mutableListOf<RecommendationData>()
     var strDate = ""
 
-    //food db
     lateinit var dbHelper: FoodHelper
+    lateinit var dbHelper1: PromotionHelper
+    lateinit var dbHelper2 : PlaceHelper
     lateinit var  database: SQLiteDatabase
     var nameSet = mutableListOf<RecommendationData>()
+    var nameSet1 = mutableListOf<RecommendationData>()
+    var nameSet2 = mutableListOf<RecommendationData>()
     lateinit var spinner: Spinner
     var friendNames =  ArrayList<String>()
     var friendIdx =  ArrayList<Long>()
@@ -112,8 +117,8 @@ class UpdateActivity : AppCompatActivity() {
         //친구 목록을 보여주기
         GetFriends()
 
-        //제로웨이스트 식당 recommendation
-        image01.setOnClickListener{
+//제로웨이스트 식당 recommendation
+        image02.setOnClickListener {
             //food db에 접근
             dbHelper = FoodHelper(this, "food.db", null, 2);
             database = dbHelper.writableDatabase
@@ -122,13 +127,96 @@ class UpdateActivity : AppCompatActivity() {
             database = dbHelper.readableDatabase
             val select = "select * from Food"
             //db 데이터에 접근하기 위한 커서
-            val cursor = database.rawQuery(select,null)
-            while(cursor.moveToNext()) {
-                nameSet.add(RecommendationData(cursor.getString(3), cursor.getString(4), cursor.getString(5)))
+            val cursor = database.rawQuery(select, null)
+            while (cursor.moveToNext()) {
+                nameSet.add(
+                    RecommendationData(
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5)
+                    )
+                )
             }
 
             recommendation.adapter = planAdapter
             planAdapter.dataSet = nameSet
+            planAdapter.notifyDataSetChanged()
+
+            //res_url
+        }
+
+        //홍보물
+        image03.setOnClickListener{
+            dbHelper1 = PromotionHelper(this, "promotion.db", null, 2);
+            database = dbHelper1.writableDatabase
+            //place 정보 insert
+            dbHelper1.insertPromotion()
+            database = dbHelper1.readableDatabase
+            val select1 = "select * from Promotion"
+            //db 데이터에 접근하기 위한 커서
+            val cursor1 = database.rawQuery(select1,null)
+            while(cursor1.moveToNext()) {
+                nameSet1.add(
+                    RecommendationData(
+                        cursor1.getString(1),
+                        cursor1.getString(2),
+                        cursor1.getString(3)
+                    )
+                )
+            }
+
+            recommendation.adapter = planAdapter
+            planAdapter.dataSet = nameSet1
+            planAdapter.notifyDataSetChanged()
+        }
+
+        image01.setOnClickListener{
+            //place db에 접근
+            dbHelper2 = PlaceHelper(this, "place.db", null, 2);
+            database = dbHelper2.writableDatabase
+            //place 정보 insert
+            dbHelper2.insertPlace()
+            database = dbHelper2.readableDatabase
+            val select2 = "select * from Place"
+            //db 데이터에 접근하기 위한 커서
+            val cursor2 = database.rawQuery(select2,null)
+            while(cursor2.moveToNext()) {
+                nameSet2.add(
+                    RecommendationData(
+                        cursor2.getString(3),
+                        cursor2.getString(4),
+                        cursor2.getString(5)
+                    )
+                )
+            }
+
+            recommendation.adapter = planAdapter
+            planAdapter.dataSet = nameSet2
+            planAdapter.notifyDataSetChanged()
+        }
+
+        image04.setOnClickListener{
+            //place db에 접근
+            dbHelper2 = PlaceHelper(this, "place.db", null, 2);
+            database = dbHelper2.writableDatabase
+            //place 정보 insert
+            dbHelper2.insertPlace()
+            database = dbHelper2.readableDatabase
+            val select2 = "select * from Place"
+            //db 데이터에 접근하기 위한 커서
+            val cursor2 = database.rawQuery(select2,null)
+            while(cursor2.moveToNext()) {
+                nameSet2.add(
+                    RecommendationData(
+                        cursor2.getString(3),
+                        cursor2.getString(4),
+                        cursor2.getString(5)
+                    )
+                )
+            }
+
+            recommendation.adapter = planAdapter
+            planAdapter.dataSet = nameSet2
             planAdapter.notifyDataSetChanged()
         }
 
