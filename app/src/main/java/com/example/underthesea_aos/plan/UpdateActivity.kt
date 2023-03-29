@@ -19,6 +19,7 @@ import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.example.underthesea_aos.user.GetFriendRes
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.activity_plan_add.*
 import kotlinx.android.synthetic.main.activity_plan_add.date
 import kotlinx.android.synthetic.main.activity_plan_main.*
@@ -46,6 +47,13 @@ class UpdateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_add)
+
+
+        //plan calendar로 이동
+        val intent1 = Intent(this, MainActivity::class.java)
+        back_btn.setOnClickListener{
+            startActivity(intent1)
+        }
 
         //친구 목록을 위한 스피너
         spinner = findViewById(R.id.spinner)
@@ -210,7 +218,7 @@ class UpdateActivity : AppCompatActivity() {
                 if(response.isSuccessful()){
                     var plan = Plan()
                     plan = response.body()?.result!!
-                    //Log.d("Response1: ", response.body()!!.result?.content.toString())
+                    Log.d("Response1: ", response.body()!!.result?.content.toString())
                     //Log.d("Response2: ",Editable.Factory.getInstance().newEditable(response.body()!!.result!!.content).toString())
                     contents_memo.text = Editable.Factory.getInstance().newEditable(plan.content)
                     title_plan.text = Editable.Factory.getInstance().newEditable(response.body()!!.result!!.title)
@@ -225,6 +233,7 @@ class UpdateActivity : AppCompatActivity() {
             override fun onFailure(call: Call<BaseResponse<Plan>>, t: Throwable) {
                 Log.d("Connection Failure", t.localizedMessage)
             }
+
         })
     }
 

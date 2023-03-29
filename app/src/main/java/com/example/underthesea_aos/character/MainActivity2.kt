@@ -1,19 +1,21 @@
-package com.example.underthesea_aos.main
+package com.example.underthesea_aos.character
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.example.underthesea_aos.user.UserResponse
+import kotlinx.android.synthetic.main.activity_charac2.*
 import kotlinx.android.synthetic.main.activity_main2.*
+import kotlinx.android.synthetic.main.activity_main2.charac_img
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class MainActivity2 : AppCompatActivity() {
     private val imageList = mutableListOf<Int>().apply {
         add(R.drawable.turtle1)
         add(R.drawable.seal1)
@@ -21,30 +23,27 @@ class MainActivity : AppCompatActivity() {
         add(R.drawable.dolphin1)
     }
 
+    var character_name = ""
+    var character_num = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        setContentView(R.layout.activity_charac2)
 
-        //캐릭터 불러오기
+        //캐릭터 식별자 불러오기
         GetUser()
 
-        //plan calendar로 이동
-        val intent1 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
-        plan.setOnClickListener{
+        btn_confirm.setOnClickListener{
+            character_name = charac_name2.text.toString()
+            val characInfo = CharacterInfo()
+            characInfo.character_id = character_num.toLong()
+            characInfo.character_name = character_name
+            PutCharacter(characInfo)
+            //화면 전환
+            val intent1 = Intent(this, com.example.underthesea_aos.main.MainActivity::class.java)
             startActivity(intent1)
         }
 
-        //record calendar로 이동
-        val intent2 = Intent(this, com.example.underthesea_aos.calendar_record.MainActivity::class.java)
-        record.setOnClickListener{
-            startActivity(intent2)
-        }
-
-        //main(캐릭터 화면)으로 이동
-        val intent3 = Intent(this, com.example.underthesea_aos.main.MainActivity::class.java)
-        charac.setOnClickListener{
-            startActivity(intent3)
-        }
     }
 
     //업데이트된 캐릭터 정보를 포함한 사용자 정보 받아오기
@@ -61,10 +60,9 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful()) {
                     //Log.d("Response2: ", response.body()!!.result!!.characterId.toString())
                     val characNum = response.body()!!.result!!.characterId!!.toInt()
-                    val characName = response.body()!!.result!!.characterName
                     Log.d("Response2: ", characNum.toString())
                     charac_img.setImageResource(imageList[characNum])
-                    charac_name.text = characName
+                    character_num = characNum
                 }
                 //응답 실패
                 else {
@@ -74,6 +72,33 @@ class MainActivity : AppCompatActivity() {
 
             //통신 실패
             override fun onFailure(call: Call<BaseResponse<UserResponse>>, t: Throwable) {
+                Log.d("Connection Failure", t.localizedMessage)
+            }
+        })
+    }
+
+    //캐릭터 정보 update
+    fun PutCharacter(character: CharacterInfo) {
+        val call = RetrofitBuilder().retrofit().putCharacterResponse(character)
+        //비동기 방식의 통신
+        call.enqueue(object : Callback<BaseResponse<Long>> {
+            //통신 성공
+            override fun onResponse(
+                call: Call<BaseResponse<Long>>,
+                response: Response<BaseResponse<Long>>
+            ) {
+                //응답 성공
+                if (response.isSuccessful()) {
+                    Log.d("Response: ", response.body().toString())
+                }
+                //응답 실패
+                else {
+                    Log.d("Response: ", "failure")
+                }
+            }
+
+            //통신 실패
+            override fun onFailure(call: Call<BaseResponse<Long>>, t: Throwable) {
                 Log.d("Connection Failure", t.localizedMessage)
             }
         })
