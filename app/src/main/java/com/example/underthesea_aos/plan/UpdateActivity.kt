@@ -14,15 +14,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.BaseResponse.BaseResponse
 import com.example.underthesea_aos.R
 import com.example.underthesea_aos.map.FoodHelper
+import com.example.underthesea_aos.map.PlaceHelper
+import com.example.underthesea_aos.map.PromotionHelper
 import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
 import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.example.underthesea_aos.user.GetFriendRes
-import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.activity_plan_add.*
 import kotlinx.android.synthetic.main.activity_plan_add.date
-import kotlinx.android.synthetic.main.activity_plan_main.*
 import retrofit2.Call
 import retrofit2.Response
 
@@ -35,25 +34,22 @@ class UpdateActivity : AppCompatActivity() {
     private val dataSet = mutableListOf<RecommendationData>()
     var strDate = ""
 
-    //food db
     lateinit var dbHelper: FoodHelper
+    lateinit var dbHelper1: PromotionHelper
+    lateinit var dbHelper2 : PlaceHelper
     lateinit var  database: SQLiteDatabase
     var nameSet = mutableListOf<RecommendationData>()
+    var nameSet1 = mutableListOf<RecommendationData>()
+    var nameSet2 = mutableListOf<RecommendationData>()
     lateinit var spinner: Spinner
     var friendNames =  ArrayList<String>()
     var friendIdx =  ArrayList<Long>()
     var friendId = 0.toLong()
+    var id = 0.toLong()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_add)
-
-
-        //plan calendar로 이동
-        val intent1 = Intent(this, MainActivity::class.java)
-        back_btn.setOnClickListener{
-            startActivity(intent1)
-        }
 
         //친구 목록을 위한 스피너
         spinner = findViewById(R.id.spinner)
@@ -88,31 +84,33 @@ class UpdateActivity : AppCompatActivity() {
         //save 저장하기 버튼
         val planInfo = Plan()
         save_button.setOnClickListener{
-            //PostPlan(planInfo)
-
-            val intent3 = Intent(this, MainActivity::class.java)
+            PutPlan(planInfo)
+            Toast.makeText(this, "저장이 완료되었습니다", Toast.LENGTH_SHORT).show()
+            val intent3 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
+            intent3.putExtra("date",strDate)
             startActivity(intent3)
             finish()
-            Toast.makeText(this, "저장이 완료되었습니다", Toast.LENGTH_SHORT).show()
         }
 
-        //뒤로 가기 버튼
+        //plan calendar로 이동
         back_btn.setOnClickListener{
             val intent1 = Intent(this, MainActivity::class.java)
+            intent1.putExtra("date",strDate)
             startActivity(intent1)
         }
 
         //cancel 버튼
-        cancel_button.setOnClickListener{
-            val intent2 = Intent(this,MainActivity::class.java)
-            startActivity(intent2)
+        cancel_button.setOnClickListener {
+            val intent1 = Intent(this, MainActivity::class.java)
+            intent1.putExtra("date",strDate)
+            startActivity(intent1)
         }
 
         //친구 목록을 보여주기
         GetFriends()
 
         //제로웨이스트 식당 recommendation
-        image01.setOnClickListener{
+        image02.setOnClickListener {
             //food db에 접근
             dbHelper = FoodHelper(this, "food.db", null, 2);
             database = dbHelper.writableDatabase
@@ -121,13 +119,96 @@ class UpdateActivity : AppCompatActivity() {
             database = dbHelper.readableDatabase
             val select = "select * from Food"
             //db 데이터에 접근하기 위한 커서
-            val cursor = database.rawQuery(select,null)
-            while(cursor.moveToNext()) {
-                nameSet.add(RecommendationData(cursor.getString(3), cursor.getString(4), cursor.getString(5)))
+            val cursor = database.rawQuery(select, null)
+            while (cursor.moveToNext()) {
+                nameSet.add(
+                    RecommendationData(
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5)
+                    )
+                )
             }
 
             recommendation.adapter = planAdapter
             planAdapter.dataSet = nameSet
+            planAdapter.notifyDataSetChanged()
+
+            //res_url
+        }
+
+        //홍보물
+        image03.setOnClickListener{
+            dbHelper1 = PromotionHelper(this, "promotion.db", null, 2);
+            database = dbHelper1.writableDatabase
+            //place 정보 insert
+            dbHelper1.insertPromotion()
+            database = dbHelper1.readableDatabase
+            val select1 = "select * from Promotion"
+            //db 데이터에 접근하기 위한 커서
+            val cursor1 = database.rawQuery(select1,null)
+            while(cursor1.moveToNext()) {
+                nameSet1.add(
+                    RecommendationData(
+                        cursor1.getString(1),
+                        cursor1.getString(2),
+                        cursor1.getString(3)
+                    )
+                )
+            }
+
+            recommendation.adapter = planAdapter
+            planAdapter.dataSet = nameSet1
+            planAdapter.notifyDataSetChanged()
+        }
+
+        image01.setOnClickListener{
+            //place db에 접근
+            dbHelper2 = PlaceHelper(this, "place.db", null, 2);
+            database = dbHelper2.writableDatabase
+            //place 정보 insert
+            dbHelper2.insertPlace()
+            database = dbHelper2.readableDatabase
+            val select2 = "select * from Place"
+            //db 데이터에 접근하기 위한 커서
+            val cursor2 = database.rawQuery(select2,null)
+            while(cursor2.moveToNext()) {
+                nameSet2.add(
+                    RecommendationData(
+                        cursor2.getString(3),
+                        cursor2.getString(4),
+                        cursor2.getString(5)
+                    )
+                )
+            }
+
+            recommendation.adapter = planAdapter
+            planAdapter.dataSet = nameSet2
+            planAdapter.notifyDataSetChanged()
+        }
+
+        image04.setOnClickListener{
+            //place db에 접근
+            dbHelper2 = PlaceHelper(this, "place.db", null, 2);
+            database = dbHelper2.writableDatabase
+            //place 정보 insert
+            dbHelper2.insertPlace()
+            database = dbHelper2.readableDatabase
+            val select2 = "select * from Place"
+            //db 데이터에 접근하기 위한 커서
+            val cursor2 = database.rawQuery(select2,null)
+            while(cursor2.moveToNext()) {
+                nameSet2.add(
+                    RecommendationData(
+                        cursor2.getString(3),
+                        cursor2.getString(4),
+                        cursor2.getString(5)
+                    )
+                )
+            }
+
+            recommendation.adapter = planAdapter
+            planAdapter.dataSet = nameSet2
             planAdapter.notifyDataSetChanged()
         }
 
@@ -140,8 +221,8 @@ class UpdateActivity : AppCompatActivity() {
 
         //계획 정보 조회
         if (intent.hasExtra("plan_id")) {
-            val plan_id = intent.getLongExtra("plan_id", -1)
-            GetPlan(plan_id)
+            id = intent.getLongExtra("plan_id", -1)
+            GetPlan(id)
         }
     }
 
@@ -223,6 +304,7 @@ class UpdateActivity : AppCompatActivity() {
                     contents_memo.text = Editable.Factory.getInstance().newEditable(plan.content)
                     title_plan.text = Editable.Factory.getInstance().newEditable(response.body()!!.result!!.title)
                     friend_name.text = Editable.Factory.getInstance().newEditable(response.body()!!.result!!.friend_email)
+                    date.text = Editable.Factory.getInstance().newEditable(response!!.body()!!.result!!.date)
                 }
                 //응답 실패
                 else{
@@ -231,6 +313,36 @@ class UpdateActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<BaseResponse<Plan>>, t: Throwable) {
+                Log.d("Connection Failure", t.localizedMessage)
+            }
+
+        })
+    }
+
+    private fun PutPlan(plan: Plan){
+        plan.planId = id
+        plan.title = title_plan.text.toString()
+        plan.friend = 3.toLong()
+        plan.content = contents_memo.text.toString()
+
+        val call = RetrofitBuilder().retrofit().putPlanResponse(plan)
+        //비동기 방식의 통신
+        call.enqueue(object : retrofit2.Callback<BaseResponse<Long>> {
+            //통신 성공
+            override fun onResponse(
+                call: Call<BaseResponse<Long>>,
+                response: Response<BaseResponse<Long>>
+            ) {
+                if(response.isSuccessful()){
+                    Log.d("Response1: ", response.body()!!.result.toString())
+                }
+                //응답 실패
+                else{
+                    Log.d("Response: ", "failure")
+                }
+            }
+
+            override fun onFailure(call: Call<BaseResponse<Long>>, t: Throwable) {
                 Log.d("Connection Failure", t.localizedMessage)
             }
 

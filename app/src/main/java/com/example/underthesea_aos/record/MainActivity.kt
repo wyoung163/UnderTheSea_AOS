@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -41,14 +42,18 @@ class MainActivity : AppCompatActivity() {
     lateinit var plan: String
     var strDate = ""
     var planTitles =  ArrayList<String>()
+    var planIds =  ArrayList<Long>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_record)
 
         //back 버튼 클릭 시
-        val intent1 = Intent(this, com.example.underthesea_aos.calendar_record.MainActivity::class.java)
-        back.setOnClickListener{ startActivity(intent1) }
+        back.setOnClickListener{
+            val intent1 = Intent(this, MainActivity2::class.java)
+            intent1.putExtra("date",strDate)
+            startActivity(intent1)
+        }
 
         //캘린더로부터 날짜 받아올 인텐트
         if(intent.hasExtra("date")) {  //date라는 키값을 가진 intent가 정보를 가지고 있다면 실행
@@ -65,9 +70,12 @@ class MainActivity : AppCompatActivity() {
 
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
 
+        val intent4 = Intent(this, com.example.underthesea_aos.plan.UpdateActivity::class.java)
         spinner.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-               plan = spinner.selectedItem.toString()
+                plan = spinner.selectedItem.toString()
+                intent4.putExtra("plan_id", planIds[position])
+                startActivity(intent4)
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
@@ -124,19 +132,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         //cancel 버튼 클릭 -> 기록 view page로 이동
-        val intent2 = Intent(this, MainActivity3::class.java)
         btn_cancel.setOnClickListener{
+            val intent2 = Intent(this, MainActivity2::class.java)
+            intent2.putExtra("date",strDate)
             startActivity(intent2)
         }
         //view 버튼 클릭 -> 기록 view page로 이동
-        view.setOnClickListener{
-            startActivity(intent2)
-        }
+//        view.setOnClickListener{
+//            val intent2 = Intent(this, MainActivity3::class.java)
+//            intent2.putExtra("date",strDate)
+//            startActivity(intent2)
+//        }
 
         //save 버튼 클릭
         val recordInfo = RecordInfo()
         btn_save.setOnClickListener{
             PostRecords(recordInfo)
+            Toast.makeText(this, "저장이 완료되었습니다", Toast.LENGTH_SHORT).show()
+            val intent3 = Intent(this, com.example.underthesea_aos.calendar_record.MainActivity::class.java)
+            intent3.putExtra("date",strDate)
+            startActivity(intent3)
         }
     }
 
@@ -153,6 +168,7 @@ class MainActivity : AppCompatActivity() {
                     if(response!!.body()?.result?.plans != null){
                         for(i in 0..response.body()!!.result!!.plans!!.size-1) {
                             planTitles.add(response.body()!!.result!!.plans!![i].title.toString());
+                            planIds.add(response.body()!!.result!!.plans!![i].planId!!.toLong())
                         }
                     }
                 }
@@ -178,9 +194,9 @@ class MainActivity : AppCompatActivity() {
 
         val call = RetrofitBuilder().retrofit().postRecordsResponse(record)
         //비동기 방식의 통신
-        call.enqueue(object : Callback<PostRecordRes> {
+        call.enqueue(object : Callback<BaseResponse<Long>> {
             //통신 성공
-            override fun onResponse(call: Call<PostRecordRes>, response: Response<PostRecordRes>) {
+            override fun onResponse(call: Call<BaseResponse<Long>>, response: Response<BaseResponse<Long>>) {
                 //응답 성공
                 if(response.isSuccessful()){
                     Log.d("Response: ", response.body().toString())
@@ -191,7 +207,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             //통신 실패
-            override fun onFailure(call: Call<PostRecordRes>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<Long>>, t: Throwable) {
                 Log.d("Connection Failure", t.localizedMessage)
             }
         })
