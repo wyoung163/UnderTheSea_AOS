@@ -49,8 +49,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_record)
 
         //back 버튼 클릭 시
-        val intent1 = Intent(this, com.example.underthesea_aos.calendar_record.MainActivity::class.java)
-        back.setOnClickListener{ startActivity(intent1) }
+        back.setOnClickListener{
+            val intent1 = Intent(this, MainActivity2::class.java)
+            intent1.putExtra("date",strDate)
+            startActivity(intent1)
+        }
 
         //캘린더로부터 날짜 받아올 인텐트
         if(intent.hasExtra("date")) {  //date라는 키값을 가진 intent가 정보를 가지고 있다면 실행
@@ -129,14 +132,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         //cancel 버튼 클릭 -> 기록 view page로 이동
-        val intent2 = Intent(this, MainActivity3::class.java)
         btn_cancel.setOnClickListener{
+            val intent2 = Intent(this, MainActivity2::class.java)
+            intent2.putExtra("date",strDate)
             startActivity(intent2)
         }
         //view 버튼 클릭 -> 기록 view page로 이동
-        view.setOnClickListener{
-            startActivity(intent2)
-        }
+//        view.setOnClickListener{
+//            val intent2 = Intent(this, MainActivity3::class.java)
+//            intent2.putExtra("date",strDate)
+//            startActivity(intent2)
+//        }
 
         //save 버튼 클릭
         val recordInfo = RecordInfo()

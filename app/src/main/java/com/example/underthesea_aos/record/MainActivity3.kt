@@ -25,26 +25,29 @@ import retrofit2.Response
  */
 class MainActivity3 : AppCompatActivity() {
     var id = 0.toLong()
+    var strDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_record3)
 
         //back 버튼 클릭 시
-        val intent1 = Intent(this, com.example.underthesea_aos.calendar_record.MainActivity::class.java)
-        back.setOnClickListener{ startActivity(intent1) }
+        back.setOnClickListener{
+            val intent1 = Intent(this, MainActivity2::class.java)
+            intent1.putExtra("date",strDate)
+            startActivity(intent1)
+        }
 
         //writing 버튼 클릭 -> 기록 작성 페이지로 이동
-        val intent2 = Intent(this, MainActivity::class.java)
-        writing.setOnClickListener { startActivity(intent2) }
+//        val intent2 = Intent(this, MainActivity::class.java)
+//        writing.setOnClickListener { startActivity(intent2) }
 
         //캘린더로부터 날짜 받아올 인텐트
         if(intent.hasExtra("date")) {  //date라는 키값을 가진 intent가 정보를 가지고 있다면 실행
             // date라는 id의 textview의 문구를 date라는 키값을 가진 intent의 정보로 변경
-            val strDate = intent.getStringExtra("date").toString()
+            strDate = intent.getStringExtra("date").toString()
             Log.d("date", intent.getStringExtra("date").toString())
             date.text = strDate
-            intent2.putExtra("date", strDate)
         }
 
         //기록 정보 조회
@@ -71,7 +74,7 @@ class MainActivity3 : AppCompatActivity() {
                     //Log.d("Response2: ",Editable.Factory.getInstance().newEditable(response.body()!!.result!!.content).toString())
                     txt_content.text = Editable.Factory.getInstance().newEditable(record.content)
                     date.text = Editable.Factory.getInstance().newEditable(response.body()!!.result!!.date)
-                    if(response.body()!!.result!!.satisfaction == 0) {
+                    if(response.body()!!.result!!.satisfaction == 2) {
                         smile.setBackgroundResource(R.drawable.sad)
                     }
                 }
