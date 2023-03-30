@@ -20,11 +20,8 @@ import com.example.underthesea_aos.recyclerview.HorizontalItemDecorator
 import com.example.underthesea_aos.recyclerview.VeritcalItemDecorator
 import com.example.underthesea_aos.retrofit.RetrofitBuilder
 import com.example.underthesea_aos.user.GetFriendRes
-import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.activity_plan_add.*
 import kotlinx.android.synthetic.main.activity_plan_add.date
-import kotlinx.android.synthetic.main.activity_plan_main.*
 import retrofit2.Call
 import retrofit2.Response
 
@@ -53,13 +50,6 @@ class UpdateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_add)
-
-
-        //plan calendar로 이동
-        val intent1 = Intent(this, MainActivity::class.java)
-        back_btn.setOnClickListener{
-            startActivity(intent1)
-        }
 
         //친구 목록을 위한 스피너
         spinner = findViewById(R.id.spinner)
@@ -102,22 +92,24 @@ class UpdateActivity : AppCompatActivity() {
             finish()
         }
 
-        //뒤로 가기 버튼
+        //plan calendar로 이동
         back_btn.setOnClickListener{
             val intent1 = Intent(this, MainActivity::class.java)
+            intent1.putExtra("date",strDate)
             startActivity(intent1)
         }
 
         //cancel 버튼
-        cancel_button.setOnClickListener{
-            val intent2 = Intent(this,MainActivity::class.java)
-            startActivity(intent2)
+        cancel_button.setOnClickListener {
+            val intent1 = Intent(this, MainActivity::class.java)
+            intent1.putExtra("date",strDate)
+            startActivity(intent1)
         }
 
         //친구 목록을 보여주기
         GetFriends()
 
-//제로웨이스트 식당 recommendation
+        //제로웨이스트 식당 recommendation
         image02.setOnClickListener {
             //food db에 접근
             dbHelper = FoodHelper(this, "food.db", null, 2);
@@ -312,6 +304,7 @@ class UpdateActivity : AppCompatActivity() {
                     contents_memo.text = Editable.Factory.getInstance().newEditable(plan.content)
                     title_plan.text = Editable.Factory.getInstance().newEditable(response.body()!!.result!!.title)
                     friend_name.text = Editable.Factory.getInstance().newEditable(response.body()!!.result!!.friend_email)
+                    date.text = Editable.Factory.getInstance().newEditable(response!!.body()!!.result!!.date)
                 }
                 //응답 실패
                 else{
