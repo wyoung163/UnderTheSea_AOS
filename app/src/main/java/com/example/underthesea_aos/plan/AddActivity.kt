@@ -85,7 +85,6 @@ class AddActivity : AppCompatActivity() {
         val planInfo = Plan()
         save_button.setOnClickListener {
             PostPlan(planInfo)
-
             val intent3 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
             intent3.putExtra("date",strDate)
             startActivity(intent3)
@@ -102,7 +101,8 @@ class AddActivity : AppCompatActivity() {
 
         //cancel 버튼
         cancel_button.setOnClickListener {
-            val intent2 = Intent(this, com.example.underthesea_aos.calendar_plan.MainActivity::class.java)
+            val intent2 = Intent(this, MainActivity::class.java)
+            intent2.putExtra("date",strDate)
             startActivity(intent2)
         }
 
