@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.underthesea_aos.R
-import com.example.underthesea_aos.character.MainActivity
+import com.example.underthesea_aos.user.MainActivity
 import kotlinx.android.synthetic.main.activity_enter.*
 
 class MainActivity2 : AppCompatActivity() {
