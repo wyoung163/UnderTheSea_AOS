@@ -7,4 +7,4 @@ in answer to the question 'Share your GitHub Project Link' in Google Developer S
 ### 4️⃣ Put 'local.properties' file in in project level folder(UnderTheSea_AOS/).
 ### 5️⃣ Put 'kakaoApi.xml' file in app/src/main/res/values.
 ### 6️⃣ If you using gcp server, open app/src/main/java/com/example/underthesea_aos/retrofit/RetrofitBuilder.kt and change baseUrl as http://34.22.70.141:3000/.
-If you using local server, keep baseUrl as http://10.0.2.2:3000/.
+### If you using local server, keep baseUrl as http://10.0.2.2:3000/.
