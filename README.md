@@ -1,8 +1,7 @@
 ## How to run
 ### 0️⃣ git clone https://github.com/UnderTheSea-E/UnderTheSea_AOS/ using git bash.
 ### 1️⃣ Open in android studio.
-### 2️⃣ Download key files in shared google drive folder.(We wrote google drive link 
-in answer to the question 'Share your GitHub Project Link' in Google Developer Student Clubs Solution Challenge 2023 - Submission Form)
+### 2️⃣ Download key files in shared google drive folderr, UnderTheSea(.gitignore files) - Google Solution Challenge 2023. (We wrote google drive link in answer to the question 'Share your GitHub Project Link' in Google Developer Student Clubs Solution Challenge 2023 - Submission Form)
 ### 3️⃣ Put 'google-services.json' file in app/.
 ### 4️⃣ Put 'local.properties' file in in project level folder(UnderTheSea_AOS/).
 ### 5️⃣ Put 'kakaoApi.xml' file in app/src/main/res/values.
